@@ -1,0 +1,143 @@
+
+- Welcome to Smart Strategy Generator - 
+Stint lenght = 0:21:00
+Refuel rate = 0.25seconds/L 
+
+
+Stint #1
+Lap : 1| Time left : 3:58:00| Fuel left : 72.0
+Lap : 2| Time left : 3:56:00| Fuel left : 64.0
+Lap : 3| Time left : 3:54:00| Fuel left : 56.0
+Lap : 4| Time left : 3:52:00| Fuel left : 48.0
+Lap : 5| Time left : 3:50:00| Fuel left : 40.0
+Lap : 6| Time left : 3:48:00| Fuel left : 32.0
+Lap : 7| Time left : 3:46:00| Fuel left : 24.0
+Lap : 8| Time left : 3:44:00| Fuel left : 16.0
+Lap : 9| Time left : 3:42:00| Fuel left : 8.0
+PIT THIS LAP | Lap : 10 | Time left : 3:39:00 | Fuel wasted : 0.0
+
+Stint #2
+Lap : 11| Time left : 3:37:00| Fuel left : 72.0
+Lap : 12| Time left : 3:35:00| Fuel left : 64.0
+Lap : 13| Time left : 3:33:00| Fuel left : 56.0
+Lap : 14| Time left : 3:31:00| Fuel left : 48.0
+Lap : 15| Time left : 3:29:00| Fuel left : 40.0
+Lap : 16| Time left : 3:27:00| Fuel left : 32.0
+Lap : 17| Time left : 3:25:00| Fuel left : 24.0
+Lap : 18| Time left : 3:23:00| Fuel left : 16.0
+Lap : 19| Time left : 3:21:00| Fuel left : 8.0
+PIT THIS LAP | Lap : 20 | Time left : 3:18:00 | Fuel wasted : 0.0
+
+Stint #3
+Lap : 21| Time left : 3:16:00| Fuel left : 72.0
+Lap : 22| Time left : 3:14:00| Fuel left : 64.0
+Lap : 23| Time left : 3:12:00| Fuel left : 56.0
+Lap : 24| Time left : 3:10:00| Fuel left : 48.0
+Lap : 25| Time left : 3:08:00| Fuel left : 40.0
+Lap : 26| Time left : 3:06:00| Fuel left : 32.0
+Lap : 27| Time left : 3:04:00| Fuel left : 24.0
+Lap : 28| Time left : 3:02:00| Fuel left : 16.0
+Lap : 29| Time left : 3:00:00| Fuel left : 8.0
+PIT THIS LAP | Lap : 30 | Time left : 2:57:00 | Fuel wasted : 0.0
+
+Stint #4
+Lap : 31| Time left : 2:55:00| Fuel left : 72.0
+Lap : 32| Time left : 2:53:00| Fuel left : 64.0
+Lap : 33| Time left : 2:51:00| Fuel left : 56.0
+Lap : 34| Time left : 2:49:00| Fuel left : 48.0
+Lap : 35| Time left : 2:47:00| Fuel left : 40.0
+Lap : 36| Time left : 2:45:00| Fuel left : 32.0
+Lap : 37| Time left : 2:43:00| Fuel left : 24.0
+Lap : 38| Time left : 2:41:00| Fuel left : 16.0
+Lap : 39| Time left : 2:39:00| Fuel left : 8.0
+PIT THIS LAP | Lap : 40 | Time left : 2:36:00 | Fuel wasted : 0.0
+
+Stint #5
+Lap : 41| Time left : 2:34:00| Fuel left : 72.0
+Lap : 42| Time left : 2:32:00| Fuel left : 64.0
+Lap : 43| Time left : 2:30:00| Fuel left : 56.0
+Lap : 44| Time left : 2:28:00| Fuel left : 48.0
+Lap : 45| Time left : 2:26:00| Fuel left : 40.0
+Lap : 46| Time left : 2:24:00| Fuel left : 32.0
+Lap : 47| Time left : 2:22:00| Fuel left : 24.0
+Lap : 48| Time left : 2:20:00| Fuel left : 16.0
+Lap : 49| Time left : 2:18:00| Fuel left : 8.0
+PIT THIS LAP | Lap : 50 | Time left : 2:15:00 | Fuel wasted : 0.0
+
+Stint #6
+Lap : 51| Time left : 2:13:00| Fuel left : 72.0
+Lap : 52| Time left : 2:11:00| Fuel left : 64.0
+Lap : 53| Time left : 2:09:00| Fuel left : 56.0
+Lap : 54| Time left : 2:07:00| Fuel left : 48.0
+Lap : 55| Time left : 2:05:00| Fuel left : 40.0
+Lap : 56| Time left : 2:03:00| Fuel left : 32.0
+Lap : 57| Time left : 2:01:00| Fuel left : 24.0
+Lap : 58| Time left : 1:59:00| Fuel left : 16.0
+Lap : 59| Time left : 1:57:00| Fuel left : 8.0
+PIT THIS LAP | Lap : 60 | Time left : 1:54:00 | Fuel wasted : 0.0
+
+Stint #7
+Lap : 61| Time left : 1:52:00| Fuel left : 72.0
+Lap : 62| Time left : 1:50:00| Fuel left : 64.0
+Lap : 63| Time left : 1:48:00| Fuel left : 56.0
+Lap : 64| Time left : 1:46:00| Fuel left : 48.0
+Lap : 65| Time left : 1:44:00| Fuel left : 40.0
+Lap : 66| Time left : 1:42:00| Fuel left : 32.0
+Lap : 67| Time left : 1:40:00| Fuel left : 24.0
+Lap : 68| Time left : 1:38:00| Fuel left : 16.0
+Lap : 69| Time left : 1:36:00| Fuel left : 8.0
+PIT THIS LAP | Lap : 70 | Time left : 1:33:00 | Fuel wasted : 0.0
+
+Stint #8
+Lap : 71| Time left : 1:31:00| Fuel left : 72.0
+Lap : 72| Time left : 1:29:00| Fuel left : 64.0
+Lap : 73| Time left : 1:27:00| Fuel left : 56.0
+Lap : 74| Time left : 1:25:00| Fuel left : 48.0
+Lap : 75| Time left : 1:23:00| Fuel left : 40.0
+Lap : 76| Time left : 1:21:00| Fuel left : 32.0
+Lap : 77| Time left : 1:19:00| Fuel left : 24.0
+Lap : 78| Time left : 1:17:00| Fuel left : 16.0
+Lap : 79| Time left : 1:15:00| Fuel left : 8.0
+PIT THIS LAP | Lap : 80 | Time left : 1:12:00 | Fuel wasted : 0.0
+
+Stint #9
+Lap : 81| Time left : 1:10:00| Fuel left : 72.0
+Lap : 82| Time left : 1:08:00| Fuel left : 64.0
+Lap : 83| Time left : 1:06:00| Fuel left : 56.0
+Lap : 84| Time left : 1:04:00| Fuel left : 48.0
+Lap : 85| Time left : 1:02:00| Fuel left : 40.0
+Lap : 86| Time left : 1:00:00| Fuel left : 32.0
+Lap : 87| Time left : 0:58:00| Fuel left : 24.0
+Lap : 88| Time left : 0:56:00| Fuel left : 16.0
+Lap : 89| Time left : 0:54:00| Fuel left : 8.0
+PIT THIS LAP | Lap : 90 | Time left : 0:51:00 | Fuel wasted : 0.0
+
+Stint #10
+Lap : 91| Time left : 0:49:00| Fuel left : 72.0
+Lap : 92| Time left : 0:47:00| Fuel left : 64.0
+Lap : 93| Time left : 0:45:00| Fuel left : 56.0
+Lap : 94| Time left : 0:43:00| Fuel left : 48.0
+Lap : 95| Time left : 0:41:00| Fuel left : 40.0
+Lap : 96| Time left : 0:39:00| Fuel left : 32.0
+Lap : 97| Time left : 0:37:00| Fuel left : 24.0
+Lap : 98| Time left : 0:35:00| Fuel left : 16.0
+Lap : 99| Time left : 0:33:00| Fuel left : 8.0
+PIT THIS LAP | Lap : 100 | Time left : 0:30:00 | Fuel wasted : 0.0
+
+Stint #11
+Lap : 101| Time left : 0:28:00| Fuel left : 72.0
+Lap : 102| Time left : 0:26:00| Fuel left : 64.0
+Lap : 103| Time left : 0:24:00| Fuel left : 56.0
+Lap : 104| Time left : 0:22:00| Fuel left : 48.0
+Lap : 105| Time left : 0:20:00| Fuel left : 40.0
+Lap : 106| Time left : 0:18:00| Fuel left : 32.0
+Lap : 107| Time left : 0:16:00| Fuel left : 24.0
+Lap : 108| Time left : 0:14:00| Fuel left : 16.0
+Lap : 109| Time left : 0:12:00| Fuel left : 8.0
+PIT THIS LAP | Lap : 110 | Time left : 0:09:00 | Fuel wasted : 0.0
+Stint #12
+Lap : 111| Time left :0:06:30| Fuel left : 32.0
+Lap : 112| Time left :0:04:30| Fuel left : 24.0
+Lap : 113| Time left :0:02:30| Fuel left : 16.0
+Lap : 114| Time left :0:00:30| Fuel left : 8.0
+Lap : 115| Fuel left : 0.0| Race Finished!
