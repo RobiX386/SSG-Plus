@@ -10,7 +10,7 @@ startWindow.title("SSG08")
 startWindow.geometry("500x400")
 space= ' '
 
-#V0.7 BETA
+#V0.8 BETA
 
 def enduranceWindow():
 
