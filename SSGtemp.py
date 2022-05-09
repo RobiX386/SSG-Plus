@@ -558,7 +558,5 @@ frameRight = tk.Frame(startWindow, bg="#333333")
 frameRight.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
 endurance = tk.Button(frameLeft, text="ENDURANCE", height=10, width=25, bg="#2e2e2e", fg="white", command=enduranceWindow)
-endurance.pack(pady=150)
-sprint = tk.Button(frameRight, text="SPRINT", height=10, width=25, bg="#2e2e2e",fg="white")
-sprint.pack(pady=150)
+endurance.pack(expand=True)
 startWindow.mainloop()
