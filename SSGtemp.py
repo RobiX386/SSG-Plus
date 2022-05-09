@@ -154,8 +154,8 @@ def enduranceWindow():
     refuelWrap.pack(side=tk.TOP, fill=tk.X)
 
     refuelTime = tk.Label(refuelWrap, bg="#333333", fg="white", text="Refuel Time", height=3)
-    refuelTime.config(font=("Helvetical bold", 18))
-    refuelTime.pack(side=tk.LEFT, padx=(20, 10))
+    refuelTime.config(font=("Helvetical bold", 17))
+    refuelTime.pack(side=tk.LEFT, padx=(20, 11))
 
     refuelTimeValue = tk.Entry(refuelWrap, width=8)
     refuelTimeValue.pack(side=tk.LEFT, padx=(0, 10))
@@ -433,13 +433,13 @@ def enduranceWindow():
 
     #BUTOANE PRESET
 
-    newpreset = tk.Button(presets, text="New Preset",command=createnewpreset)
+    newpreset = tk.Button(presets, text="New Preset",command=createnewpreset,fg="white" ,bg="#424242")
     newpreset.pack(side=tk.LEFT, padx=0, pady=15, expand=True)
 
-    carselectbut = tk.Button(presets, text="Select a preset",command=carSelectwind)
+    carselectbut = tk.Button(presets, text="Select preset",command=carSelectwind,fg="white" ,bg="#424242")
     carselectbut.pack(side=tk.LEFT, pady=15, padx=0, expand=True)
 
-    editpresetbut = tk.Button(presets, text="Edit Preset",command=editpresetcar)
+    editpresetbut = tk.Button(presets, text="Edit Preset",command=editpresetcar,fg="white" ,bg="#424242")
     editpresetbut.pack(side=tk.LEFT, padx=0, pady=15, expand=True) 
 
 
@@ -546,10 +546,10 @@ def enduranceWindow():
     submitData = tk.Button(bpWrap, text="Calculate \n Strategy", height=2, command=submitEndurance)
     submitData.pack(expand=True, side=tk.LEFT, padx=5)
 
-    tutorial = tk.Button(bpWrap, text="Tuturial", width=8, height=2, bg="#333333", fg="white")
+    tutorial = tk.Button(bpWrap, text="Tutorial", width=8, height=2, bg="#424242", fg="white")
     tutorial.pack(expand=True, side=tk.LEFT, padx=5)
 
-    exit = tk.Button(bpWrap, text="Exit", command=endWindow.destroy, width=8, height=2, bg="#333333", fg="white")
+    exit = tk.Button(bpWrap, text="Exit", command=endWindow.destroy, width=8, height=2, bg="#424242", fg="white")
     exit.pack(expand=True, side=tk.LEFT, padx=5)
 
 endurance = tk.Button(startWindow, text="ENDURANCE", height=10, width=25, bg="#2e2e2e", fg="white", command=enduranceWindow)
