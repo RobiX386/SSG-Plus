@@ -433,13 +433,13 @@ def enduranceWindow():
 
     #BUTOANE PRESET
 
-    newpreset = tk.Button(presets, text="New Preset",command=createnewpreset,fg="white" ,bg="#424242")
+    newpreset = tk.Button(presets, text="New Preset",command=createnewpreset,fg="#d1d1d1" ,bg="#424242")
     newpreset.pack(side=tk.LEFT, padx=0, pady=15, expand=True)
 
-    carselectbut = tk.Button(presets, text="Select preset",command=carSelectwind,fg="white" ,bg="#424242")
+    carselectbut = tk.Button(presets, text="Select preset",command=carSelectwind,fg="#d1d1d1" ,bg="#424242")
     carselectbut.pack(side=tk.LEFT, pady=15, padx=0, expand=True)
 
-    editpresetbut = tk.Button(presets, text="Edit Preset",command=editpresetcar,fg="white" ,bg="#424242")
+    editpresetbut = tk.Button(presets, text="Edit Preset",command=editpresetcar,fg="#d1d1d1" ,bg="#424242")
     editpresetbut.pack(side=tk.LEFT, padx=0, pady=15, expand=True) 
 
 
@@ -543,15 +543,15 @@ def enduranceWindow():
 
 
     #OTHER BUTTONS
-    submitData = tk.Button(bpWrap, text="Calculate \n Strategy", height=2, command=submitEndurance)
+    submitData = tk.Button(bpWrap, text="Calculate \n Strategy", height=2, command=submitEndurance,bg="#b5b5b5")
     submitData.pack(expand=True, side=tk.LEFT, padx=5)
 
-    tutorial = tk.Button(bpWrap, text="Tutorial", width=8, height=2, bg="#424242", fg="white")
+    tutorial = tk.Button(bpWrap, text="Tutorial", width=8, height=2, bg="#424242", fg="#d1d1d1")
     tutorial.pack(expand=True, side=tk.LEFT, padx=5)
 
-    exit = tk.Button(bpWrap, text="Exit", command=endWindow.destroy, width=8, height=2, bg="#424242", fg="white")
+    exit = tk.Button(bpWrap, text="Exit", command=endWindow.destroy, width=8, height=2, bg="#424242", fg="#d1d1d1")
     exit.pack(expand=True, side=tk.LEFT, padx=5)
 
-endurance = tk.Button(startWindow, text="ENDURANCE", height=10, width=25, bg="#2e2e2e", fg="white", command=enduranceWindow)
+endurance = tk.Button(startWindow, text="ENDURANCE", height=10, width=25, bg="#2e2e2e", fg="#b5b5b5", command=enduranceWindow)
 endurance.pack(expand=True)
 startWindow.mainloop()
