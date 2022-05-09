@@ -556,4 +556,6 @@ endurance.pack(pady=150)
 sprint = tk.Button(frameRight, text="SPRINT", height=10, width=25, bg="#2e2e2e",fg="white")
 sprint.pack(pady=150)
 
+print("Test")
+
 startWindow.mainloop()
