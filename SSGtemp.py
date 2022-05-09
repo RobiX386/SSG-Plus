@@ -551,12 +551,7 @@ def enduranceWindow():
 
     exit = tk.Button(bpWrap, text="Exit", command=endWindow.destroy, width=8, height=2, bg="#333333", fg="white")
     exit.pack(expand=True, side=tk.LEFT, padx=5)
-    
-frameLeft = tk.Frame(startWindow, bg="#333333")
-frameLeft.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-frameRight = tk.Frame(startWindow, bg="#333333")
-frameRight.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
-endurance = tk.Button(frameLeft, text="ENDURANCE", height=10, width=25, bg="#2e2e2e", fg="white", command=enduranceWindow)
+endurance = tk.Button(startWindow, text="ENDURANCE", height=10, width=25, bg="#2e2e2e", fg="white", command=enduranceWindow)
 endurance.pack(expand=True)
 startWindow.mainloop()
