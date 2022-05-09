@@ -553,7 +553,7 @@ def enduranceWindow():
     exit.pack(expand=True, side=tk.LEFT, padx=5)
 
     SSG = tk.PhotoImage(file="SSG.png")
-    photo = tk.Label(bpWrap, image=SSG)
+    photo = tk.Label(bpWrap, image=SSG,bg="#333333")
     photo.pack(side=tk.BOTTOM)
 
 endurance = tk.Button(startWindow, text="ENDURANCE", height=10, width=25, bg="#2e2e2e", fg="#b5b5b5", command=enduranceWindow)
