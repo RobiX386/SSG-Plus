@@ -557,5 +557,6 @@ sprint = tk.Button(frameRight, text="SPRINT", height=10, width=25, bg="#2e2e2e",
 sprint.pack(pady=150)
 
 print("Test")
+print("test2")
 
 startWindow.mainloop()
