@@ -29,11 +29,14 @@ def enduranceWindow():
     presetsTitle.config(font=('Helvatical bold',18))
     presetsTitle.pack(pady=(15, 0))
 
-    tracks = tk.Frame(presets, bg="#333333")
-    tracks.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+    # tracks = tk.Frame(presets, bg="#333333")
+    # tracks.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
     
-    cars = tk.Frame(presets, bg="#333333")
-    cars.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    
+
+    #cars = tk.Frame(presets, bg="#333333")
+    #cars.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
     
 
@@ -85,7 +88,7 @@ def enduranceWindow():
     lenghtWrap = tk.Frame(raceinfo, bg="#333333")
     lenghtWrap.pack(fill=tk.X, side=tk.TOP, padx=20)
 
-    racelenght = tk.Label(lenghtWrap, width=10, text="Race Lenght", bg="#333333", fg="White", height=3)
+    racelenght = tk.Label(lenghtWrap, width=10, text="Race Length", bg="#333333", fg="White", height=3)
     racelenght.config(font=("Helvetical bold", 18))
     racelenght.pack(side=tk.LEFT)
 
@@ -255,9 +258,6 @@ def enduranceWindow():
             carselect = tk.Button(carselectwindow, text=carbuttonname,command=lambda carfilename=carfilename :trackSelectwind(carfilename))
             carselect.pack(side=tk.TOP, pady=15, padx=10)
 
-    carselectbut = tk.Button(cars, text="Select a preset",command=carSelectwind)
-    carselectbut.pack(side=tk.TOP, pady=15, padx=0)
-
     def presetInputWindow():
         inputWindow = tk.Tk()
         inputWindow['bg']='#333333'
@@ -395,9 +395,6 @@ def enduranceWindow():
         carpresetsendbut = tk.Button(createpresetwindow, text="next", command=lambda:filecheck(str(carpresetvalue.get())))
         carpresetsendbut.pack(side=tk.TOP, pady=25)
 
-    newpreset = tk.Button(tracks, text="New Preset",command=createnewpreset)
-    newpreset.pack(side=tk.TOP, padx=0, pady=15)
-
     #EDIT PRESET
     def editpresetcar():
         def editpresettrack(car):
@@ -434,8 +431,17 @@ def enduranceWindow():
             carselect = tk.Button(editpresetcarwindow, text=carbuttonname,command=lambda carfilename=carfilename :editpresettrack(carfilename))
             carselect.pack(side=tk.TOP, pady=15, padx=10)
 
-    editpresetbut = tk.Button(tracks, text="Edit Preset",command=editpresetcar)
-    editpresetbut.pack(side=tk.TOP, padx=0, pady=15)
+    #BUTOANE PRESET
+
+    newpreset = tk.Button(presets, text="New Preset",command=createnewpreset)
+    newpreset.pack(side=tk.LEFT, padx=0, pady=15, expand=True)
+
+    carselectbut = tk.Button(presets, text="Select a preset",command=carSelectwind)
+    carselectbut.pack(side=tk.LEFT, pady=15, padx=0, expand=True)
+
+    editpresetbut = tk.Button(presets, text="Edit Preset",command=editpresetcar)
+    editpresetbut.pack(side=tk.LEFT, padx=0, pady=15, expand=True) 
+
 
     #CALCULATE STRATEGY
     def submitEndurance():
