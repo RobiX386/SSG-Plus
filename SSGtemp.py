@@ -1,4 +1,5 @@
 from fileinput import filename
+from pickle import TRUE
 import tkinter as tk
 import configparser
 import datetime
@@ -360,20 +361,25 @@ def enduranceWindow():
                     cartrackfilename = z + "T.txt"
                     cartrackfile = open (cartrackfilename, "a")
                     cartrackfile.write(y+space)
-                    createpresettrackwindow.destroy()
+                    chooseTrackPresetWindow.destroy()
 
                 
-                createpresetwindow.destroy()
+                createCarPreset.destroy()
                 
-                createpresettrackwindow = tk.Tk()
-                createpresettrackwindow['bg']='#333333'
-                createpresettrackwindow.title("SSG08 Choose Track")
-                createpresettrackwindow.geometry("500x400")
+                chooseTrackPresetWindow = tk.Tk()
+                chooseTrackPresetWindow['bg']='#333333'
+                chooseTrackPresetWindow.title("SSG08 Choose Track")
+                chooseTrackPresetWindow.geometry("500x250")
                 
-                trackpresetvalue = tk.Entry(createpresettrackwindow, width=10)
-                trackpresetvalue.pack(side=tk.TOP, pady=5)
-                trackpresetsendbut = tk.Button(createpresettrackwindow, text="next", command=lambda:tracksectioncheck(str(trackpresetvalue.get())))
-                trackpresetsendbut.pack(side=tk.TOP, pady=25)
+                chooseTrackLabel = tk.Label(chooseTrackPresetWindow, text="Choose a track for \nyour preset's track", bg="#333333", fg="white")
+                chooseTrackLabel.config(font=("Helvetical bold", 18))
+                chooseTrackLabel.pack(side=tk.LEFT, expand=True)
+
+                trackpresetvalue = tk.Entry(chooseTrackPresetWindow, width=20)
+                trackpresetvalue.pack(side=tk.LEFT, expand=True)
+                
+                trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=3, width=10, command=lambda:tracksectioncheck(str(trackpresetvalue.get())))
+                trackpresetsendbut.pack(side=tk.BOTTOM, pady=(0,20), padx=(0,20))
             
             carfilename = z+".ini"
             
@@ -386,16 +392,20 @@ def enduranceWindow():
                 choosetrackpreset()
 
 
-        createpresetwindow = tk.Tk()
-        createpresetwindow['bg']='#333333'
-        createpresetwindow.title("SSG08 Create Preset")
-        createpresetwindow.geometry("500x400")
+        createCarPreset = tk.Tk()
+        createCarPreset['bg']='#333333'
+        createCarPreset.title("SSG08 Create Preset")
+        createCarPreset.geometry("500x250")
+
+        selectCarLabel = tk.Label(createCarPreset, bg="#333333", fg="white", text="Choose a name for \nyour preset's car")
+        selectCarLabel.config(font=("Helvetical bold", 18))
+        selectCarLabel.pack(side=tk.LEFT, expand=True)
         
-        carpresetvalue = tk.Entry(createpresetwindow, width=6)
-        carpresetvalue.pack(side=tk.TOP, pady=5)
+        carpresetvalue = tk.Entry(createCarPreset, width=20)
+        carpresetvalue.pack(side=tk.LEFT, expand=True)
         
-        carpresetsendbut = tk.Button(createpresetwindow, text="next", command=lambda:filecheck(str(carpresetvalue.get())))
-        carpresetsendbut.pack(side=tk.TOP, pady=25)
+        carpresetsendbut = tk.Button(createCarPreset, text="Next", height=3, width=10, bg="#333333", fg="#424242", command=lambda:filecheck(str(carpresetvalue.get())))
+        carpresetsendbut.pack(side=tk.BOTTOM, padx=(0, 20), pady=(0, 20))
 
     #EDIT PRESET
     def editpresetcar():
