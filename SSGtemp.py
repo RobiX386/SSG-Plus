@@ -12,6 +12,19 @@ space= ' '
 
 #V0.9 BETA
 
+def error(errortext):
+    errorWindow = tk.Tk() 
+    errorWindow.config(bg="#333333")
+    errorWindow.geometry("200x200+400+300")
+    errorWindow.title("ERROR")
+    errorlabel = tk.Label(errorWindow, text = errortext, fg= "white", bg="#333333")
+    errorlabel.config(font=(18))
+    errorlabel.pack(pady=50)
+    def windowdestroy ():
+        errorWindow.destroy()
+    errorbutton = tk.Button(errorWindow,text="EXIT",command = windowdestroy)
+    errorbutton.pack(pady=0)
+
 def enduranceWindow():
 
     startWindow.destroy()
@@ -451,19 +464,58 @@ def enduranceWindow():
         foutput = open('output.txt', 'w')
         
         #car info
-        fueltank = float(fueltankvalue.get())
-        fuelcons = float(fuelconsvalue.get())
-        
+        try:
+            fueltank = float(fueltankvalue.get())
+        except:
+            error("Fuel Tank variable\nis not correct")
+            return 0
+
+        try:
+            fuelcons = float(fuelconsvalue.get())
+        except:
+            error("Fuel consumption value\nis not correct")
+            return 0
+
+
         #race info
-        racelength_h = int(racelenghtHourValue.get())
-        racelength_m = int(racelenghtMinuteValue.get())
-        laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
+        try:
+            racelength_h = int(racelenghtHourValue.get())
+        except:
+            error("Race length value\nis not correct")
+            return 0
+        try:
+            racelength_m = int(racelenghtMinuteValue.get())
+        except:
+            error("Race length value\nis not correct")
+            return 0
+        
+        try:
+            laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
+        except:
+            error("Laptime value\nis not correct")
+            return 0
 
         #pit info
-        dttime = float(driveTimeValue.get())
-        refueltime = float(refuelTimeValue.get())
-        tyrechangetime = float(tyreChangeValue.get())
-        stintpertyre = int(stintValue.get())
+        try:
+            dttime = float(driveTimeValue.get())
+        except:
+            error("DT time value\nis not correct")
+            return 0
+        try:
+            refueltime = float(refuelTimeValue.get())
+        except:
+            error("Refuel time value\nis not correct")
+            return 0
+        try:
+            tyrechangetime = float(tyreChangeValue.get())
+        except:
+            error("Tyre change value\nis not correct")
+            return 0
+        try:
+            stintpertyre = int(stintValue.get())
+        except:
+            error("Stints/Tyre value\nis not correct")
+            return 0
 
         #Stint calculations
         refuellitertime=refueltime/fueltank
@@ -553,6 +605,12 @@ def enduranceWindow():
 
     exit = tk.Button(bpWrap, text="Exit", command=endWindow.destroy, width=8, height=2, bg="#424242", fg="#d1d1d1")
     exit.pack(expand=True, side=tk.LEFT, padx=5)
+
+    ssgcanvas = tk.Canvas(enduranceWindow,width=400,height=200)
+    ssgcanvas.pack()
+    ssgimage = tk.PhotoImage(file="SSG.png")
+    ssgcanvas.create_image(350,350,anchor = SE ,image = ssgimage)
+
 
 endurance = tk.Button(startWindow, text="ENDURANCE", height=10, width=25, bg="#2e2e2e", fg="#b5b5b5", command=enduranceWindow)
 endurance.pack(expand=True)
