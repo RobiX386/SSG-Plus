@@ -4,6 +4,7 @@ import tkinter as tk
 import configparser
 import datetime
 import webbrowser
+from PIL import ImageTk, Image
 
 startWindow = tk.Tk()
 startWindow['bg']='#333333'
@@ -644,7 +645,10 @@ def enduranceWindow():
     exit.pack(expand=True, side=tk.LEFT, padx=5)
 
 
-endurance = tk.Button(startWindow, text="ENDURANCE", height=10, width=25, bg="#2e2e2e", fg="#b5b5b5", command=enduranceWindow)
+photo = tk.Frame(startWindow, width=300, height=150, bg="#00FF00")
+photo.pack(side=tk.TOP, pady=30)
+
+endurance = tk.Button(startWindow, text="ENDURANCE", height=7, width=25, bg="#2e2e2e", fg="#b5b5b5", command=enduranceWindow)
 endurance.pack(expand=True)
 
 startWindow.mainloop()
