@@ -660,7 +660,7 @@ def enduranceWindow():
     submitData = tk.Button(bpWrap, text="Calculate \n Strategy", height=2, command=submitEndurance,bg="#b5b5b5")
     submitData.pack(expand=True, side=tk.LEFT, padx=5)
 
-    documentatie = tk.Button(bpWrap, text="Doc", width=8, height=2, bg="#424242", fg="#d1d1d1")
+    documentatie = tk.Button(bpWrap, text="Readme", width=8, height=2, bg="#424242", fg="#d1d1d1", command=webbrowser.open("README.md"))
     documentatie.pack(expand=True, side=tk.LEFT, padx=5)
 
     exit = tk.Button(bpWrap, text="Exit", command=endWindow.destroy, width=8, height=2, bg="#424242", fg="#d1d1d1")
