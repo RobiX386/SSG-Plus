@@ -666,7 +666,14 @@ def enduranceWindow():
     exit = tk.Button(bpWrap, text="Exit", command=endWindow.destroy, width=8, height=2, bg="#424242", fg="#d1d1d1")
     exit.pack(expand=True, side=tk.LEFT, padx=5)
 
-endurance = tk.Button(startWindow, text="ENDURANCE", height=10, width=25, bg="#2e2e2e", fg="#b5b5b5", command=enduranceWindow)
+
+canvas = tk.Canvas(startWindow, width = 300, height = 150, bg="#333333", highlightbackground="#333333")      
+canvas.pack(pady=(60,0))      
+img = tk.PhotoImage(file="SSG.png")      
+canvas.create_image(150,75, image=img)    
+
+endurance = tk.Button(startWindow, text="START", height=2, width=15, bg="#2e2e2e", fg="#b5b5b5", command=enduranceWindow)
+endurance.config(font=("Helvetical bold",15))
 endurance.pack(expand=True)
 
 startWindow.mainloop()
