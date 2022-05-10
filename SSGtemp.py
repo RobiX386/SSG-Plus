@@ -557,4 +557,6 @@ def enduranceWindow():
 endurance = tk.Button(startWindow, text="ENDURANCE", height=10, width=25, bg="#2e2e2e", fg="#b5b5b5", command=enduranceWindow)
 endurance.pack(expand=True)
 
+print("myBranch")
+
 startWindow.mainloop()
