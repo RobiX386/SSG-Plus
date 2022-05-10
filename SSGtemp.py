@@ -223,34 +223,47 @@ def enduranceWindow():
                 refuelTimeValue.insert(0, data[3])
                 tyreChangeValue.delete(0,tk.END)
                 tyreChangeValue.insert(0, data[4])
-                trackselectwindow.destroy()
+                trackSelectWindow.destroy()
 
             #TRACK SELECT
-            carselectwindow.destroy()
+            carSelectWindow.destroy()
             
-            trackselectwindow = tk.Tk()
-            trackselectwindow['bg']='#333333'
-            trackselectwindow.title("SSG08")
-            trackselectwindow.geometry("500x400")
+            trackSelectWindow = tk.Tk()
+            trackSelectWindow['bg']='#333333'
+            trackSelectWindow.title("SSG08")
+            trackSelectWindow.geometry("500x400")
             
             trackfile = car + "T.txt"  
             readtracks = open(trackfile, "r")
             trackList = readtracks.readline()
             trackList = trackList.split()
 
+            trackSelectLabel = tk.Label(trackSelectWindow, text="Select your track", bg="#333333", fg="white")
+            trackSelectLabel.config(font=("Helvetical bold", 18))
+            trackSelectLabel.pack(side=tk.TOP, pady=(20, 0))
+
+            trackSelectWrap = tk.Frame(trackSelectWindow, bg="#333333", highlightbackground="#424242", highlightthickness="#d1d1d1")
+            trackSelectWrap.pack(side=tk.TOP, pady=(20, 100), padx=100)
+
             for y in trackList: 
                 trackbuttonname="Select "+y
                 trackfilename=y
-                TrackSelect = tk.Button(trackselectwindow, text=trackbuttonname, command= lambda trackfilename=trackfilename : insertdata(trackfilename))
-                TrackSelect.pack(side=tk.TOP, pady=15, padx=10)
+                TrackSelect = tk.Button(trackSelectWrap, bg="#d1d1d1", fg="#424242", text=trackbuttonname, command= lambda trackfilename=trackfilename : insertdata(trackfilename))
+                TrackSelect.pack(side=tk.TOP, pady=10, padx=20)
             
         #CAR SELECT
         
-        carselectwindow = tk.Tk()
-        carselectwindow['bg']='#333333'
-        carselectwindow.title("SSG08")
-        carselectwindow.geometry("500x400")
+        carSelectWindow = tk.Tk()
+        carSelectWindow['bg']='#333333'
+        carSelectWindow.title("SSG08")
+
+        carSelectLabel = tk.Label(carSelectWindow, text="Select the car", bg="#333333", fg="white")
+        carSelectLabel.config(font=("Helvetical bold", 18))
+        carSelectLabel.pack(side=tk.TOP, pady=(20,0))
         
+        carSelecWrap = tk.Frame(carSelectWindow, bg="#333333", highlightbackground="#424242", highlightthickness=3)
+        carSelecWrap.pack(side=tk.TOP, pady=(20, 100), padx=100)
+
         readcars = open("CARS.txt", "r")
         carList = readcars.readline() 
         carList = carList.split()
@@ -258,8 +271,8 @@ def enduranceWindow():
         for x in carList: 
             carbuttonname="Select "+x
             carfilename=x
-            carselect = tk.Button(carselectwindow, text=carbuttonname,command=lambda carfilename=carfilename :trackSelectwind(carfilename))
-            carselect.pack(side=tk.TOP, pady=15, padx=10)
+            carselect = tk.Button(carSelecWrap, bg="#d1d1d1", fg="#424242", text=carbuttonname,command=lambda carfilename=carfilename :trackSelectwind(carfilename))
+            carselect.pack(side=tk.TOP, pady=10, padx=20)
 
     def presetInputWindow():
         inputWindow = tk.Tk()
@@ -378,7 +391,7 @@ def enduranceWindow():
                 trackpresetvalue = tk.Entry(chooseTrackPresetWindow, width=20)
                 trackpresetvalue.pack(side=tk.LEFT, expand=True)
                 
-                trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=3, width=10, command=lambda:tracksectioncheck(str(trackpresetvalue.get())))
+                trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=3, bg="#424242", fg="#d1d1d1", width=10, command=lambda:tracksectioncheck(str(trackpresetvalue.get())))
                 trackpresetsendbut.pack(side=tk.BOTTOM, pady=(0,20), padx=(0,20))
             
             carfilename = z+".ini"
@@ -404,7 +417,7 @@ def enduranceWindow():
         carpresetvalue = tk.Entry(createCarPreset, width=20)
         carpresetvalue.pack(side=tk.LEFT, expand=True)
         
-        carpresetsendbut = tk.Button(createCarPreset, text="Next", height=3, width=10, bg="#333333", fg="#424242", command=lambda:filecheck(str(carpresetvalue.get())))
+        carpresetsendbut = tk.Button(createCarPreset, text="Next", height=3, width=10, bg="#424242", fg="#d1d1d1", command=lambda:filecheck(str(carpresetvalue.get())))
         carpresetsendbut.pack(side=tk.BOTTOM, padx=(0, 20), pady=(0, 20))
 
     #EDIT PRESET
@@ -413,35 +426,49 @@ def enduranceWindow():
             
             editpresetcarwindow.destroy()
             
-            editpresettracktwindow = tk.Tk()
-            editpresettracktwindow['bg']='#333333'
-            editpresettracktwindow.title("SSG08")
-            editpresettracktwindow.geometry("500x400")
+            editPresetTrackWindow = tk.Tk()
+            editPresetTrackWindow['bg']='#333333'
+            editPresetTrackWindow.title("SSG08")
+            # editPresetTrackWindow.geometry("500x400")
             
             trackfile = car + "T.txt"  
             readtracks = open(trackfile, "r")
             trackList = readtracks.readline()
             trackList = trackList.split()
-            
+
+            trackEditLabel = tk.Label(editPresetTrackWindow, text="Select what track you want to edit", fg="White", bg="#333333")
+            trackEditLabel.config(font=("Helvetical bold", 18))
+            trackEditLabel.pack(side=tk.TOP, pady=(20, 0))
+
+            trackWrap = tk.Frame(editPresetTrackWindow, bg="#333333", highlightbackground="#424242", highlightthickness=3)
+            trackWrap.pack(side=tk.TOP, pady=(20, 100), padx=100)
+
             for y in trackList: 
                 trackbuttonname="Select " + y
-                TrackSelect = tk.Button(editpresettracktwindow, text=trackbuttonname)
-                TrackSelect.pack(side=tk.TOP, pady=15, padx=10)
+                TrackSelect = tk.Button(trackWrap, text=trackbuttonname, bg="#d1d1d1", fg="#424242", width=15)
+                TrackSelect.pack(side=tk.TOP, pady=10, padx=20)
 
         editpresetcarwindow = tk.Tk() 
         editpresetcarwindow['bg']='#333333'
         editpresetcarwindow.title("SSG08 Edit preset")
-        editpresetcarwindow.geometry("500x400")
+        # editpresetcarwindow.geometry("500x400")
         
         readcars = open("CARS.txt", "r")
         carList = readcars.readline() 
         carList = carList.split()
+
+        carEditLabel = tk.Label(editpresetcarwindow, text="Select which preset \nyou want to edit", bg="#333333", fg="white")
+        carEditLabel.config(font=("Helvetical bold", 18))
+        carEditLabel.pack(side=tk.TOP, pady=(20, 0))
+
+        carWrap = tk.Frame(editpresetcarwindow, background="#333333", highlightbackground="#424242", highlightthickness=3)
+        carWrap.pack(side=tk.TOP, pady=(20, 100), padx=100)
         
         for x in carList: 
             carbuttonname="Select "+x
             carfilename=x
-            carselect = tk.Button(editpresetcarwindow, text=carbuttonname,command=lambda carfilename=carfilename :editpresettrack(carfilename))
-            carselect.pack(side=tk.TOP, pady=15, padx=10)
+            carselect = tk.Button(carWrap, text=carbuttonname, bg="#424242", fg="#d1d1d1", width=15,command=lambda carfilename=carfilename :editpresettrack(carfilename))
+            carselect.pack(side=tk.TOP, pady=10, padx=20)
 
     #BUTOANE PRESET
 
