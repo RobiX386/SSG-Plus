@@ -242,13 +242,13 @@ def enduranceWindow():
             trackSelectLabel.config(font=("Helvetical bold", 18))
             trackSelectLabel.pack(side=tk.TOP, pady=(20, 0))
 
-            trackSelectWrap = tk.Frame(trackSelectWindow, bg="#333333", highlightbackground="#424242", highlightthickness="#d1d1d1")
+            trackSelectWrap = tk.Frame(trackSelectWindow, bg="#333333", highlightbackground="#424242", highlightthickness=3)
             trackSelectWrap.pack(side=tk.TOP, pady=(20, 100), padx=100)
 
             for y in trackList: 
-                trackbuttonname="Select "+y
                 trackfilename=y
-                TrackSelect = tk.Button(trackSelectWrap, bg="#d1d1d1", fg="#424242", text=trackbuttonname, command= lambda trackfilename=trackfilename : insertdata(trackfilename))
+                trackButtonName="Select "+y
+                TrackSelect = tk.Button(trackSelectWrap, bg="#d1d1d1", fg="#424242", text=trackButtonName, command= lambda trackfilename=trackfilename : insertdata(trackfilename))
                 TrackSelect.pack(side=tk.TOP, pady=10, padx=20)
             
         #CAR SELECT
@@ -444,9 +444,9 @@ def enduranceWindow():
             trackWrap.pack(side=tk.TOP, pady=(20, 100), padx=100)
 
             for y in trackList: 
-                trackbuttonname="Select " + y
-                TrackSelect = tk.Button(trackWrap, text=trackbuttonname, bg="#d1d1d1", fg="#424242", width=15)
-                TrackSelect.pack(side=tk.TOP, pady=10, padx=20)
+                trackButtonName="Select " + y
+                trackEditSelect = tk.Button(trackWrap, text=trackButtonName, bg="#d1d1d1", fg="#424242", width=15)
+                trackEditSelect.pack(side=tk.TOP, pady=10, padx=20)
 
         editpresetcarwindow = tk.Tk() 
         editpresetcarwindow['bg']='#333333'
