@@ -459,6 +459,116 @@ def enduranceWindow():
     #EDIT PRESET
     def editpresetcar():
         def editpresettrack(car):
+            def presetInputWindow(trackname):
+                def datainiwrite():
+                    config = configparser.ConfigParser()
+                    config.read(carfilename)
+                    with open(carfilename, "w") as config_file:
+                        config.write(config_file)
+                    config.set(trackname, "fueltank", inputfueltankvalue.get())
+                    fueltankvalue.delete(0,tk.END)
+                    fueltankvalue.insert(0, inputfueltankvalue.get())
+                    config.set(trackname, "fuelcons", inputfuelconsvalue.get())
+                    fuelconsvalue.delete(0,tk.END)
+                    fuelconsvalue.insert(0, inputfuelconsvalue.get())
+                    config.set(trackname, "dttime", inputdriveTimevalue.get())
+                    driveTimeValue.delete(0,tk.END)
+                    driveTimeValue.insert(0, inputdriveTimevalue.get())
+                    config.set(trackname, "refueltime", inputRefuelTimeValue.get())
+                    refuelTimeValue.delete(0,tk.END)   
+                    refuelTimeValue.insert(0, inputRefuelTimeValue.get())
+                    config.set(trackname, "tyrechangetime", inputTyreChangeValue.get())   
+                    tyreChangeValue.delete(0,tk.END)
+                    tyreChangeValue.insert(0, inputTyreChangeValue.get())
+
+                    inputWindow.destroy()
+
+                    with open(carfilename, "w") as config_file:
+                        config.write(config_file)
+                    return 0
+
+                editPresetTrackWindow.destroy()
+                inputWindow = tk.Tk()
+                inputWindow['bg']='#333333'
+                inputWindow.title("Input Window")
+
+                inputTitle = tk.Label(inputWindow, text="Input your preset's data", bg="#333333", fg="white")
+                inputTitle.config(font=("Helvetical bold", 18))
+                inputTitle.pack(side=tk.TOP, pady=20)
+
+                dataWrap = tk.Frame(inputWindow, highlightbackground="#424242", highlightthickness=3, bg="#333333")
+                dataWrap.pack(expand=True, padx=25, pady=25)
+
+                fuelTankWrap = tk.Frame(dataWrap, bg="#333333")
+                fuelTankWrap.pack(side=tk.TOP, fill=tk.X)
+
+                inputFuelTank = tk.Label(fuelTankWrap, text="Fuel Tank Size", fg="white", bg="#333333")
+                inputFuelTank.config(font=('Helvetical bold', 18))
+                inputFuelTank.pack(side = tk.LEFT, padx=(15, 45))
+
+                inputfueltankvalue = tk.Entry(fuelTankWrap, width=12, bg="white")
+                inputfueltankvalue.pack(pady=20, side=tk.LEFT)
+
+                liters = tk.Label(fuelTankWrap, text="Liters", bg="#333333", fg="white")
+                liters.pack(side=tk.LEFT, fill=tk.Y)
+
+                fuelConsWrap = tk.Frame(dataWrap, bg="#333333")
+                fuelConsWrap.pack(side=tk.TOP, fill=tk.X)
+
+                inputFuelCons = tk.Label(fuelConsWrap, text="Fuel Consumption", fg="white", bg="#333333", width=16)
+                inputFuelCons.config(font=("Helvetical bold", 18))
+                inputFuelCons.pack(side=tk.LEFT)
+
+                inputfuelconsvalue = tk.Entry(fuelConsWrap, width=12, bg="white")
+                inputfuelconsvalue.pack(side=tk.LEFT, pady=20)
+
+                lperlap = tk.Label(fuelConsWrap, text="L/Lap", fg="white", bg="#333333")
+                lperlap.pack(side=tk.LEFT, fill=tk.Y)
+
+                DTWrap = tk.Frame(dataWrap, bg="#333333")
+                DTWrap.pack(side=tk.TOP, fill=tk.X)
+
+                inputDriveTime = tk.Label(DTWrap, text="D.T. Time", bg="#333333", fg="white", height=3)
+                inputDriveTime.config(font=("Helvetical bold", 18))
+                inputDriveTime.pack(side=tk.LEFT, padx=(15, 57))
+
+                inputdriveTimevalue = tk.Entry(DTWrap, width=8)
+                inputdriveTimevalue.pack(side=tk.LEFT, padx=(26, 10))
+
+                seconds = tk.Label(DTWrap, text="sec", bg="#333333", fg="white")
+                seconds.pack(fill=tk.Y, side=tk.LEFT)
+
+                refuelWrap = tk.Frame(dataWrap, bg="#333333")
+                refuelWrap.pack(side=tk.TOP, fill=tk.X)
+
+                inputRefuelTime = tk.Label(refuelWrap, bg="#333333", fg="white", text="Refuel Time", height=3)
+                inputRefuelTime.config(font=("Helvetical bold", 18))
+                inputRefuelTime.pack(side=tk.LEFT, padx=(18, 63))
+
+                inputRefuelTimeValue = tk.Entry(refuelWrap, width=8)
+                inputRefuelTimeValue.pack(side=tk.LEFT, padx=(0, 10))
+
+                seconds = tk.Label(refuelWrap, text="sec", bg="#333333", fg="white")
+                seconds.pack(fill=tk.Y, side=tk.LEFT)
+
+                tyreWrap = tk.Frame(dataWrap, bg="#333333")
+                tyreWrap.pack(side=tk.TOP, fill=tk.X)
+
+                inputTyreChange = tk.Label(tyreWrap, text="Tyre Change \n Time ",  bg="#333333", fg="white", height=3)
+                inputTyreChange.config(font=("Helvetical bold", 15))
+                inputTyreChange.pack(side=tk.LEFT, padx=(18, 63))
+
+                inputTyreChangeValue = tk.Entry(tyreWrap, width=8, fg="black")
+                inputTyreChangeValue.pack(padx=(2, 10), side=tk.LEFT)
+
+                seconds = tk.Label(tyreWrap, text="sec", bg="#333333", fg="white")
+                seconds.pack(fill=tk.Y, side=tk.LEFT)
+
+                dataSubmit = tk.Button(inputWindow, text="Submit",command = datainiwrite)
+                dataSubmit.pack(side=tk.BOTTOM, expand=True, pady=(0, 20))
+
+                inputWindow.mainloop()
+            carfilename = car+".ini"
             
             editpresetcarwindow.destroy()
             
@@ -481,7 +591,7 @@ def enduranceWindow():
 
             for y in trackList: 
                 trackButtonName="Select " + y
-                trackEditSelect = tk.Button(trackWrap, text=trackButtonName, bg="#d1d1d1", fg="#424242", width=15)
+                trackEditSelect = tk.Button(trackWrap, text=trackButtonName, bg="#d1d1d1", fg="#424242", width=15,command=lambda y=y :presetInputWindow(y))
                 trackEditSelect.pack(side=tk.TOP, pady=10, padx=20)
 
         editpresetcarwindow = tk.Tk() 
@@ -502,8 +612,7 @@ def enduranceWindow():
         
         for x in carList: 
             carbuttonname="Select "+x
-            carfilename=x
-            carselect = tk.Button(carWrap, text=carbuttonname, bg="#424242", fg="#d1d1d1", width=15,command=lambda carfilename=carfilename :editpresettrack(carfilename))
+            carselect = tk.Button(carWrap, text=carbuttonname, bg="#424242", fg="#d1d1d1", width=15,command=lambda x=x :editpresettrack(x))
             carselect.pack(side=tk.TOP, pady=10, padx=20)
 
     #BUTOANE PRESET 
@@ -660,7 +769,7 @@ def enduranceWindow():
     submitData = tk.Button(bpWrap, text="Calculate \n Strategy", height=2, command=submitEndurance,bg="#b5b5b5")
     submitData.pack(expand=True, side=tk.LEFT, padx=5)
 
-    documentatie = tk.Button(bpWrap, text="Readme", width=8, height=2, bg="#424242", fg="#d1d1d1", command=webbrowser.open("README.md"))
+    documentatie = tk.Button(bpWrap, text="Readme", width=8, height=2, bg="#424242", fg="#d1d1d1", command=lambda:webbrowser.open("README.md"))
     documentatie.pack(expand=True, side=tk.LEFT, padx=5)
 
     exit = tk.Button(bpWrap, text="Exit", command=endWindow.destroy, width=8, height=2, bg="#424242", fg="#d1d1d1")
