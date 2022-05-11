@@ -1,5 +1,7 @@
 # SSG-Plus
 
+Documentatie : https://docs.google.com/document/d/1cr0oYHRvdzy9zlK0lLi3zGPsdFYHq2OrFH-uoomhd00/edit?usp=sharing
+
 Fisierul principal se numeste SSG.py
 
 Pentru a rula softul este necesara instalarea python.
