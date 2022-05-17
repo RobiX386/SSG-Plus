@@ -871,16 +871,10 @@ def sprintWindow():
     racelenght.config(font=("Helvetical bold", 18))
     racelenght.pack(side=tk.LEFT)
 
-    racelenghtHourValue = tk.Entry(lenghtWrap, width=3, fg="black")
-    racelenghtHourValue.pack(side=tk.LEFT)
+    racelenghtLapsValue = tk.Entry(lenghtWrap, width=3, fg="black")
+    racelenghtLapsValue.pack(side=tk.LEFT)
 
-    hours = tk.Label(lenghtWrap, text="h", bg="#333333", fg="white")
-    hours.pack(side=tk.LEFT, padx=5)
-
-    racelenghtMinuteValue = tk.Entry(lenghtWrap, width=3, fg="black")
-    racelenghtMinuteValue.pack(side=tk.LEFT)
-
-    minutes = tk.Label(lenghtWrap, text="min", bg="#333333", fg="white")
+    minutes = tk.Label(lenghtWrap, text="laps", bg="#333333", fg="white")
     minutes.pack(side=tk.LEFT, padx=5)
     
     laptimeWrap = tk.Frame(raceinfo, bg="#333333")
@@ -1401,12 +1395,7 @@ def sprintWindow():
 
         #race info
         try:
-            racelength_h = int(racelenghtHourValue.get())
-        except:
-            error("Race length value\nis not correct")
-            return 0
-        try:
-            racelength_m = int(racelenghtMinuteValue.get())
+            racelength = int(racelenghtLapsValue.get())
         except:
             error("Race length value\nis not correct")
             return 0
@@ -1433,7 +1422,7 @@ def sprintWindow():
         except:
             error("Tyre change value\nis not correct")
             return 0
-
+        """
         #Stint calculations
         refuellitertime=refueltime/fueltank
         refuellitertime=int(refuellitertime*100)/100
@@ -1508,6 +1497,7 @@ def sprintWindow():
         textoutput="Lap : "+str(lapcount)+"| Fuel left : "+str(round(fuelleft, 2))+"| Race Finished!"
         foutput.write(textoutput)
         webbrowser.open("output.txt")
+        """
 
 
     #OTHER BUTTONS
