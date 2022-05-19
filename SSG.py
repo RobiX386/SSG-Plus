@@ -35,11 +35,11 @@ def enduranceWindow():
     endWindow.title("SSG08 Endurance")
 
     pcrWrap = tk.Frame(endWindow, bg="#1D2127", width=500, height=300) #presets && car info && race info
-    pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=20)
+    pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(20, 15))
 
     #PRESET START
     presets = tk.Frame(pcrWrap, bg="#1D2127", highlightbackground="#FD7800", highlightthickness=1)
-    presets.pack(side=tk.TOP, fill=tk.BOTH, expand=True, pady=(0, 30))
+    presets.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
     presetsTitle = tk.Label(presets, bg="#1D2127", text="Presets", fg="white", width=17)
     presetsTitle.config(font=('Helvatical bold',18))
@@ -71,7 +71,7 @@ def enduranceWindow():
 
     fuelTank = tk.Label(tankWrap, text="Fuel Tank Size", fg="white", bg="#1D2127")
     fuelTank.config(font=('Helvetical bold', 18))
-    fuelTank.pack(side = tk.LEFT, padx=(15, 45))
+    fuelTank.pack(side = tk.LEFT, padx=(0, 44))
 
     fueltankvalue = tk.Entry(tankWrap, width=12, bg="white")
     fueltankvalue.pack(pady=20, side=tk.LEFT)
@@ -80,7 +80,7 @@ def enduranceWindow():
     liters.pack(side=tk.LEFT, fill=tk.Y)
 
     consWrap = tk.Frame(carinfo, bg="#1D2127")
-    consWrap.pack(fill=tk.X, side=tk.TOP, padx=20)
+    consWrap.pack(fill=tk.X, side=tk.TOP, padx=(4, 20))
 
     fuelCons = tk.Label(consWrap, text="Fuel Consumption", fg="white", bg="#1D2127", width=16)
     fuelCons.config(font=("Helvetical bold", 18))
@@ -97,7 +97,7 @@ def enduranceWindow():
     #RACE INFO START
 
     raceinfo = tk.Frame(pcrWrap, bg="#1D2127", highlightbackground="#FD7800", highlightthickness=1)
-    raceinfo.pack(side=tk.TOP, fill=tk.X, pady=(0, 10))
+    raceinfo.pack(side=tk.TOP, fill=tk.X, pady=15)
 
     raceinfoLabel = tk.Label(raceinfo, text="#Race Info", fg="white", width=24, bg="#1D2127")
     raceinfoLabel.config(font=("Helvetical bold", 18))
@@ -128,7 +128,7 @@ def enduranceWindow():
 
     laptime = tk.Label(laptimeWrap, text="Lap Time", bg="#1D2127", fg="white", height=3)
     laptime.config(font=("Helvetical bold", 18))
-    laptime.pack(side=tk.LEFT, padx=(4, 32))
+    laptime.pack(side=tk.LEFT, padx=(4, 32), pady=(0, 9))
 
     lapMinValue = tk.Entry(laptimeWrap, width=3, fg="black")
     lapMinValue.pack(side=tk.LEFT)
@@ -144,12 +144,12 @@ def enduranceWindow():
 
 
     bprWrap = tk.Frame(endWindow, bg="#1D2127")#buttons && pit info
-    bprWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=20)
+    bprWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(15, 20))
 
     #PIT INFO
     
     pitInfo = tk.Frame(bprWrap, bg="#1D2127", highlightbackground="#FD7800", highlightthickness=1)
-    pitInfo.pack(fill=tk.X, side=tk.TOP, pady=(10, 0))
+    pitInfo.pack(fill=tk.X, side=tk.TOP)
 
     pitInfoLabel = tk.Label(pitInfo, width=24, bg="#1D2127", text="#Pit Info", fg="white")
     pitInfoLabel.config(font=("Helvetical bold", 18))
