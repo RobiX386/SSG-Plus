@@ -13,6 +13,8 @@ space= ' '
 
 #V0.9 BETA
 
+#Test
+
 def error(errortext):
     errorWindow = tk.Tk() 
     errorWindow.config(bg="#333333")
