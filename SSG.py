@@ -1,5 +1,6 @@
 from fileinput import filename
 from pickle import TRUE
+from re import X
 import tkinter as tk
 import configparser
 import datetime
@@ -7,7 +8,7 @@ import webbrowser
 
 startWindow = tk.Tk()
 startWindow['bg']='#1D2127'
-startWindow.title("SSG08")
+startWindow.title("SSG+")
 startWindow.geometry("500x400")
 space= ' '
 
@@ -31,8 +32,7 @@ def enduranceWindow():
     startWindow.destroy()
     endWindow = tk.Tk() 
     endWindow.config(bg="#1D2127")
-    #endWindow.geometry("1172x400")
-    endWindow.title("SSG08 Endurance")
+    endWindow.title("SSG+ Endurance")
 
     pcrWrap = tk.Frame(endWindow, bg="#1D2127", width=500, height=300) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(20, 15))
@@ -108,19 +108,19 @@ def enduranceWindow():
 
     racelenght = tk.Label(lenghtWrap, width=10, text="Race Length", bg="#1D2127", fg="White", height=3)
     racelenght.config(font=("Helvetical bold", 18))
-    racelenght.pack(side=tk.LEFT)
+    racelenght.pack(side=tk.LEFT, padx=(17, 0))
 
     racelenghtHourValue = tk.Entry(lenghtWrap, width=3, fg="black")
     racelenghtHourValue.pack(side=tk.LEFT)
 
     hours = tk.Label(lenghtWrap, text="h", bg="#1D2127", fg="white")
-    hours.pack(side=tk.LEFT, padx=5)
+    hours.pack(side=tk.LEFT, padx=(5, 22))
 
-    racelenghtMinuteValue = tk.Entry(lenghtWrap, width=3, fg="black")
+    racelenghtMinuteValue = tk.Entry(lenghtWrap, width=5, fg="black")
     racelenghtMinuteValue.pack(side=tk.LEFT)
 
     minutes = tk.Label(lenghtWrap, text="min", bg="#1D2127", fg="white")
-    minutes.pack(side=tk.LEFT, padx=5)
+    minutes.pack(side=tk.LEFT, padx=2)
     
 
     laptimeWrap = tk.Frame(raceinfo, bg="#1D2127")
@@ -128,7 +128,7 @@ def enduranceWindow():
 
     laptime = tk.Label(laptimeWrap, text="Lap Time", bg="#1D2127", fg="white", height=3)
     laptime.config(font=("Helvetical bold", 18))
-    laptime.pack(side=tk.LEFT, padx=(13, 41), pady=(0, 9))
+    laptime.pack(side=tk.LEFT, padx=(15, 41), pady=(0, 9))
 
     lapMinValue = tk.Entry(laptimeWrap, width=3, fg="black")
     lapMinValue.pack(side=tk.LEFT)
@@ -140,7 +140,7 @@ def enduranceWindow():
     lapSecondsValue.pack(side=tk.LEFT, pady=0)
 
     seconds = tk.Label(laptimeWrap, text="sec", bg="#1D2127", fg="white")
-    seconds.pack(fill=tk.Y, side=tk.LEFT)
+    seconds.pack(fill=tk.Y, side=tk.LEFT, padx=(2, 0))
 
 
     #buttons && pit info
@@ -246,7 +246,7 @@ def enduranceWindow():
             
             trackSelectWindow = tk.Tk()
             trackSelectWindow['bg']='#1D2127'
-            trackSelectWindow.title("SSG08")
+            trackSelectWindow.title("SSG+")
             
             trackfile = car + "T.txt"  
             readtracks = open(trackfile, "r")
@@ -271,7 +271,7 @@ def enduranceWindow():
         
         carSelectWindow = tk.Tk()
         carSelectWindow['bg']='#1D2127'
-        carSelectWindow.title("SSG08")
+        carSelectWindow.title("SSG+")
 
         carSelectLabel = tk.Label(carSelectWindow, text="Select the car", bg="#1D2127", fg="white")
         carSelectLabel.config(font=("Helvetical bold", 18))
@@ -422,7 +422,7 @@ def enduranceWindow():
                 
                 chooseTrackPresetWindow = tk.Tk()
                 chooseTrackPresetWindow['bg']='#1D2127'
-                chooseTrackPresetWindow.title("SSG08 Choose Track")
+                chooseTrackPresetWindow.title("SSG+ Choose Track")
                 chooseTrackPresetWindow.geometry("500x250")
                 
                 chooseTrackLabel = tk.Label(chooseTrackPresetWindow, text="Choose a track for \nyour preset", bg="#1D2127", fg="white")
@@ -450,7 +450,7 @@ def enduranceWindow():
 
         createCarPreset = tk.Tk()
         createCarPreset['bg']='#1D2127'
-        createCarPreset.title("SSG08 Create Preset")
+        createCarPreset.title("SSG+ Create Preset")
         createCarPreset.geometry("500x250")
 
         selectCarLabel = tk.Label(createCarPreset, bg="#1D2127", fg="white", text="Choose a car for \nyour preset")
@@ -584,7 +584,7 @@ def enduranceWindow():
             
             editPresetTrackWindow = tk.Tk()
             editPresetTrackWindow['bg']='#1D2127'
-            editPresetTrackWindow.title("SSG08")
+            editPresetTrackWindow.title("SSG+")
             
             trackfile = car + "T.txt"  
             readtracks = open(trackfile, "r")
@@ -800,7 +800,7 @@ def sprintWindow():
     endWindow = tk.Tk() 
     endWindow.config(bg="#1D2127")
     #endWindow.geometry("1172x400")
-    endWindow.title("SSG08 Endurance")
+    endWindow.title("SSG+ Endurance")
 
     pcrWrap = tk.Frame(endWindow, bg="#1D2127", width=500, height=300) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=20)
@@ -1003,7 +1003,7 @@ def sprintWindow():
             
             trackSelectWindow = tk.Tk()
             trackSelectWindow['bg']='#1D2127'
-            trackSelectWindow.title("SSG08")
+            trackSelectWindow.title("SSG+")
             trackSelectWindow.geometry("500x400")
             
             trackfile = car + "T.txt"  
@@ -1028,7 +1028,7 @@ def sprintWindow():
         
         carSelectWindow = tk.Tk()
         carSelectWindow['bg']='#1D2127'
-        carSelectWindow.title("SSG08")
+        carSelectWindow.title("SSG+")
 
         carSelectLabel = tk.Label(carSelectWindow, text="Select the car", bg="#1D2127", fg="white")
         carSelectLabel.config(font=("Helvetical bold", 18))
@@ -1177,7 +1177,7 @@ def sprintWindow():
                 
                 chooseTrackPresetWindow = tk.Tk()
                 chooseTrackPresetWindow['bg']='#1D2127'
-                chooseTrackPresetWindow.title("SSG08 Choose Track")
+                chooseTrackPresetWindow.title("SSG+ Choose Track")
                 chooseTrackPresetWindow.geometry("500x250")
                 
                 chooseTrackLabel = tk.Label(chooseTrackPresetWindow, text="Choose a track for \nyour preset's track", bg="#1D2127", fg="white")
@@ -1203,7 +1203,7 @@ def sprintWindow():
 
         createCarPreset = tk.Tk()
         createCarPreset['bg']='#1D2127'
-        createCarPreset.title("SSG08 Create Preset")
+        createCarPreset.title("SSG+ Create Preset")
         createCarPreset.geometry("500x250")
 
         selectCarLabel = tk.Label(createCarPreset, bg="#1D2127", fg="white", text="Choose a name for \nyour preset's car")
@@ -1334,7 +1334,7 @@ def sprintWindow():
             
             editPresetTrackWindow = tk.Tk()
             editPresetTrackWindow['bg']='#1D2127'
-            editPresetTrackWindow.title("SSG08")
+            editPresetTrackWindow.title("SSG+")
             # editPresetTrackWindow.geometry("500x400")
             
             trackfile = car + "T.txt"  
@@ -1356,7 +1356,7 @@ def sprintWindow():
 
         editpresetcarwindow = tk.Tk() 
         editpresetcarwindow['bg']='#1D2127'
-        editpresetcarwindow.title("SSG08 Edit preset")
+        editpresetcarwindow.title("SSG+ Edit preset")
         # editpresetcarwindow.geometry("500x400")
         
         readcars = open("CARS.txt", "r")
