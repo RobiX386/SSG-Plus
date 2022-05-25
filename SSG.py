@@ -1,5 +1,5 @@
 from fileinput import filename
-from pickle import TRUE
+import os
 import tkinter as tk
 import configparser
 import datetime
@@ -9,7 +9,10 @@ startWindow = tk.Tk()
 startWindow['bg']='#333333'
 startWindow.title("SSG08")
 startWindow.geometry("500x400")
+
 space= ' '
+curentpath = os.getcwd()+"\presets"+"\\"
+print(curentpath)
 
 #V0.9 BETA
 
@@ -209,7 +212,7 @@ def enduranceWindow():
         def trackSelectwind(car):
             def insertdata(track):
                 #DATA INPUT
-                inifilename=car+".ini"
+                inifilename=curentpath+car+".ini"
                 config = configparser.ConfigParser()
                 config.read(inifilename)
                 with open(inifilename, "w") as config_file:
@@ -248,7 +251,7 @@ def enduranceWindow():
             trackSelectWindow.title("SSG08")
             trackSelectWindow.geometry("500x400")
             
-            trackfile = car + "T.txt"  
+            trackfile = curentpath + car + "T.txt"  
             readtracks = open(trackfile, "r")
             trackList = readtracks.readline()
             trackList = trackList.split()
@@ -291,7 +294,7 @@ def enduranceWindow():
 
     #CREATE PRESET
     def createnewpreset():
-        def filecheck(z):
+        def filecheck(carname):
             def choosetrackpreset():
                 def tracksectioncheck(trackname):
                     def presetInputWindow():
@@ -407,7 +410,7 @@ def enduranceWindow():
                     with open(carfilename, "w") as config_file:
                         config.write(config_file)
                    
-                    cartrackfilename = z + "T.txt"
+                    cartrackfilename = curentpath + carname + "T.txt"
                     cartrackfile = open (cartrackfilename, "a")
                     cartrackfile.write(trackname+space)
                     cartrackfile.close()
@@ -432,12 +435,13 @@ def enduranceWindow():
                 trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=3, bg="#424242", fg="#d1d1d1", width=10, command=lambda:tracksectioncheck(str(trackpresetvalue.get())))
                 trackpresetsendbut.pack(side=tk.BOTTOM, pady=(0,20), padx=(0,20))
             
-            carfilename = z+".ini"
+            carfilename = curentpath+carname+".ini"
             
+
             try:
                 open(carfilename, "x")
                 carlistfile = open("CARS.txt", "a")
-                carlistfile.write(z+space)
+                carlistfile.write(carname+space)
                 choosetrackpreset()
             except:
                 choosetrackpreset()
@@ -570,7 +574,7 @@ def enduranceWindow():
                 dataSubmit.pack(side=tk.BOTTOM, expand=True, pady=(0, 20))
 
                 inputWindow.mainloop()
-            carfilename = car+".ini"
+            carfilename = curentpath+car+".ini"
             
             editpresetcarwindow.destroy()
             
@@ -579,7 +583,7 @@ def enduranceWindow():
             editPresetTrackWindow.title("SSG08")
             # editPresetTrackWindow.geometry("500x400")
             
-            trackfile = car + "T.txt"  
+            trackfile = curentpath + car + "T.txt"  
             readtracks = open(trackfile, "r")
             trackList = readtracks.readline()
             trackList = trackList.split()
