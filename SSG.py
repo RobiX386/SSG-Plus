@@ -797,7 +797,7 @@ def sprintWindow():
     startWindow.destroy()
     endWindow = tk.Tk() 
     endWindow.config(bg="#1D2127")
-    endWindow.title("SSG+ Endurance")
+    endWindow.title("SSG+ Sprint")
 
     pcrWrap = tk.Frame(endWindow, bg="#1D2127", width=500, height=300) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(20, 15))
@@ -873,20 +873,13 @@ def sprintWindow():
 
     racelenght = tk.Label(lenghtWrap, width=10, text="Race Length", bg="#1D2127", fg="White", height=3)
     racelenght.config(font=("Helvetical bold", 18))
-    racelenght.pack(side=tk.LEFT, padx=(17, 0))
+    racelenght.pack(side=tk.LEFT, padx=(10, 24))
 
-    racelenghtHourValue = tk.Entry(lenghtWrap, width=3, fg="black")
-    racelenghtHourValue.pack(side=tk.LEFT)
+    racelenghtLapsValue = tk.Entry(lenghtWrap, width=5, fg="black")
+    racelenghtLapsValue.pack(side=tk.LEFT)
 
-    hours = tk.Label(lenghtWrap, text="h", bg="#1D2127", fg="white")
-    hours.pack(side=tk.LEFT, padx=(5, 22))
-
-    racelenghtMinuteValue = tk.Entry(lenghtWrap, width=5, fg="black")
-    racelenghtMinuteValue.pack(side=tk.LEFT)
-
-    minutes = tk.Label(lenghtWrap, text="min", bg="#1D2127", fg="white")
-    minutes.pack(side=tk.LEFT, padx=2)
-    
+    laps = tk.Label(lenghtWrap, text="Laps", bg="#1D2127", fg="white")
+    laps.pack(side=tk.LEFT, padx=(5, 22))
 
     laptimeWrap = tk.Frame(raceinfo, bg="#1D2127")
     laptimeWrap.pack(side=tk.TOP, expand=True)
@@ -960,15 +953,15 @@ def sprintWindow():
     seconds = tk.Label(tyreChangeWrap, text="sec", bg="#1D2127", fg="white")
     seconds.pack(fill=tk.Y, side=tk.LEFT)
 
-    stintWrap = tk.Frame(pitInfo, bg="#1D2127")
-    stintWrap.pack(side=tk.TOP, expand=True)
+    wearWrap = tk.Frame(pitInfo, bg="#1D2127")
+    wearWrap.pack(side=tk.TOP, expand=True)
 
-    stintpertyre = tk.Label(stintWrap, text="Stint/Tyre", bg="#1D2127", fg="white", height=3)
-    stintpertyre.config(font=("Helvetical bold", 18))
-    stintpertyre.pack(side=tk.LEFT, padx=(0, 29))
+    tyreWar = tk.Label(wearWrap, text="Tyre Wear", bg="#1D2127", fg="white", height=3)
+    tyreWar.config(font=("Helvetical bold", 18))
+    tyreWar.pack(side=tk.LEFT, padx=(3, 15))
 
-    stintValue = tk.Entry(stintWrap, width=8, fg="black")
-    stintValue.pack(side=tk.LEFT, padx=(0, 25))
+    wearValue = tk.Entry(wearWrap, width=8, fg="black")
+    wearValue.pack(side=tk.LEFT, padx=(0, 27))
 
     #SELECT PRESET
     def carSelectwind():
@@ -1426,12 +1419,7 @@ def sprintWindow():
 
         #race info
         try:
-            racelength_h = int(racelenghtHourValue.get())
-        except:
-            error("Race length value\nis not correct")
-            return 0
-        try:
-            racelength_m = int(racelenghtMinuteValue.get())
+            racelength_h = int(racelenghtLapsValue.get())
         except:
             error("Race length value\nis not correct")
             return 0
@@ -1459,7 +1447,7 @@ def sprintWindow():
             error("Tyre change value\nis not correct")
             return 0
         try:
-            stintpertyre = int(stintValue.get())
+            stintpertyre = int(wearValue.get())
         except:
             error("Stints/Tyre value\nis not correct")
             return 0
@@ -1469,7 +1457,7 @@ def sprintWindow():
         refuellitertime=int(refuellitertime*100)/100
         fuelleft = fueltank
         tyrestint = stintpertyre
-        racelength = racelength_h*3600 + racelength_m*60
+        racelength = racelength_h*3600
         timeleft = racelength   
         stinttime = int(fueltank/fuelcons) * laptime + dttime + refueltime + tyrechangetime
         lapcount = 0
