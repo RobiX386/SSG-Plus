@@ -25,9 +25,7 @@ def error(errortext):
     errorlabel = tk.Label(errorWindow, text = errortext, fg= "white", bg="#1D2127")
     errorlabel.config(font=(18))
     errorlabel.pack(pady=50)
-    def windowdestroy ():
-        errorWindow.destroy()
-    errorbutton = tk.Button(errorWindow,text="EXIT",command = windowdestroy)
+    errorbutton = tk.Button(errorWindow, text="Close Window", bg="#121518", fg="#cccccc", activebackground="red", activeforeground="white", command = errorWindow.destroy)
     errorbutton.pack(pady=0)
 
 def enduranceWindow():
@@ -1385,131 +1383,67 @@ def sprint():
 
 
     #CALCULATE STRATEGY
-    def submitEndurance():
-        
-        foutput = open('output.txt', 'w')
+    def submitSprint():
         
         #car info
-        try:
-            fueltank = float(fueltankvalue.get())
-        except:
-            error("Fuel Tank variable\nis not correct")
-            return 0
-
-        try:
-            fuelcons = float(fuelconsvalue.get())
-        except:
-            error("Fuel consumption value\nis not correct")
-            return 0
-
+        fueltank = float(fueltankvalue.get())
+        fuelcons = float(fuelconsvalue.get())
+        wear = float(wearValue.get())
 
         #race info
-        try:
-            racelength_h = int(racelenghtLapsValue.get())
-        except:
-            error("Race length value\nis not correct")
-            return 0
+        racelengthlaps = int(racelenghtLapsValue.get())
+        laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
         
-        try:
-            laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
-        except:
-            error("Laptime value\nis not correct")
-            return 0
-
         #pit info
-        try:
-            dttime = float(driveTimeValue.get())
-        except:
-            error("DT time value\nis not correct")
-            return 0
-        try:
-            tyrechangetime = float(tyreChangeValue.get())
-        except:
-            error("Tyre change value\nis not correct")
-            return 0
-        try:
-            stintpertyre = int(wearValue.get())
-        except:
-            error("Stints/Tyre value\nis not correct")
-            return 0
+
+        dttime = float(driveTimeValue.get())
+        refueltime = 10
+        tyrechangetime = float(tyreChangeValue.get())
+
 
         #Stint calculations
-        refueltime = 1
-        refuellitertime=refueltime/fueltank
-        refuellitertime=int(refuellitertime*100)/100
-        fuelleft = fueltank
-        tyrestint = stintpertyre
-        racelength = racelength_h*3600
-        timeleft = racelength   
-        stinttime = int(fueltank/fuelcons) * laptime + dttime + refueltime + tyrechangetime
-        lapcount = 0
-        stintcount = 0
+        fuelneed=racelengthlaps*fuelcons 
+        
+        sprintText = ""
+        ratio = 1 / wear
+        fastesttime = 200000000
+        fasteststrat = 0
 
+        for pitcount in range(7):
+            racetime = laptime*racelengthlaps+wear*racelengthlaps*wear*(racelengthlaps+1)*ratio*0.5/(pitcount+1)+(dttime+tyrechangetime)*pitcount
+            racetime = int(racetime)
+            conversion=datetime.timedelta(seconds=racetime)
+            sprintText+=str(pitcount)+" stop - "+str(conversion) + "\n"
+            if racetime<fastesttime :
+                fastesttime = racetime
+                fasteststrat = pitcount
 
+        outputWindow = tk.Tk()
+        outputWindow.title("SSG+ Sprint Output")
+        outputWindow['bg'] = '#1d2127'
 
-        #Stint info print
-        conversion = datetime.timedelta(seconds=stinttime)
-        textoutput = "\n- Welcome to Smart Strategy Generator - "
-        foutput.write(textoutput)
-        textoutput = "\nStint lenght = "+str(conversion)+"\nRefuel rate = "+str(refuellitertime)+"seconds/L \n" 
-        foutput.write(textoutput)
-        while timeleft>stinttime :
-            stintcount += 1
-            textoutput="\n\nStint #"+str(stintcount)+"\n"
-            foutput.write(textoutput)
-            while fuelleft>=fuelcons*2:
-                fuelleft -= fuelcons
-                timeleft -= laptime 
-                lapcount += 1
-                conversion = datetime.timedelta(seconds=timeleft)
-                textoutput = "Lap : "+str(lapcount)+"| Time left : "+str(conversion)+"| Fuel left : "+str(round(fuelleft, 2))
-                foutput.write(textoutput)
-                foutput.write("\n")
+        sprintOutput = tk.Label(outputWindow, text="Sprint Strategy", bg="#1d2127", fg="white")
+        sprintOutput.config(font=("Helvetical bold", 20))
+        sprintOutput.pack(expand=True, pady=(20, 0))
 
-            fuelleft -= fuelcons
-            timeleft -= laptime 
-            lapcount += 1
+        outputWrap = tk.Frame(outputWindow, bg="#1d2127", highlightbackground="#FD7800", highlightthickness=1)
+        outputWrap.pack(expand=True, pady=20, padx=40)
 
-            if tyrestint==1:
-                tyrestint = stintpertyre
-                timeleft -= tyrechangetime
-                
-            elif tyrestint>1:
-                tyrestint -= 1
+        outputText = tk.Label(outputWrap, text=sprintText, bg="#1d2127", fg="#cccccc")
+        outputText.config(font=("Helvetical bold", 15))
+        outputText.pack(padx=10, pady=10)
 
-                
-            timeleft = timeleft-(dttime+refueltime)
-            conversion = datetime.timedelta(seconds=timeleft)
-            textoutput="PIT THIS LAP | Lap : " +str(lapcount)+" | Time left : "+str(conversion)+" | Fuel wasted : "+str(round(fuelleft, 2))
-            foutput.write(textoutput)
-            fuelleft = fueltank
+        conversion=datetime.timedelta(seconds=fastesttime)
+        sprintFastestText = "Fastest strategy is - > "+str(fasteststrat)+ " stopper = "+str(conversion)
+        fastestStrategy = tk.Label(outputWrap, text=sprintFastestText, bg="#1d2127", fg="#cccccc")
+        fastestStrategy.config(font=("Helvetical bold", 18))
+        fastestStrategy.pack(pady=(0, 10), padx=10)
 
+        closeOutput = tk.Button(outputWindow, text="Close Window", width=10, height=2, bg="#121518", fg="#cccccc", activebackground="red", activeforeground="white", bd=1, command=outputWindow.destroy)
+        closeOutput.pack(expand=True, pady=(0, 15))
 
-        #Last stint calculation
-        lapsleft = int(timeleft/laptime) + 1
-        fuelleft = fuelcons * lapsleft
-        timeleft = timeleft - int(refuellitertime*fuelleft) - dttime
+        outputWindow.mainloop()
 
-        #Last stint generator
-        stintcount += 1
-        textoutput="\nStint #"+str(stintcount)+"\n"
-        foutput.write(textoutput)
-        while timeleft>laptime :
-            fuelleft -= fuelcons
-            timeleft -= laptime 
-            lapcount += 1
-            conversion = datetime.timedelta(seconds=timeleft)
-            textoutput="Lap : "+str(lapcount)+"| Time left :"+str(conversion)+"| Fuel left : "+str(round(fuelleft, 2))
-            foutput.write(textoutput)
-            foutput.write("\n")
-
-        #Last lap 
-        fuelleft -= fuelcons
-        timeleft -= laptime 
-        lapcount += 1
-        textoutput="Lap : "+str(lapcount)+"| Fuel left : "+str(round(fuelleft, 2))+"| Race Finished!"
-        foutput.write(textoutput)
-        webbrowser.open("output.txt")
 
 
     #OTHER BUTTONS
@@ -1521,7 +1455,7 @@ def sprint():
     documentaton.config(font=("Helvetical bold", 14))
     documentaton.pack(expand=True, side=tk.TOP, pady=(10, 0))
 
-    submitData = tk.Button(bprWrap, text="Calculate \n Strategy", height=2, width=20, command=submitEndurance,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
+    submitData = tk.Button(bprWrap, text="Calculate \n Strategy", height=2, width=20, command=submitSprint,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
     submitData.config(font=("Helvetical bold", 14))
     submitData.pack(side=tk.TOP, expand=True, pady=(0, 0))
 
@@ -1531,10 +1465,10 @@ def sprint():
 
 
 
-canvas = tk.Canvas(startWindow, width = 300, height = 150, bg="#1D2127", highlightbackground="#1D2127")      
-canvas.pack(pady=(60,0))      
-img = tk.PhotoImage(file="SSG.png")      
-canvas.create_image(150,75, image=img) 
+# canvas = tk.Canvas(startWindow, width = 300, height = 150, bg="#1D2127", highlightbackground="#1D2127")      
+# canvas.pack(pady=(60,0))      
+# img = tk.PhotoImage(file="SSG.png")      
+# canvas.create_image(150,75, image=img) 
 
 endurance = tk.Button(startWindow, text="Endurance", height=2, width=15, bg="#121518", fg="#cccccc", command=enduranceWindow)
 endurance.config(font=("Helvetical bold",15))
