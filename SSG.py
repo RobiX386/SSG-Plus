@@ -404,7 +404,6 @@ def enduranceWindow():
 
                         inputWindow.mainloop()
                     
-
                     if len(str(trackpresetvalue.get())) < 2:
                         error("Car name is invalid")
                         exit()
@@ -598,7 +597,7 @@ def enduranceWindow():
             editPresetTrackWindow['bg']='#1D2127'
             editPresetTrackWindow.title("SSG+")
             
-            trackfile = car + "T.txt"  
+            trackfile = curentpath + car + "T.txt"  
             readtracks = open(trackfile, "r")
             trackList = readtracks.readline()
             trackList = trackList.split()
@@ -1005,7 +1004,7 @@ def sprint():
             trackSelectWindow['bg']='#1D2127'
             trackSelectWindow.title("SSG+")
             
-            trackfile = car + "T.txt"  
+            trackfile = curentpath + car + "T.txt"  
             readtracks = open(trackfile, "r")
             trackList = readtracks.readline()
             trackList = trackList.split()
@@ -1158,6 +1157,10 @@ def sprint():
 
                         inputWindow.mainloop()
                     
+                    if len(str(trackpresetvalue.get())) < 2:
+                        error("Car name is invalid")
+                        exit()
+
                     config = configparser.ConfigParser()
                     config.read(carfilename)
                     config.add_section(trackname)
@@ -1192,6 +1195,10 @@ def sprint():
                 trackpresetsendbut.config(font=("Helvetical bold", 14))
                 trackpresetsendbut.pack(side=tk.BOTTOM, pady=(0, 20), padx=(0, 20))
             
+            if len(str(carpresetvalue.get())) < 2:
+                error("Car name is invalid")
+                exit()
+
             carfilename = curentpath + z+".ini"
             
             try:
@@ -1408,7 +1415,6 @@ def sprint():
         #pit info
 
         dttime = float(driveTimeValue.get())
-        refueltime = 10
         tyrechangetime = float(tyreChangeValue.get())
 
 
@@ -1445,7 +1451,7 @@ def sprint():
         outputText.pack(padx=10, pady=10)
 
         conversion=datetime.timedelta(seconds=fastesttime)
-        sprintFastestText = "Fastest strategy is - > "+str(fasteststrat)+ " stopper = "+str(conversion)
+        sprintFastestText = "Fastest strategy is - > "+str(fasteststrat)+ " stopper = "+str(conversion) +"\n" +"Fuel needed = " + str(fuelneed)
         fastestStrategy = tk.Label(outputWrap, text=sprintFastestText, bg="#1d2127", fg="#cccccc")
         fastestStrategy.config(font=("Helvetical bold", 18))
         fastestStrategy.pack(pady=(0, 10), padx=10)
