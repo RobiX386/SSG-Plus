@@ -324,7 +324,7 @@ def enduranceWindow():
                         chooseTrackPresetWindow.destroy()
                         inputWindow = tk.Tk()
                         inputWindow['bg']='#1D2127'
-                        inputWindow.title("Input Window")
+                        inputWindow.title("SSG+ Input Window")
 
                         inputTitle = tk.Label(inputWindow, text="Input your preset's data", bg="#1D2127", fg="white")
                         inputTitle.config(font=("Helvetical bold", 18))
@@ -428,19 +428,19 @@ def enduranceWindow():
                 chooseTrackPresetWindow = tk.Tk()
                 chooseTrackPresetWindow['bg']='#1D2127'
                 chooseTrackPresetWindow.title("SSG+ Choose Track")
-                chooseTrackPresetWindow.geometry("500x250")
+                chooseTrackPresetWindow.geometry("300x300+200+200")
                 
                 chooseTrackLabel = tk.Label(chooseTrackPresetWindow, text="Choose a track for \nyour preset", bg="#1D2127", fg="white")
                 chooseTrackLabel.config(font=("Helvetical bold", 18))
-                chooseTrackLabel.pack(side=tk.LEFT, expand=True)
+                chooseTrackLabel.pack(side=tk.TOP, expand=True)
 
                 trackpresetvalue = tk.Entry(chooseTrackPresetWindow, width=15)
                 trackpresetvalue.config(font=("Helvetical bold", 14))
-                trackpresetvalue.pack(side=tk.LEFT, expand=True)
+                trackpresetvalue.pack(side=tk.TOP, expand=True)
                 
                 trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=2, bg="#1D2127", fg="#cccccc", width=7, activebackground="#FD7800", activeforeground="white", command=lambda:tracksectioncheck(str(trackpresetvalue.get()).replace(" ", "")))
                 trackpresetsendbut.config(font=("Helvetical bold", 14))
-                trackpresetsendbut.pack(side=tk.BOTTOM, pady=(0, 20), padx=(0, 20))
+                trackpresetsendbut.pack(side=tk.TOP, expand=True)
             
 
             if len(str(carpresetvalue.get())) < 2:
@@ -458,23 +458,22 @@ def enduranceWindow():
             except:
                 choosetrackpreset()
 
-
         createCarPreset = tk.Tk()
         createCarPreset['bg']='#1D2127'
         createCarPreset.title("SSG+ Create Preset")
-        createCarPreset.geometry("500x250")
+        createCarPreset.geometry("300x300+200+200")
 
         selectCarLabel = tk.Label(createCarPreset, bg="#1D2127", fg="white", text="Choose a car for \nyour preset")
         selectCarLabel.config(font=("Helvetical bold", 18))
-        selectCarLabel.pack(side=tk.LEFT, expand=True)
+        selectCarLabel.pack(side=tk.TOP, expand=True)
         
         carpresetvalue = tk.Entry(createCarPreset, width=15)
         carpresetvalue.config(font=("Helvetical bold", 14))
-        carpresetvalue.pack(side=tk.LEFT, expand=True)
+        carpresetvalue.pack(side=tk.TOP, expand=True)
 
         carpresetsendbut = tk.Button(createCarPreset, text="Next", height=2, width=7, bg="#1D2127", fg="#cccccc", activebackground="#FD7800", activeforeground="white", command=lambda:filecheck(str(carpresetvalue.get()).replace(" ", "")))
         carpresetsendbut.config(font=("Helvetical bold", 14))
-        carpresetsendbut.pack(side=tk.BOTTOM, padx=(0, 20), pady=(0, 20))
+        carpresetsendbut.pack(side=tk.TOP, expand=True)
 
     #EDIT PRESET
     def editpresetcar():
@@ -1181,19 +1180,19 @@ def sprint():
                 chooseTrackPresetWindow = tk.Tk()
                 chooseTrackPresetWindow['bg']='#1D2127'
                 chooseTrackPresetWindow.title("SSG+ Choose Track")
-                chooseTrackPresetWindow.geometry("500x250")
+                chooseTrackPresetWindow.geometry("300x300+200+200")
                 
                 chooseTrackLabel = tk.Label(chooseTrackPresetWindow, text="Choose a track for \nyour preset", bg="#1D2127", fg="white")
                 chooseTrackLabel.config(font=("Helvetical bold", 18))
-                chooseTrackLabel.pack(side=tk.LEFT, expand=True)
+                chooseTrackLabel.pack(side=tk.TOP, expand=True)
 
                 trackpresetvalue = tk.Entry(chooseTrackPresetWindow, width=15)
                 trackpresetvalue.config(font=("Helvetical bold", 14))
-                trackpresetvalue.pack(side=tk.LEFT, expand=True)
+                trackpresetvalue.pack(side=tk.TOP, expand=True)
                 
                 trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=2, bg="#1D2127", fg="#cccccc", width=7, activebackground="#FD7800", activeforeground="white", command=lambda:tracksectioncheck(str(trackpresetvalue.get()).replace(" ", "")))
                 trackpresetsendbut.config(font=("Helvetical bold", 14))
-                trackpresetsendbut.pack(side=tk.BOTTOM, pady=(0, 20), padx=(0, 20))
+                trackpresetsendbut.pack(side=tk.TOP, expand=True)
             
             if len(str(carpresetvalue.get())) < 2:
                 error("Car name is invalid")
@@ -1213,19 +1212,19 @@ def sprint():
         createCarPreset = tk.Tk()
         createCarPreset['bg']='#1D2127'
         createCarPreset.title("SSG+ Create Preset")
-        createCarPreset.geometry("500x250")
+        createCarPreset.geometry("300x300+200+200")
 
         selectCarLabel = tk.Label(createCarPreset, bg="#1D2127", fg="white", text="Choose a car for \nyour preset")
         selectCarLabel.config(font=("Helvetical bold", 18))
-        selectCarLabel.pack(side=tk.LEFT, expand=True)
+        selectCarLabel.pack(side=tk.TOP, expand=True)
         
         carpresetvalue = tk.Entry(createCarPreset, width=15)
         carpresetvalue.config(font=("Helvetical bold", 14))
-        carpresetvalue.pack(side=tk.LEFT, expand=True)
+        carpresetvalue.pack(side=tk.TOP, expand=True)
 
         carpresetsendbut = tk.Button(createCarPreset, text="Next", height=2, width=7, bg="#1D2127", fg="#cccccc", activebackground="#FD7800", activeforeground="white", command=lambda:filecheck(str(carpresetvalue.get()).replace(" ", "")))
         carpresetsendbut.config(font=("Helvetical bold", 14))
-        carpresetsendbut.pack(side=tk.BOTTOM, padx=(0, 20), pady=(0, 20))
+        carpresetsendbut.pack(side=tk.TOP, expand=True)
 
     #EDIT PRESET
     def editpresetcar():
