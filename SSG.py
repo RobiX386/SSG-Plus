@@ -3,12 +3,17 @@ import tkinter as tk
 import configparser
 import datetime
 import webbrowser
+import os
 
 startWindow = tk.Tk()
 startWindow['bg']='#1D2127'
 startWindow.title("SSG+")
 startWindow.geometry("500x400")
+
 space= ' '
+curentpath = os.getcwd()+"\presets"+"\\"
+print(curentpath)
+
 
 #V0.9 BETA
 
@@ -284,7 +289,7 @@ def enduranceWindow():
         
         for x in carList: 
             carbuttonname=x
-            carfilename=x
+            carfilename=curentpath+x
             carselect = tk.Button(carSelecWrap, bg="#1D2127", fg="#cccccc", activebackground="#FD7800", activeforeground="white", bd=1, text=carbuttonname, command=lambda carfilename=carfilename :trackSelectwind(carfilename))
             carselect.config(font=("Helvetical bold", 13))
             carselect.pack(side=tk.TOP, pady=10, padx=30)
@@ -408,7 +413,7 @@ def enduranceWindow():
                     with open(carfilename, "w") as config_file:
                         config.write(config_file)
                    
-                    cartrackfilename = z + "T.txt"
+                    cartrackfilename = curentpath + z + "T.txt"
                     cartrackfile = open (cartrackfilename, "a")
                     cartrackfile.write(trackname+space)
                     cartrackfile.close()
@@ -435,7 +440,7 @@ def enduranceWindow():
                 trackpresetsendbut.config(font=("Helvetical bold", 14))
                 trackpresetsendbut.pack(side=tk.BOTTOM, pady=(0, 20), padx=(0, 20))
             
-            carfilename = z+".ini"
+            carfilename = curentpath+ z +".ini"
             
             try:
                 open(carfilename, "x")
@@ -576,7 +581,7 @@ def enduranceWindow():
                 dataSubmit.pack(side=tk.BOTTOM, expand=True, pady=(0, 20))
 
                 inputWindow.mainloop()
-            carfilename = car+".ini"
+            carfilename = curentpath+car+".ini"
             
             editpresetcarwindow.destroy()
             
