@@ -1404,134 +1404,45 @@ def sprintWindow():
     #CALCULATE STRATEGY
     def submitSprint():
         
-        foutput = open('output.txt', 'w')
-        
         #car info
-        try:
-            fueltank = float(fueltankvalue.get())
-        except:
-            error("Fuel Tank variable\nis not correct")
-            return 0
-
-        try:
-            fuelcons = float(fuelconsvalue.get())
-        except:
-            error("Fuel consumption value\nis not correct")
-            return 0
-
+        fueltank = float(fueltankvalue.get())
+        fuelcons = float(fuelconsvalue.get())
+        wear = float(wearValue.get())
 
         #race info
-        try:
-            racelength_h = int(racelenghtLapsValue.get())
-        except:
-            error("Race length value\nis not correct")
-            return 0
+        racelengthlaps = int(racelenghtLapsValue.get())
+        laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
         
-        try:
-            laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
-        except:
-            error("Laptime value\nis not correct")
-            return 0
-
         #pit info
-        try:
-            dttime = float(driveTimeValue.get())
-        except:
-            error("DT time value\nis not correct")
-            return 0
-        try:
-            refueltime = float(refuelTimeValue.get())
-        except:
-            error("Refuel time value\nis not correct")
-            return 0
-        try:
-            tyrechangetime = float(tyreChangeValue.get())
-        except:
-            error("Tyre change value\nis not correct")
-            return 0
-        try:
-            stintpertyre = int(wearValue.get())
-        except:
-            error("Stints/Tyre value\nis not correct")
-            return 0
+        dttime = float(driveTimeValue.get())
+        refueltime = 10
+        tyrechangetime = float(tyreChangeValue.get())
+
 
         #Stint calculations
-        refuellitertime=refueltime/fueltank
-        refuellitertime=int(refuellitertime*100)/100
-        fuelleft = fueltank
-        tyrestint = stintpertyre
-        racelength = racelength_h*3600
-        timeleft = racelength   
-        stinttime = int(fueltank/fuelcons) * laptime + dttime + refueltime + tyrechangetime
-        lapcount = 0
-        stintcount = 0
+        fuelneed=racelengthlaps*fuelcons 
+        
+        sprintText = ""
+        ratio = 1 / wear
+        fastesttime = 200000000
+        fasteststrat = 0
+
+        #ciorna
+        # (racelenght no stop) + wear*race
+        #
+        #
+        #
+
+        for pitcount in range(7):
+            racetime = laptime*racelengthlaps+wear*racelengthlaps*wear*(racelengthlaps+1)*ratio*0.5/(pitcount+1)+(dttime+tyrechangetime)*pitcount
+            racetime = int(racetime)
+            conversion=datetime.timedelta(seconds=racetime)
+            sprintText+=str(pitcount)+" stop - "+str(conversion) + "\n"
+            if racetime<fastesttime :
+                fastesttime = racetime
+                fasteststrat = pitcount
 
 
-
-        #Stint info print
-        conversion = datetime.timedelta(seconds=stinttime)
-        textoutput = "\n- Welcome to Smart Strategy Generator - "
-        foutput.write(textoutput)
-        textoutput = "\nStint lenght = "+str(conversion)+"\nRefuel rate = "+str(refuellitertime)+"seconds/L \n" 
-        foutput.write(textoutput)
-        while timeleft>stinttime :
-            stintcount += 1
-            textoutput="\n\nStint #"+str(stintcount)+"\n"
-            foutput.write(textoutput)
-            while fuelleft>=fuelcons*2:
-                fuelleft -= fuelcons
-                timeleft -= laptime 
-                lapcount += 1
-                conversion = datetime.timedelta(seconds=timeleft)
-                textoutput = "Lap : "+str(lapcount)+"| Time left : "+str(conversion)+"| Fuel left : "+str(round(fuelleft, 2))
-                foutput.write(textoutput)
-                foutput.write("\n")
-
-            fuelleft -= fuelcons
-            timeleft -= laptime 
-            lapcount += 1
-
-
-            if tyrestint==1:
-                tyrestint = stintpertyre
-                timeleft -= tyrechangetime
-                
-            elif tyrestint>1:
-                tyrestint -= 1
-
-                
-            timeleft = timeleft-(dttime+refueltime)
-            conversion = datetime.timedelta(seconds=timeleft)
-            textoutput="PIT THIS LAP | Lap : " +str(lapcount)+" | Time left : "+str(conversion)+" | Fuel wasted : "+str(round(fuelleft, 2))
-            foutput.write(textoutput)
-            fuelleft = fueltank
-
-
-        #Last stint calculation
-        lapsleft = int(timeleft/laptime) + 1
-        fuelleft = fuelcons * lapsleft
-        timeleft = timeleft - int(refuellitertime*fuelleft) - dttime
-
-        #Last stint generator
-        stintcount += 1
-        textoutput="\nStint #"+str(stintcount)+"\n"
-        foutput.write(textoutput)
-        while timeleft>laptime :
-            fuelleft -= fuelcons
-            timeleft -= laptime 
-            lapcount += 1
-            conversion = datetime.timedelta(seconds=timeleft)
-            textoutput="Lap : "+str(lapcount)+"| Time left :"+str(conversion)+"| Fuel left : "+str(round(fuelleft, 2))
-            foutput.write(textoutput)
-            foutput.write("\n")
-
-        #Last lap 
-        fuelleft -= fuelcons
-        timeleft -= laptime 
-        lapcount += 1
-        textoutput="Lap : "+str(lapcount)+"| Fuel left : "+str(round(fuelleft, 2))+"| Race Finished!"
-        foutput.write(textoutput)
-        webbrowser.open("output.txt")
 
         outputWindow = tk.Tk()
         outputWindow.title("SSG+ Sprint Output")
@@ -1544,11 +1455,13 @@ def sprintWindow():
         outputWrap = tk.Frame(outputWindow, bg="#1d2127", highlightbackground="#FD7800", highlightthickness=1)
         outputWrap.pack(expand=True, pady=20, padx=40)
 
-        outputText = tk.Label(outputWrap, text="1 stop - 30s \n 2 stop - 40s \n 3 stop - 42s \n 4 stop = 32s", bg="#1d2127", fg="#cccccc")
+        outputText = tk.Label(outputWrap, text=sprintText, bg="#1d2127", fg="#cccccc")
         outputText.config(font=("Helvetical bold", 15))
         outputText.pack(padx=10, pady=10)
 
-        fastestStrategy = tk.Label(outputWrap, text="Fastest strategy is - > 1 stop = 30s", bg="#1d2127", fg="#cccccc")
+        conversion=datetime.timedelta(seconds=fastesttime)
+        sprintFastestText = "Fastest strategy is - > "+str(fasteststrat)+ " stopper = "+str(conversion)
+        fastestStrategy = tk.Label(outputWrap, text=sprintFastestText, bg="#1d2127", fg="#cccccc")
         fastestStrategy.config(font=("Helvetical bold", 18))
         fastestStrategy.pack(pady=(0, 10), padx=10)
 
