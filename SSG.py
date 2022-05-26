@@ -25,9 +25,7 @@ def error(errortext):
     errorlabel = tk.Label(errorWindow, text = errortext, fg= "white", bg="#1D2127")
     errorlabel.config(font=(18))
     errorlabel.pack(pady=50)
-    def windowdestroy ():
-        errorWindow.destroy()
-    errorbutton = tk.Button(errorWindow,text="EXIT",command = windowdestroy)
+    errorbutton = tk.Button(errorWindow, text="Close Window", bg="#121518", fg="#cccccc", activebackground="red", activeforeground="white", command = errorWindow.destroy)
     errorbutton.pack(pady=0)
 
 def enduranceWindow():
@@ -1404,7 +1402,7 @@ def sprintWindow():
 
 
     #CALCULATE STRATEGY
-    def submitEndurance():
+    def submitSprint():
         
         foutput = open('output.txt', 'w')
         
@@ -1535,6 +1533,31 @@ def sprintWindow():
         foutput.write(textoutput)
         webbrowser.open("output.txt")
 
+        outputWindow = tk.Tk()
+        outputWindow.title("SSG+ Sprint Output")
+        outputWindow['bg'] = '#1d2127'
+
+        sprintOutput = tk.Label(outputWindow, text="Sprint Strategy", bg="#1d2127", fg="white")
+        sprintOutput.config(font=("Helvetical bold", 20))
+        sprintOutput.pack(expand=True, pady=(20, 0))
+
+        outputWrap = tk.Frame(outputWindow, bg="#1d2127", highlightbackground="#FD7800", highlightthickness=1)
+        outputWrap.pack(expand=True, pady=20, padx=40)
+
+        outputText = tk.Label(outputWrap, text="1 stop - 30s \n 2 stop - 40s \n 3 stop - 42s \n 4 stop = 32s", bg="#1d2127", fg="#cccccc")
+        outputText.config(font=("Helvetical bold", 15))
+        outputText.pack(padx=10, pady=10)
+
+        fastestStrategy = tk.Label(outputWrap, text="Fastest strategy is - > 1 stop = 30s", bg="#1d2127", fg="#cccccc")
+        fastestStrategy.config(font=("Helvetical bold", 18))
+        fastestStrategy.pack(pady=(0, 10), padx=10)
+
+        closeOutput = tk.Button(outputWindow, text="Close Window", width=10, height=2, bg="#121518", fg="#cccccc", activebackground="red", activeforeground="white", bd=1, command=outputWindow.destroy)
+        closeOutput.pack(expand=True, pady=(0, 15))
+
+        outputWindow.mainloop()
+
+
 
     #OTHER BUTTONS
 
@@ -1549,17 +1572,17 @@ def sprintWindow():
     exit.config(font=("Helvetical bold", 14))
     exit.pack(expand=True, side=tk.LEFT, padx=(7, 0))
 
-    submitData = tk.Button(bprWrap, text="Calculate \n Strategy", height=2, width=20, command=submitEndurance,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
+    submitData = tk.Button(bprWrap, text="Calculate \n Strategy", height=2, width=20, command=submitSprint,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
     submitData.config(font=("Helvetical bold", 14))
     submitData.pack(expand=True, side=tk.LEFT)
 
 
 
 
-canvas = tk.Canvas(startWindow, width = 300, height = 150, bg="#1D2127", highlightbackground="#1D2127")      
-canvas.pack(pady=(60,0))      
-img = tk.PhotoImage(file="SSG.png")      
-canvas.create_image(150,75, image=img) 
+# canvas = tk.Canvas(startWindow, width = 300, height = 150, bg="#1D2127", highlightbackground="#1D2127")      
+# canvas.pack(pady=(60,0))      
+# img = tk.PhotoImage(file="SSG.png")      
+# canvas.create_image(150,75, image=img) 
 
 endurance = tk.Button(startWindow, text="Endurance", height=2, width=15, bg="#121518", fg="#cccccc", command=enduranceWindow)
 endurance.config(font=("Helvetical bold",15))
