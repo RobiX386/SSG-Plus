@@ -15,7 +15,7 @@ curentpath = os.getcwd()+"\presets"+"\\"
 print(curentpath)
 
 
-#V1.3 UI Redesign && bug fix
+#V1.3 UI Redesign && bug fixx
 
 def error(errortext):
     errorWindow = tk.Tk() 
