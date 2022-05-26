@@ -406,6 +406,11 @@ def enduranceWindow():
 
                         inputWindow.mainloop()
                     
+
+                    if len(str(trackpresetvalue.get())) < 2:
+                        error("Car name is invalid")
+                        exit()
+
                     config = configparser.ConfigParser()
                     config.read(carfilename)
                     config.add_section(trackname)
@@ -440,6 +445,12 @@ def enduranceWindow():
                 trackpresetsendbut.config(font=("Helvetical bold", 14))
                 trackpresetsendbut.pack(side=tk.BOTTOM, pady=(0, 20), padx=(0, 20))
             
+
+            if len(str(carpresetvalue.get())) < 2:
+                error("Car name is invalid")
+                exit()
+
+
             carfilename = curentpath+ z +".ini"
             
             try:
@@ -973,7 +984,7 @@ def sprintWindow():
         def trackSelectwind(car):
             def insertdata(track):
                 #DATA INPUT
-                inifilename=car+".ini"
+                inifilename=curentpath+car+".ini"
                 config = configparser.ConfigParser()
                 config.read(inifilename)
                 with open(inifilename, "w") as config_file:
@@ -1173,7 +1184,7 @@ def sprintWindow():
                     with open(carfilename, "w") as config_file:
                         config.write(config_file)
                    
-                    cartrackfilename = z + "T.txt"
+                    cartrackfilename = curentpath + z + "T.txt"
                     cartrackfile = open (cartrackfilename, "a")
                     cartrackfile.write(trackname+space)
                     cartrackfile.close()
@@ -1200,7 +1211,7 @@ def sprintWindow():
                 trackpresetsendbut.config(font=("Helvetical bold", 14))
                 trackpresetsendbut.pack(side=tk.BOTTOM, pady=(0, 20), padx=(0, 20))
             
-            carfilename = z+".ini"
+            carfilename = curentpath + z+".ini"
             
             try:
                 open(carfilename, "x")
@@ -1341,7 +1352,7 @@ def sprintWindow():
                 dataSubmit.pack(side=tk.BOTTOM, expand=True, pady=(0, 20))
 
                 inputWindow.mainloop()
-            carfilename = car+".ini"
+            carfilename = curentpath + car+".ini"
             
             editpresetcarwindow.destroy()
             
@@ -1349,7 +1360,7 @@ def sprintWindow():
             editPresetTrackWindow['bg']='#1D2127'
             editPresetTrackWindow.title("SSG+")
             
-            trackfile = car + "T.txt"  
+            trackfile = curentpath + car + "T.txt"  
             readtracks = open(trackfile, "r")
             trackList = readtracks.readline()
             trackList = trackList.split()
