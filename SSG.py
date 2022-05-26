@@ -796,13 +796,13 @@ def enduranceWindow():
     submitData.config(font=("Helvetical bold", 14))
     submitData.pack(expand=True, side=tk.LEFT)
 
-def sprintWindow():
+def sprint():
     startWindow.destroy()
-    endWindow = tk.Tk() 
-    endWindow.config(bg="#1D2127")
-    endWindow.title("SSG+ Sprint")
+    sprintWindow = tk.Tk() 
+    sprintWindow.config(bg="#1D2127")
+    sprintWindow.title("SSG+ Sprint")
 
-    pcrWrap = tk.Frame(endWindow, bg="#1D2127", width=500, height=300) #presets && car info && race info
+    pcrWrap = tk.Frame(sprintWindow, bg="#1D2127", width=500, height=300) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(20, 15))
 
     #PRESET START
@@ -905,7 +905,7 @@ def sprintWindow():
 
 
     #buttons && pit info
-    bprWrap = tk.Frame(endWindow, bg="#1D2127")
+    bprWrap = tk.Frame(sprintWindow, bg="#1D2127")
     bprWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(15, 20))
 
     #PIT INFO
@@ -928,19 +928,6 @@ def sprintWindow():
     driveTimeValue.pack(side=tk.LEFT, padx=(26, 5))
 
     seconds = tk.Label(driveTimeWrap, text="sec", bg="#1D2127", fg="white")
-    seconds.pack(fill=tk.Y, side=tk.LEFT)
-
-    refuelWrap = tk.Frame(pitInfo, bg="#1D2127")
-    refuelWrap.pack(side=tk.TOP, expand=True)
-
-    refuelTime = tk.Label(refuelWrap, bg="#1D2127", fg="white", text="Refuel Time", height=3)
-    refuelTime.config(font=("Helvetical bold", 17))
-    refuelTime.pack(side=tk.LEFT, padx=(0, 8))
-
-    refuelTimeValue = tk.Entry(refuelWrap, width=8)
-    refuelTimeValue.pack(side=tk.LEFT, padx=(0, 5))
-
-    seconds = tk.Label(refuelWrap, text="sec", bg="#1D2127", fg="white")
     seconds.pack(fill=tk.Y, side=tk.LEFT)
 
     tyreChangeWrap = tk.Frame(pitInfo, bg="#1D2127")
@@ -996,8 +983,6 @@ def sprintWindow():
                 fuelconsvalue.insert(0, data[1])
                 driveTimeValue.delete(0,tk.END)
                 driveTimeValue.insert(0, data[2])
-                refuelTimeValue.delete(0,tk.END)   
-                refuelTimeValue.insert(0, data[3])
                 tyreChangeValue.delete(0,tk.END)
                 tyreChangeValue.insert(0, data[4])
                 trackSelectWindow.destroy()
@@ -1069,8 +1054,6 @@ def sprintWindow():
                             driveTimeValue.delete(0,tk.END)
                             driveTimeValue.insert(0, inputdriveTimevalue.get())
                             config.set(trackname, "refueltime", inputRefuelTimeValue.get())
-                            refuelTimeValue.delete(0,tk.END)   
-                            refuelTimeValue.insert(0, inputRefuelTimeValue.get())
                             config.set(trackname, "tyrechangetime", inputTyreChangeValue.get())   
                             tyreChangeValue.delete(0,tk.END)
                             tyreChangeValue.insert(0, inputTyreChangeValue.get())
@@ -1245,8 +1228,6 @@ def sprintWindow():
                     driveTimeValue.delete(0,tk.END)
                     driveTimeValue.insert(0, inputdriveTimevalue.get())
                     config.set(trackname, "refueltime", inputRefuelTimeValue.get())
-                    refuelTimeValue.delete(0,tk.END)   
-                    refuelTimeValue.insert(0, inputRefuelTimeValue.get())
                     config.set(trackname, "tyrechangetime", inputTyreChangeValue.get())   
                     tyreChangeValue.delete(0,tk.END)
                     tyreChangeValue.insert(0, inputTyreChangeValue.get())
@@ -1414,6 +1395,7 @@ def sprintWindow():
         laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
         
         #pit info
+
         dttime = float(driveTimeValue.get())
         refueltime = 10
         tyrechangetime = float(tyreChangeValue.get())
@@ -1427,12 +1409,6 @@ def sprintWindow():
         fastesttime = 200000000
         fasteststrat = 0
 
-        #ciorna
-        # (racelenght no stop) + wear*race
-        #
-        #
-        #
-
         for pitcount in range(7):
             racetime = laptime*racelengthlaps+wear*racelengthlaps*wear*(racelengthlaps+1)*ratio*0.5/(pitcount+1)+(dttime+tyrechangetime)*pitcount
             racetime = int(racetime)
@@ -1441,8 +1417,6 @@ def sprintWindow():
             if racetime<fastesttime :
                 fastesttime = racetime
                 fasteststrat = pitcount
-
-
 
         outputWindow = tk.Tk()
         outputWindow.title("SSG+ Sprint Output")
@@ -1474,21 +1448,20 @@ def sprintWindow():
 
     #OTHER BUTTONS
 
-    deButtonWrap = tk.Frame(bprWrap, bg="#1d2127")
-    deButtonWrap.pack(expand=True, pady=(0, 20))
+    # deButtonWrap = tk.Frame(bprWrap, bg="#1d2127")
+    # deButtonWrap.pack(pady=(22, 18), side=tk.TOP)
 
-    documentaton = tk.Button(deButtonWrap, text="Readme", width=9, height=2, bg="#121518", fg="#cccccc", bd=1, command=lambda:webbrowser.open("README.md"))
+    documentaton = tk.Button(bprWrap, text="Readme", width=20, height=2, bg="#121518", fg="#cccccc", bd=1, command=lambda:webbrowser.open("README.md"))
     documentaton.config(font=("Helvetical bold", 14))
-    documentaton.pack(expand=True, side=tk.LEFT, padx=(0,7))
-
-    exit = tk.Button(deButtonWrap, text="Exit", command=endWindow.destroy, width=9, height=2, bg="#121518", fg="#cccccc", activeforeground="white", activebackground="red", bd=1)
-    exit.config(font=("Helvetical bold", 14))
-    exit.pack(expand=True, side=tk.LEFT, padx=(7, 0))
+    documentaton.pack(expand=True, side=tk.TOP, pady=(10, 0))
 
     submitData = tk.Button(bprWrap, text="Calculate \n Strategy", height=2, width=20, command=submitSprint,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
     submitData.config(font=("Helvetical bold", 14))
-    submitData.pack(expand=True, side=tk.LEFT)
+    submitData.pack(side=tk.TOP, expand=True, pady=(0, 0))
 
+    exit = tk.Button(bprWrap, text="Exit", command=sprintWindow.destroy, width=20, height=2, bg="#121518", fg="#cccccc", activeforeground="white", activebackground="red", bd=1)
+    exit.config(font=("Helvetical bold", 14))
+    exit.pack(expand=True, side=tk.TOP, pady=(0, 0))
 
 
 
@@ -1501,7 +1474,7 @@ endurance = tk.Button(startWindow, text="Endurance", height=2, width=15, bg="#12
 endurance.config(font=("Helvetical bold",15))
 endurance.pack(expand=True)
 
-sprint = tk.Button(startWindow, text="Sprint", height=2, width=15, bg="#121518", fg="#cccccc", command=sprintWindow)
+sprint = tk.Button(startWindow, text="Sprint", height=2, width=15, bg="#121518", fg="#cccccc", command=sprint)
 sprint.config(font=("Helvetical bold", 15))
 sprint.pack(expand=True)
 
