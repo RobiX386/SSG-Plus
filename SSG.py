@@ -288,7 +288,7 @@ def enduranceWindow():
         for x in carList: 
             carbuttonname=x
             carfilename=curentpath+x
-            carselect = tk.Button(carSelecWrap, bg="#1D2127", fg="#cccccc", activebackground="#FD7800", activeforeground="white", bd=1, text=carbuttonname, command=lambda carfilename=carfilename :trackSelectwind(carfilename))
+            carselect = tk.Button(carSelecWrap, bg="#121518", fg="#cccccc", activebackground="#FD7800", activeforeground="white", bd=1, text=carbuttonname, command=lambda carfilename=carfilename :trackSelectwind(carfilename))
             carselect.config(font=("Helvetical bold", 13))
             carselect.pack(side=tk.TOP, pady=10, padx=30)
 
@@ -438,7 +438,7 @@ def enduranceWindow():
                 trackpresetvalue.config(font=("Helvetical bold", 14))
                 trackpresetvalue.pack(side=tk.TOP, expand=True)
                 
-                trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=2, bg="#1D2127", fg="#cccccc", width=7, activebackground="#FD7800", activeforeground="white", command=lambda:tracksectioncheck(str(trackpresetvalue.get()).replace(" ", "")))
+                trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=2, bg="#121518", fg="#cccccc", width=7, activebackground="#FD7800", activeforeground="white", command=lambda:tracksectioncheck(str(trackpresetvalue.get()).replace(" ", "")))
                 trackpresetsendbut.config(font=("Helvetical bold", 14))
                 trackpresetsendbut.pack(side=tk.TOP, expand=True)
             
@@ -471,7 +471,7 @@ def enduranceWindow():
         carpresetvalue.config(font=("Helvetical bold", 14))
         carpresetvalue.pack(side=tk.TOP, expand=True)
 
-        carpresetsendbut = tk.Button(createCarPreset, text="Next", height=2, width=7, bg="#1D2127", fg="#cccccc", activebackground="#FD7800", activeforeground="white", command=lambda:filecheck(str(carpresetvalue.get()).replace(" ", "")))
+        carpresetsendbut = tk.Button(createCarPreset, text="Next", height=2, width=7, bg="#121518", fg="#cccccc", activebackground="#FD7800", activeforeground="white", command=lambda:filecheck(str(carpresetvalue.get()).replace(" ", "")))
         carpresetsendbut.config(font=("Helvetical bold", 14))
         carpresetsendbut.pack(side=tk.TOP, expand=True)
 
@@ -601,7 +601,7 @@ def enduranceWindow():
             trackList = readtracks.readline()
             trackList = trackList.split()
 
-            trackEditLabel = tk.Label(editPresetTrackWindow, text="Select what track you want to edit", fg="White", bg="#1D2127")
+            trackEditLabel = tk.Label(editPresetTrackWindow, text="Select which track \n you want to edit", fg="White", bg="#1D2127")
             trackEditLabel.config(font=("Helvetical bold", 18))
             trackEditLabel.pack(side=tk.TOP, pady=(20, 0))
 
@@ -720,18 +720,40 @@ def enduranceWindow():
         lapcount = 0
         stintcount = 0
 
+        #Output window
+        enduranceOutput = tk.Tk()
+        enduranceOutput.title("SSG+ Endurance Output")
+        enduranceOutput['bg']='#1d2127'
 
+        enduranceStrategy = tk.Label(enduranceOutput, text="Best Endurance \n Strategy", bg="#1d2127", fg="white")
+        enduranceStrategy.config(font=("Helvetical bold", 18))
+        enduranceStrategy.pack(expand=True, pady=(20, 0))
+
+        outputWrap = tk.Frame(enduranceOutput, bg="#1d2127", highlightbackground="#FD7800", highlightthickness=1)
+        outputWrap.pack(expand=True, padx=30, pady=20)
+
+        outputScroll = tk.Scrollbar(outputWrap, width=10)
+        outputScroll.pack(side=tk.RIGHT, fill=tk.Y)
+
+        outputList = tk.Listbox(outputWrap, yscrollcommand=outputScroll.set, bg="#1d2127", fg="#cccccc", bd=0, width=48, highlightbackground="#1d2127")
 
         #Stint info print
         conversion = datetime.timedelta(seconds=stinttime)
         textoutput = "\n- Welcome to Smart Strategy Generator - "
         foutput.write(textoutput)
-        textoutput = "\nStint lenght = "+str(conversion)+"\nRefuel rate = "+str(refuellitertime)+"seconds/L \n" 
+        outputList.insert(tk.END, textoutput)
+        textoutput = "\nStint lenght = "+str(conversion)
+        outputList.insert(tk.END, textoutput)
         foutput.write(textoutput)
+        textoutput = "\nRefuel rate = "+str(refuellitertime)+"seconds/L \n"
+        outputList.insert(tk.END, textoutput)
+        foutput.write(textoutput)
+
         while timeleft>stinttime :
             stintcount += 1
             textoutput="\n\nStint #"+str(stintcount)+"\n"
             foutput.write(textoutput)
+            outputList.insert(tk.END, textoutput)
             while fuelleft>=fuelcons*2:
                 fuelleft -= fuelcons
                 timeleft -= laptime 
@@ -739,6 +761,7 @@ def enduranceWindow():
                 conversion = datetime.timedelta(seconds=timeleft)
                 textoutput = "Lap : "+str(lapcount)+"| Time left : "+str(conversion)+"| Fuel left : "+str(round(fuelleft, 2))
                 foutput.write(textoutput)
+                outputList.insert(tk.END, textoutput)
                 foutput.write("\n")
 
             fuelleft -= fuelcons
@@ -758,6 +781,7 @@ def enduranceWindow():
             conversion = datetime.timedelta(seconds=timeleft)
             textoutput="PIT THIS LAP | Lap : " +str(lapcount)+" | Time left : "+str(conversion)+" | Fuel wasted : "+str(round(fuelleft, 2))
             foutput.write(textoutput)
+            outputList.insert(tk.END, textoutput)
             fuelleft = fueltank
 
 
@@ -767,9 +791,11 @@ def enduranceWindow():
         timeleft = timeleft - int(refuellitertime*fuelleft) - dttime
 
         #Last stint generator
+
         stintcount += 1
         textoutput="\nStint #"+str(stintcount)+"\n"
         foutput.write(textoutput)
+        outputList.insert(tk.END, textoutput)
         while timeleft>laptime :
             fuelleft -= fuelcons
             timeleft -= laptime 
@@ -778,6 +804,8 @@ def enduranceWindow():
             textoutput="Lap : "+str(lapcount)+"| Time left :"+str(conversion)+"| Fuel left : "+str(round(fuelleft, 2))
             foutput.write(textoutput)
             foutput.write("\n")
+            outputList.insert(tk.END, textoutput)
+            
 
         #Last lap 
         fuelleft -= fuelcons
@@ -785,7 +813,17 @@ def enduranceWindow():
         lapcount += 1
         textoutput="Lap : "+str(lapcount)+"| Fuel left : "+str(round(fuelleft, 2))+"| Race Finished!"
         foutput.write(textoutput)
-        webbrowser.open("output.txt")
+        outputList.insert(tk.END, textoutput)
+        # webbrowser.open("output.txt")
+
+        outputList.config(font=("Helvetical bold", 14))
+        outputList.pack(padx=10, pady=10, fill=tk.BOTH, side=tk.LEFT)
+
+        outputScroll.config(command=outputList.yview)
+
+        closeButton = tk.Button(enduranceOutput, text="Close Window", width=15, height=2, bg="#121518", fg="#cccccc",activebackground="red", activeforeground="white", bd=1,command=enduranceOutput.destroy)
+        closeButton.config(font=("Helvetical bold", 13))
+        closeButton.pack(pady=(0, 15))
 
 
     #OTHER BUTTONS
@@ -1019,7 +1057,7 @@ def sprint():
                 trackfilename=y
                 trackButtonName=y
                 TrackSelect = tk.Button(trackSelectWrap, bg="#121518", fg="#cccccc", activebackground="#FD7800", activeforeground="white", bd=1, text=trackButtonName, command= lambda trackfilename=trackfilename : insertdata(trackfilename))
-                TrackSelect.config(font=("Helvetical blue", 13))
+                TrackSelect.config(font=("Helvetical bold", 13))
                 TrackSelect.pack(side=tk.TOP, pady=10, padx=20)
             
         #CAR SELECT
@@ -1042,7 +1080,7 @@ def sprint():
         for x in carList: 
             carbuttonname=x
             carfilename=x
-            carselect = tk.Button(carSelecWrap, bg="#1D2127", fg="#cccccc", activebackground="#FD7800", activeforeground="white", bd=1, text=carbuttonname, command=lambda carfilename=carfilename :trackSelectwind(carfilename))
+            carselect = tk.Button(carSelecWrap, bg="#121518", fg="#cccccc", activebackground="#FD7800", activeforeground="white", bd=1, text=carbuttonname, command=lambda carfilename=carfilename :trackSelectwind(carfilename))
             carselect.config(font=("Helvetical bold", 13))
             carselect.pack(side=tk.TOP, pady=10, padx=30)
 
@@ -1190,7 +1228,7 @@ def sprint():
                 trackpresetvalue.config(font=("Helvetical bold", 14))
                 trackpresetvalue.pack(side=tk.TOP, expand=True)
                 
-                trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=2, bg="#1D2127", fg="#cccccc", width=7, activebackground="#FD7800", activeforeground="white", command=lambda:tracksectioncheck(str(trackpresetvalue.get()).replace(" ", "")))
+                trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=2, bg="#121518", fg="#cccccc", width=7, activebackground="#FD7800", activeforeground="white", command=lambda:tracksectioncheck(str(trackpresetvalue.get()).replace(" ", "")))
                 trackpresetsendbut.config(font=("Helvetical bold", 14))
                 trackpresetsendbut.pack(side=tk.TOP, expand=True)
             
@@ -1222,7 +1260,7 @@ def sprint():
         carpresetvalue.config(font=("Helvetical bold", 14))
         carpresetvalue.pack(side=tk.TOP, expand=True)
 
-        carpresetsendbut = tk.Button(createCarPreset, text="Next", height=2, width=7, bg="#1D2127", fg="#cccccc", activebackground="#FD7800", activeforeground="white", command=lambda:filecheck(str(carpresetvalue.get()).replace(" ", "")))
+        carpresetsendbut = tk.Button(createCarPreset, text="Next", height=2, width=7, bg="#121518", fg="#cccccc", activebackground="#FD7800", activeforeground="white", command=lambda:filecheck(str(carpresetvalue.get()).replace(" ", "")))
         carpresetsendbut.config(font=("Helvetical bold", 14))
         carpresetsendbut.pack(side=tk.TOP, expand=True)
 
@@ -1481,10 +1519,10 @@ def sprint():
 
 
 
-# canvas = tk.Canvas(startWindow, width = 300, height = 150, bg="#1D2127", highlightbackground="#1D2127")      
-# canvas.pack(pady=(60,0))      
-# img = tk.PhotoImage(file="SSG.png")      
-# canvas.create_image(150,75, image=img) 
+canvas = tk.Canvas(startWindow, width = 300, height = 150, bg="#1D2127", highlightbackground="#1D2127")      
+canvas.pack(pady=(60,0))      
+img = tk.PhotoImage(file="SSG.png")      
+canvas.create_image(150,75, image=img) 
 
 endurance = tk.Button(startWindow, text="Endurance", height=2, width=15, bg="#121518", fg="#cccccc", command=enduranceWindow)
 endurance.config(font=("Helvetical bold",15))
