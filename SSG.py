@@ -8,7 +8,7 @@ import os
 startWindow = tk.Tk()
 startWindow['bg']='#1D2127'
 startWindow.title("SSG+")
-startWindow.geometry("500x400")
+startWindow.geometry("500x400+700+300")
 
 space= ' '
 curentpath = os.getcwd()+"\presets"+"\\"
@@ -34,6 +34,7 @@ def enduranceWindow():
     endWindow = tk.Tk() 
     endWindow.config(bg="#1D2127")
     endWindow.title("SSG+ Endurance")
+    endWindow.geometry("785x617+400+200")
 
     pcrWrap = tk.Frame(endWindow, bg="#1D2127", width=500, height=300) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(20, 15))
@@ -724,6 +725,7 @@ def enduranceWindow():
         enduranceOutput = tk.Tk()
         enduranceOutput.title("SSG+ Endurance Output")
         enduranceOutput['bg']='#1d2127'
+        enduranceOutput.geometry("200+200")
 
         enduranceStrategy = tk.Label(enduranceOutput, text="Best Endurance \n Strategy", bg="#1d2127", fg="white")
         enduranceStrategy.config(font=("Helvetical bold", 18))
@@ -735,7 +737,7 @@ def enduranceWindow():
         outputScroll = tk.Scrollbar(outputWrap, width=10)
         outputScroll.pack(side=tk.RIGHT, fill=tk.Y)
 
-        outputList = tk.Listbox(outputWrap, yscrollcommand=outputScroll.set, bg="#1d2127", fg="#cccccc", bd=0, width=48, highlightbackground="#1d2127")
+        outputList = tk.Listbox(outputWrap, yscrollcommand=outputScroll.set, bg="#1d2127", fg="#cccccc", bd=0,height=25, width=52, highlightbackground="#1d2127")
 
         #Stint info print
         conversion = datetime.timedelta(seconds=stinttime)
@@ -782,6 +784,7 @@ def enduranceWindow():
             textoutput="PIT THIS LAP | Lap : " +str(lapcount)+" | Time left : "+str(conversion)+" | Fuel wasted : "+str(round(fuelleft, 2))
             foutput.write(textoutput)
             outputList.insert(tk.END, textoutput)
+            outputList.insert(tk.END, " ")
             fuelleft = fueltank
 
 
