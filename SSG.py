@@ -15,7 +15,7 @@ curentpath = os.getcwd()+"\presets"+"\\"
 print(curentpath)
 
 
-#V0.9 BETA
+#V2.0 Release
 
 def error(errortext):
     errorWindow = tk.Tk() 
@@ -34,7 +34,7 @@ def enduranceWindow():
     endWindow = tk.Tk() 
     endWindow.config(bg="#1D2127")
     endWindow.title("SSG+ Endurance")
-    endWindow.geometry("785x617+400+200")
+    endWindow.geometry("+400+200")
 
     pcrWrap = tk.Frame(endWindow, bg="#1D2127", width=500, height=300) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(20, 15))
@@ -46,18 +46,6 @@ def enduranceWindow():
     presetsTitle = tk.Label(presets, bg="#1D2127", text="Presets", fg="white", width=17)
     presetsTitle.config(font=('Helvatical bold',18))
     presetsTitle.pack(pady=(15, 0))
-
-
-    # tracks = tk.Frame(presets, bg="#1D2127")
-    # tracks.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-    
-    
-
-    #cars = tk.Frame(presets, bg="#1D2127")
-    #cars.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-
-    
-
 
     #CARINFO START
 
@@ -725,7 +713,7 @@ def enduranceWindow():
         enduranceOutput = tk.Tk()
         enduranceOutput.title("SSG+ Endurance Output")
         enduranceOutput['bg']='#1d2127'
-        enduranceOutput.geometry("200+200")
+        enduranceOutput.geometry("+200+200")
 
         enduranceStrategy = tk.Label(enduranceOutput, text="Best Endurance \n Strategy", bg="#1d2127", fg="white")
         enduranceStrategy.config(font=("Helvetical bold", 18))
@@ -737,7 +725,7 @@ def enduranceWindow():
         outputScroll = tk.Scrollbar(outputWrap, width=10)
         outputScroll.pack(side=tk.RIGHT, fill=tk.Y)
 
-        outputList = tk.Listbox(outputWrap, yscrollcommand=outputScroll.set, bg="#1d2127", fg="#cccccc", bd=0,height=25, width=52, highlightbackground="#1d2127")
+        outputList = tk.Listbox(outputWrap, yscrollcommand=outputScroll.set, bg="#1d2127", fg="#cccccc", bd=0,height=25, width=52, highlightbackground="#1d2127",selectbackground="#121518")
 
         #Stint info print
         conversion = datetime.timedelta(seconds=stinttime)
@@ -759,9 +747,12 @@ def enduranceWindow():
             while fuelleft>=fuelcons*2:
                 fuelleft -= fuelcons
                 timeleft -= laptime 
+                timeleft = int(timeleft * 100) / 100
+                print(timeleft)
                 lapcount += 1
-                conversion = datetime.timedelta(seconds=timeleft)
-                textoutput = "Lap : "+str(lapcount)+"| Time left : "+str(conversion)+"| Fuel left : "+str(round(fuelleft, 2))
+                conversion = str(datetime.timedelta(seconds=timeleft))
+                conversion = conversion[:-5]
+                textoutput = "Lap : "+str(lapcount)+" | Time left : "+str(conversion)+" | Fuel left : "+str(round(fuelleft, 2))
                 foutput.write(textoutput)
                 outputList.insert(tk.END, textoutput)
                 foutput.write("\n")
@@ -780,7 +771,8 @@ def enduranceWindow():
 
                 
             timeleft = timeleft-(dttime+refueltime)
-            conversion = datetime.timedelta(seconds=timeleft)
+            conversion = str(datetime.timedelta(seconds=timeleft))
+            conversion = conversion[:-5]
             textoutput="PIT THIS LAP | Lap : " +str(lapcount)+" | Time left : "+str(conversion)+" | Fuel wasted : "+str(round(fuelleft, 2))
             foutput.write(textoutput)
             outputList.insert(tk.END, textoutput)
@@ -862,18 +854,6 @@ def sprint():
     presetsTitle = tk.Label(presets, bg="#1D2127", text="Presets", fg="white", width=17)
     presetsTitle.config(font=('Helvatical bold',18))
     presetsTitle.pack(pady=(15, 0))
-
-
-    # tracks = tk.Frame(presets, bg="#1D2127")
-    # tracks.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-    
-    
-
-    #cars = tk.Frame(presets, bg="#1D2127")
-    #cars.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-
-    
-
 
     #CARINFO START
 
@@ -1504,9 +1484,6 @@ def sprint():
 
 
     #OTHER BUTTONS
-
-    # deButtonWrap = tk.Frame(bprWrap, bg="#1d2127")
-    # deButtonWrap.pack(pady=(22, 18), side=tk.TOP)
 
     documentaton = tk.Button(bprWrap, text="Readme", width=20, height=2, bg="#121518", fg="#cccccc", bd=1, command=lambda:webbrowser.open("README.md"))
     documentaton.config(font=("Helvetical bold", 14))
