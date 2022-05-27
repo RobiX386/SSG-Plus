@@ -755,10 +755,10 @@ def enduranceWindow():
                 fuelleft -= fuelcons
                 timeleft -= laptime 
                 timeleft = int(timeleft * 100) / 100
-                print(timeleft)
                 lapcount += 1
                 conversion = str(datetime.timedelta(seconds=timeleft))
-                conversion = conversion[:-5]
+                if len(conversion) > 9:
+                    conversion=conversion[:-4]
                 textoutput = "Lap : "+str(lapcount)+" | Time left : "+str(conversion)+" | Fuel left : "+str(round(fuelleft, 2))
                 foutput.write(textoutput)
                 outputList.insert(tk.END, textoutput)
@@ -779,7 +779,8 @@ def enduranceWindow():
                 
             timeleft = timeleft-(dttime+refueltime)
             conversion = str(datetime.timedelta(seconds=timeleft))
-            conversion = conversion[:-5]
+            if len(conversion) > 9:
+                conversion=conversion[:-4]
             textoutput="PIT THIS LAP | Lap : " +str(lapcount)+" | Time left : "+str(conversion)+" | Fuel wasted : "+str(round(fuelleft, 2))
             foutput.write(textoutput)
             outputList.insert(tk.END, textoutput)
@@ -802,7 +803,9 @@ def enduranceWindow():
             fuelleft -= fuelcons
             timeleft -= laptime 
             lapcount += 1
-            conversion = datetime.timedelta(seconds=timeleft)
+            conversion = str(datetime.timedelta(seconds=timeleft))
+            if len(conversion) > 9:
+                conversion=conversion[:-4]
             textoutput="Lap : "+str(lapcount)+"| Time left :"+str(conversion)+"| Fuel left : "+str(round(fuelleft, 2))
             foutput.write(textoutput)
             foutput.write("\n")
