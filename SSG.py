@@ -1,4 +1,5 @@
 from fileinput import filename
+from multiprocessing.dummy import active_children
 from operator import truediv
 import tkinter as tk
 import configparser
@@ -829,70 +830,70 @@ def enduranceWindow():
         closeButton.pack(pady=(0, 15))
 
 
-    def compareScreen():
+    def compareEnduranceScreen():
 
         foutput = open('output.txt', 'w')
         
         #car info
-        try:
-            fueltank = float(fueltankvalue.get())
-        except:
-            error("Fuel Tank variable\nis not correct")
-            return 0
+        # try:
+        #     fueltank = float(fueltankvalue.get())
+        # except:
+        #     error("Fuel Tank variable\nis not correct")
+        #     return 0
 
-        try:
-            fuelcons = float(fuelconsvalue.get())
-        except:
-            error("Fuel consumption value\nis not correct")
-            return 0
+        # try:
+        #     fuelcons = float(fuelconsvalue.get())
+        # except:
+        #     error("Fuel consumption value\nis not correct")
+        #     return 0
 
 
-        #race info
-        try:
-            racelength_h = int(racelenghtHourValue.get())
-        except:
-            error("Race length value\nis not correct")
-            return 0
-        try:
-            racelength_m = int(racelenghtMinuteValue.get())
-        except:
-            error("Race length value\nis not correct")
-            return 0
+        # #race info
+        # try:
+        #     racelength_h = int(racelenghtHourValue.get())
+        # except:
+        #     error("Race length value\nis not correct")
+        #     return 0
+        # try:
+        #     racelength_m = int(racelenghtMinuteValue.get())
+        # except:
+        #     error("Race length value\nis not correct")
+        #     return 0
         
-        try:
-            laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
-        except:
-            error("Laptime value\nis not correct")
-            return 0
+        # try:
+        #     laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
+        # except:
+        #     error("Laptime value\nis not correct")
+        #     return 0
 
-        #pit info
-        try:
-            dttime = float(driveTimeValue.get())
-        except:
-            error("DT time value\nis not correct")
-            return 0
-        try:
-            refueltime = float(refuelTimeValue.get())
-        except:
-            error("Refuel time value\nis not correct")
-            return 0
-        try:
-            tyrechangetime = float(tyreChangeValue.get())
-        except:
-            error("Tyre change value\nis not correct")
-            return 0
-        try:
-            stintpertyre = int(stintValue.get())
-        except:
-            error("Stints/Tyre value\nis not correct")
-            return 0
+        # #pit info
+        # try:
+        #     dttime = float(driveTimeValue.get())
+        # except:
+        #     error("DT time value\nis not correct")
+        #     return 0
+        # try:
+        #     refueltime = float(refuelTimeValue.get())
+        # except:
+        #     error("Refuel time value\nis not correct")
+        #     return 0
+        # try:
+        #     tyrechangetime = float(tyreChangeValue.get())
+        # except:
+        #     error("Tyre change value\nis not correct")
+        #     return 0
+        # try:
+        #     stintpertyre = int(stintValue.get())
+        # except:
+        #     error("Stints/Tyre value\nis not correct")
+        #     return 0
 
         compareWindow = tk.Tk()
         compareWindow['bg']='#1D2127'
         compareWindow.title("SSG+")
         compareWindow.geometry("500x400+500+200")
 
-        compareInputWrap = tk.Frame(compareWindow, bg="#1d2127")
+        compareInputWrap = tk.Frame(compareWindow, bg="#1d2127", highlightbackground="#FD7800", highlightthickness=2)
         compareInputWrap.pack(expand=True)
 
         #laptime
@@ -902,7 +903,7 @@ def enduranceWindow():
 
         laptimeCompare = tk.Label(laptimeCompareWrap, text="Lap Time", bg="#1D2127", fg="white", height=3)
         laptimeCompare.config(font=("Helvetical bold", 18))
-        laptimeCompare.pack(side=tk.LEFT, padx=(15, 41), pady=(0, 9))
+        laptimeCompare.pack(side=tk.LEFT, padx=(15, 41), pady=(0, 0))
 
         lapCompareMinValue = tk.Entry(laptimeCompareWrap, width=3, fg="black")
         lapCompareMinValue.pack(side=tk.LEFT)
@@ -918,7 +919,7 @@ def enduranceWindow():
 
         #Stint info
 
-        stintWrapCompare = tk.Frame(pitInfo, bg="#1D2127")
+        stintWrapCompare = tk.Frame(compareInputWrap, bg="#1D2127")
         stintWrapCompare.pack(side=tk.TOP, expand=True)
     
         stintpertyreCompare = tk.Label(stintWrapCompare, text="Stint/Tyre", bg="#1D2127", fg="white", height=3)
@@ -944,7 +945,12 @@ def enduranceWindow():
         consWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=(4, 20))
 
         lperlapCompare = tk.Label(tankWrapCompare, text="L/Lap", fg="white", bg="#1D2127")
-        lperlapCompare.pack(side=tk.LEFT, fill=tk.Y) 
+        lperlapCompare.pack(side=tk.LEFT, fill=tk.Y)
+
+        #button
+        submitCompareData = tk.Button(compareWindow, text="Compare \n Strategy", height=2, width=9, command=submitEndurance,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
+        submitCompareData.config(font=("Helvetical bold", 14))
+        submitCompareData.pack(expand=True, side=tk.LEFT, padx=(7,0),pady=(0,20))
 
 
     #OTHER BUTTONS
@@ -964,7 +970,7 @@ def enduranceWindow():
     exit.config(font=("Helvetical bold", 14))
     exit.pack(expand=True, side=tk.LEFT, padx=(7, 0))
 
-    compareData = tk.Button(csButtonWrap, text="Compare \n Strategy", height=2, width=9, command=compareScreen,bg="#121518", fg="#cccccc", bd=1, activebackground="#FD7800", activeforeground="white")
+    compareData = tk.Button(csButtonWrap, text="Compare \n Strategy", height=2, width=9, command=compareEnduranceScreen,bg="#121518", fg="#cccccc", bd=1, activebackground="#FD7800", activeforeground="white")
     compareData.config(font=("Helvetical bold", 14))
     compareData.pack(expand=True, side=tk.LEFT, padx=(0,7))
 
