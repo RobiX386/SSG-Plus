@@ -845,7 +845,7 @@ def enduranceWindow():
     deButtonWrap = tk.Frame(bprWrap, bg=background)
     deButtonWrap.pack(expand=True, pady=(0, 20))
 
-    documentaton = tk.Button(deButtonWrap, text="Readme", width=9, height=2, bg=foreground, fg="#cccccc", bd=1, command=lambda:webbrowser.open("README.md"))
+    documentaton = tk.Button(deButtonWrap, text="Readme", width=9, height=2, bg=foreground, fg="#cccccc", activebackground=accent, bd=1, command=lambda:webbrowser.open("README.md"))
     documentaton.config(font=(fontType, 14))
     documentaton.pack(expand=True, side=tk.LEFT, padx=(0,7))
 
@@ -1511,7 +1511,7 @@ def sprint():
 
     #OTHER BUTTONS
 
-    documentaton = tk.Button(bprWrap, text="Readme", width=20, height=2, bg=foreground, fg="#cccccc", bd=1, command=lambda:webbrowser.open("README.md"))
+    documentaton = tk.Button(bprWrap, text="Readme", width=20, height=2, bg=foreground, fg="#cccccc", activebackground=accent,bd=1, command=lambda:webbrowser.open("README.md"))
     documentaton.config(font=(fontType, 14))
     documentaton.pack(expand=True, side=tk.TOP, pady=(10, 0))
 
@@ -1530,11 +1530,11 @@ canvas.pack(pady=(60,0))
 img = tk.PhotoImage(file="SSG.png")      
 canvas.create_image(150,75, image=img) 
 
-endurance = tk.Button(startWindow, text="Endurance", height=2, width=15, bg=foreground, fg="#cccccc", command=enduranceWindow)
+endurance = tk.Button(startWindow, text="Endurance", height=2, width=15, bg=foreground, fg="#cccccc", activebackground=accent, command=enduranceWindow)
 endurance.config(font=(fontType,15))
 endurance.pack(expand=True)
 
-sprint = tk.Button(startWindow, text="Sprint", height=2, width=15, bg=foreground, fg="#cccccc", command=sprint)
+sprint = tk.Button(startWindow, text="Sprint", height=2, width=15, bg=foreground, fg="#cccccc", activebackground=accent, command=sprint)
 sprint.config(font=(fontType, 15))
 sprint.pack(expand=True)
 
