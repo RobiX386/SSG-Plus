@@ -1,4 +1,5 @@
 from fileinput import filename
+from operator import truediv
 import tkinter as tk
 import configparser
 import datetime
@@ -828,10 +829,132 @@ def enduranceWindow():
         closeButton.pack(pady=(0, 15))
 
 
+    def compareScreen():
+
+        foutput = open('output.txt', 'w')
+        
+        #car info
+        try:
+            fueltank = float(fueltankvalue.get())
+        except:
+            error("Fuel Tank variable\nis not correct")
+            return 0
+
+        try:
+            fuelcons = float(fuelconsvalue.get())
+        except:
+            error("Fuel consumption value\nis not correct")
+            return 0
+
+
+        #race info
+        try:
+            racelength_h = int(racelenghtHourValue.get())
+        except:
+            error("Race length value\nis not correct")
+            return 0
+        try:
+            racelength_m = int(racelenghtMinuteValue.get())
+        except:
+            error("Race length value\nis not correct")
+            return 0
+        
+        try:
+            laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
+        except:
+            error("Laptime value\nis not correct")
+            return 0
+
+        #pit info
+        try:
+            dttime = float(driveTimeValue.get())
+        except:
+            error("DT time value\nis not correct")
+            return 0
+        try:
+            refueltime = float(refuelTimeValue.get())
+        except:
+            error("Refuel time value\nis not correct")
+            return 0
+        try:
+            tyrechangetime = float(tyreChangeValue.get())
+        except:
+            error("Tyre change value\nis not correct")
+            return 0
+        try:
+            stintpertyre = int(stintValue.get())
+        except:
+            error("Stints/Tyre value\nis not correct")
+            return 0
+
+        compareWindow = tk.Tk()
+        compareWindow['bg']='#1D2127'
+        compareWindow.title("SSG+")
+        compareWindow.geometry("500x400+500+200")
+
+        compareInputWrap = tk.Frame(compareWindow, bg="#1d2127")
+        compareInputWrap.pack(expand=True)
+
+        #laptime
+
+        laptimeCompareWrap = tk.Frame(compareInputWrap, bg="#1D2127")
+        laptimeCompareWrap.pack(side=tk.TOP, expand=True)
+
+        laptimeCompare = tk.Label(laptimeCompareWrap, text="Lap Time", bg="#1D2127", fg="white", height=3)
+        laptimeCompare.config(font=("Helvetical bold", 18))
+        laptimeCompare.pack(side=tk.LEFT, padx=(15, 41), pady=(0, 9))
+
+        lapCompareMinValue = tk.Entry(laptimeCompareWrap, width=3, fg="black")
+        lapCompareMinValue.pack(side=tk.LEFT)
+
+        lapCompareMinutes = tk.Label(laptimeCompareWrap, text="min", bg="#1D2127", fg="white")
+        lapCompareMinutes.pack(side=tk.LEFT, padx=5)
+
+        lapCompareSecondsValue = tk.Entry(laptimeCompareWrap, width=5, fg="black")
+        lapCompareSecondsValue.pack(side=tk.LEFT, pady=0)
+
+        secondsCompare = tk.Label(laptimeCompareWrap, text="sec", bg="#1D2127", fg="white")
+        secondsCompare.pack(fill=tk.Y, side=tk.LEFT, padx=(2, 0))
+
+        #Stint info
+
+        stintWrapCompare = tk.Frame(pitInfo, bg="#1D2127")
+        stintWrapCompare.pack(side=tk.TOP, expand=True)
+    
+        stintpertyreCompare = tk.Label(stintWrapCompare, text="Stint/Tyre", bg="#1D2127", fg="white", height=3)
+        stintpertyreCompare.config(font=("Helvetical bold", 18))
+        stintpertyreCompare.pack(side=tk.LEFT, padx=(0, 29))
+
+        stintCompareValue = tk.Entry(stintWrapCompare, width=8, fg="black")
+        stintCompareValue.pack(side=tk.LEFT, padx=(0, 25))
+
+        #fuel cons
+
+        tankWrapCompare = tk.Frame(compareInputWrap, bg="#1D2127")
+        tankWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=20)
+
+        fuelConsCompare = tk.Label(tankWrapCompare, text="Fuel Consumption", fg="white", bg="#1D2127", width=16)
+        fuelConsCompare.config(font=("Helvetical bold", 18))
+        fuelConsCompare.pack(side=tk.LEFT)
+
+        fuelconsComparevalue = tk.Entry(tankWrapCompare, width=12, bg="white")
+        fuelconsComparevalue.pack(side=tk.LEFT, pady=20)
+
+        consWrapCompare = tk.Frame(tankWrapCompare, bg="#1D2127")
+        consWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=(4, 20))
+
+        lperlapCompare = tk.Label(tankWrapCompare, text="L/Lap", fg="white", bg="#1D2127")
+        lperlapCompare.pack(side=tk.LEFT, fill=tk.Y) 
+
+
     #OTHER BUTTONS
 
     deButtonWrap = tk.Frame(bprWrap, bg="#1d2127")
     deButtonWrap.pack(expand=True, pady=(0, 20))
+
+    csButtonWrap = tk.Frame(bprWrap, bg="#1d2127")
+    csButtonWrap.pack(expand=False)
+
 
     documentaton = tk.Button(deButtonWrap, text="Readme", width=9, height=2, bg="#121518", fg="#cccccc", bd=1, command=lambda:webbrowser.open("README.md"))
     documentaton.config(font=("Helvetical bold", 14))
@@ -841,9 +964,15 @@ def enduranceWindow():
     exit.config(font=("Helvetical bold", 14))
     exit.pack(expand=True, side=tk.LEFT, padx=(7, 0))
 
-    submitData = tk.Button(bprWrap, text="Calculate \n Strategy", height=2, width=20, command=submitEndurance,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
+    compareData = tk.Button(csButtonWrap, text="Compare \n Strategy", height=2, width=9, command=compareScreen,bg="#121518", fg="#cccccc", bd=1, activebackground="#FD7800", activeforeground="white")
+    compareData.config(font=("Helvetical bold", 14))
+    compareData.pack(expand=True, side=tk.LEFT, padx=(0,7))
+
+    submitData = tk.Button(csButtonWrap, text="Calculate \n Strategy", height=2, width=9, command=submitEndurance,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
     submitData.config(font=("Helvetical bold", 14))
-    submitData.pack(expand=True, side=tk.LEFT)
+    submitData.pack(expand=True, side=tk.LEFT, padx=(7,0))
+
+    
 
 def sprint():
     startWindow.destroy()
