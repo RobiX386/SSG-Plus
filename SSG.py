@@ -30,6 +30,8 @@ def error(errortext):
     errorbutton = tk.Button(errorWindow, text="Close Window", bg="#121518", fg="#cccccc", activebackground="red", activeforeground="white", command = errorWindow.destroy)
     errorbutton.pack(pady=0)
 
+
+
 def enduranceWindow():
 
     startWindow.destroy()
@@ -196,6 +198,272 @@ def enduranceWindow():
 
     stintValue = tk.Entry(stintWrap, width=8, fg="black")
     stintValue.pack(side=tk.LEFT, padx=(0, 25))
+
+    def compareEnduranceScreen():
+        def submitEnduranceComp():
+        
+            submitEndurance()
+
+            foutput = open('output.txt', 'w')
+
+
+            fueltank = float(fueltankvalue.get())
+            fuelcons = float(fuelconsComparevalue.get())
+
+            #race info
+            racelength_h = int(racelenghtHourValue.get())
+            racelength_m = int(racelenghtMinuteValue.get())
+            laptime = float(lapCompareMinValue.get())*60+float(lapCompareSecondsValue.get())
+            dttime = float(driveTimeValue.get())
+            refueltime = float(refuelTimeValue.get())
+            tyrechangetime = float(tyreChangeValue.get())
+            stintpertyre = int(stintCompareValue.get())
+
+            #Stint calculations
+            refuellitertime=refueltime/fueltank
+            refuellitertime=int(refuellitertime*100)/100
+            fuelleft = fueltank
+            tyrestint = stintpertyre
+            racelength = racelength_h*3600 + racelength_m*60
+            timeleft = racelength   
+            stinttime = int(fueltank/fuelcons) * laptime + dttime + refueltime + tyrechangetime
+            lapcount = 0
+            stintcount = 0
+
+            #Output window
+            enduranceCompareOutput = tk.Tk()
+            enduranceCompareOutput.title("SSG+ Endurance Output")
+            enduranceCompareOutput['bg']='#1d2127'
+            enduranceCompareOutput.geometry("+1200+0")
+
+            enduranceCompareStrategy = tk.Label(enduranceCompareOutput, text="Best Endurance \n Strategy", bg="#1d2127", fg="white")
+            enduranceCompareStrategy.config(font=("Helvetical bold", 18))
+            enduranceCompareStrategy.pack(expand=True, pady=(20, 0))
+
+            outputCompareWrap = tk.Frame(enduranceCompareOutput, bg="#1d2127", highlightbackground="#FD7800", highlightthickness=1)
+            outputCompareWrap.pack(expand=True, padx=30, pady=20)
+
+            outputCompareScroll = tk.Scrollbar(outputCompareWrap, width=10)
+            outputCompareScroll.pack(side=tk.RIGHT, fill=tk.Y)
+
+            outputList = tk.Listbox(outputCompareWrap, yscrollcommand=outputCompareScroll.set, bg="#1d2127", fg="#cccccc", bd=0,height=25, width=52, highlightbackground="#1d2127",selectbackground="#121518")
+
+            #Stint info print
+            conversion = datetime.timedelta(seconds=stinttime)
+            textoutput = "\n- Welcome to Smart Strategy Generator - "
+            foutput.write(textoutput)
+            outputList.insert(tk.END, textoutput)
+            textoutput = "\nStint lenght = "+str(conversion)
+            outputList.insert(tk.END, textoutput)
+            foutput.write(textoutput)
+            textoutput = "\nRefuel rate = "+str(refuellitertime)+"seconds/L \n"
+            outputList.insert(tk.END, textoutput)
+            foutput.write(textoutput)
+
+            while timeleft>stinttime :
+                stintcount += 1
+                textoutput="\n\nStint #"+str(stintcount)+"\n"
+                foutput.write(textoutput)
+                outputList.insert(tk.END, textoutput)
+                while fuelleft>=fuelcons*2:
+                        fuelleft -= fuelcons
+                        timeleft -= laptime 
+                        timeleft = int(timeleft * 100) / 100
+                        lapcount += 1
+                        conversion = str(datetime.timedelta(seconds=timeleft))
+                        if len(conversion)>8:
+                            conversion = conversion[:-5]
+                        textoutput = "Lap : "+str(lapcount)+" | Time left : "+str(conversion)+" | Fuel left : "+str(round(fuelleft, 2))
+                        foutput.write(textoutput)
+                        outputList.insert(tk.END, textoutput)
+                        foutput.write("\n")
+
+                fuelleft -= fuelcons
+                timeleft -= laptime 
+                lapcount += 1
+
+
+                if tyrestint==1:
+                        tyrestint = stintpertyre
+                        timeleft -= tyrechangetime
+
+                elif tyrestint>1:
+                        tyrestint -= 1
+
+
+                timeleft = timeleft-(dttime+refueltime)
+                conversion = str(datetime.timedelta(seconds=timeleft))
+                if len(conversion)>8:
+                    conversion = conversion[:-5]
+                textoutput="PIT THIS LAP | Lap : " +str(lapcount)+" | Time left : "+str(conversion)+" | Fuel wasted : "+str(round(fuelleft, 2))
+                foutput.write(textoutput)
+                outputList.insert(tk.END, textoutput)
+                outputList.insert(tk.END, " ")
+                fuelleft = fueltank
+
+
+            #Last stint calculation
+            lapsleft = int(timeleft/laptime) + 1
+            fuelleft = fuelcons * lapsleft
+            timeleft = timeleft - int(refuellitertime*fuelleft) - dttime
+
+            #Last stint generator
+
+            stintcount += 1
+            textoutput="\nStint #"+str(stintcount)+"\n"
+            foutput.write(textoutput)
+            outputList.insert(tk.END, textoutput)
+            while timeleft>laptime :
+                fuelleft -= fuelcons
+                timeleft -= laptime 
+                lapcount += 1
+                conversion = datetime.timedelta(seconds=timeleft)
+                textoutput="Lap : "+str(lapcount)+"| Time left :"+str(conversion)+"| Fuel left : "+str(round(fuelleft, 2))
+                foutput.write(textoutput)
+                foutput.write("\n")
+                outputList.insert(tk.END, textoutput)
+
+
+            #Last lap 
+            fuelleft -= fuelcons
+            timeleft -= laptime 
+            lapcount += 1
+            textoutput="Lap : "+str(lapcount)+"| Fuel left : "+str(round(fuelleft, 2))+"| Race Finished!"
+            foutput.write(textoutput)
+            outputList.insert(tk.END, textoutput)
+            print(timeleft)
+            # webbrowser.open("output.txt")
+
+            outputList.config(font=("Helvetical bold", 14))
+            outputList.pack(padx=10, pady=10, fill=tk.BOTH, side=tk.LEFT)
+
+            outputCompareScroll.config(command=outputList.yview)
+
+            closeButton = tk.Button(enduranceCompareOutput, text="Close Window", width=15, height=2, bg="#121518", fg="#cccccc",activebackground="red", activeforeground="white", bd=1,command=enduranceCompareOutput.destroy)
+            closeButton.config(font=("Helvetical bold", 13))
+            closeButton.pack(pady=(0, 15))
+
+            compareWindow.destroy()
+        
+        foutput = open('output.txt', 'w')
+        
+        #car info
+        # try:
+        #     fueltank = float(fueltankvalue.get())
+        # except:
+        #     error("Fuel Tank variable\nis not correct")
+        #     return 0
+
+        # try:
+        #     fuelcons = float(fuelconsvalue.get())
+        # except:
+        #     error("Fuel consumption value\nis not correct")
+        #     return 0
+
+
+        # #race info
+        # try:
+        #     racelength_h = int(racelenghtHourValue.get())
+        # except:
+        #     error("Race length value\nis not correct")
+        #     return 0
+        # try:
+        #     racelength_m = int(racelenghtMinuteValue.get())
+        # except:
+        #     error("Race length value\nis not correct")
+        #     return 0
+        
+        # try:
+        #     laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
+        # except:
+        #     error("Laptime value\nis not correct")
+        #     return 0
+
+        # #pit info
+        # try:
+        #     dttime = float(driveTimeValue.get())
+        # except:
+        #     error("DT time value\nis not correct")
+        #     return 0
+        # try:
+        #     refueltime = float(refuelTimeValue.get())
+        # except:
+        #     error("Refuel time value\nis not correct")
+        #     return 0
+        # try:
+        #     tyrechangetime = float(tyreChangeValue.get())
+        # except:
+        #     error("Tyre change value\nis not correct")
+        #     return 0
+        # try:
+        #     stintpertyre = int(stintValue.get())
+        # except:
+        #     error("Stints/Tyre value\nis not correct")
+        #     return 0
+
+        compareWindow = tk.Tk()
+        compareWindow['bg']='#1D2127'
+        compareWindow.title("SSG+")
+        compareWindow.geometry("500x400+500+200")
+
+        compareInputWrap = tk.Frame(compareWindow, bg="#1d2127", highlightbackground="#FD7800", highlightthickness=2)
+        compareInputWrap.pack(expand=True)
+
+        #laptime
+
+        laptimeCompareWrap = tk.Frame(compareInputWrap, bg="#1D2127")
+        laptimeCompareWrap.pack(side=tk.TOP, expand=True)
+
+        laptimeCompare = tk.Label(laptimeCompareWrap, text="Lap Time", bg="#1D2127", fg="white", height=3)
+        laptimeCompare.config(font=("Helvetical bold", 18))
+        laptimeCompare.pack(side=tk.LEFT, padx=(15, 41), pady=(0, 0))
+
+        lapCompareMinValue = tk.Entry(laptimeCompareWrap, width=3, fg="black")
+        lapCompareMinValue.pack(side=tk.LEFT)
+
+        lapCompareMinutes = tk.Label(laptimeCompareWrap, text="min", bg="#1D2127", fg="white")
+        lapCompareMinutes.pack(side=tk.LEFT, padx=5)
+
+        lapCompareSecondsValue = tk.Entry(laptimeCompareWrap, width=5, fg="black")
+        lapCompareSecondsValue.pack(side=tk.LEFT, pady=0)
+
+        secondsCompare = tk.Label(laptimeCompareWrap, text="sec", bg="#1D2127", fg="white")
+        secondsCompare.pack(fill=tk.Y, side=tk.LEFT, padx=(2, 0))
+
+        #Stint info
+
+        stintWrapCompare = tk.Frame(compareInputWrap, bg="#1D2127")
+        stintWrapCompare.pack(side=tk.TOP, expand=True)
+    
+        stintpertyreCompare = tk.Label(stintWrapCompare, text="Stint/Tyre", bg="#1D2127", fg="white", height=3)
+        stintpertyreCompare.config(font=("Helvetical bold", 18))
+        stintpertyreCompare.pack(side=tk.LEFT, padx=(0, 29))
+
+        stintCompareValue = tk.Entry(stintWrapCompare, width=8, fg="black")
+        stintCompareValue.pack(side=tk.LEFT, padx=(0, 25))
+
+        #fuel cons
+
+        tankWrapCompare = tk.Frame(compareInputWrap, bg="#1D2127")
+        tankWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=20)
+
+        fuelConsCompare = tk.Label(tankWrapCompare, text="Fuel Consumption", fg="white", bg="#1D2127", width=16)
+        fuelConsCompare.config(font=("Helvetical bold", 18))
+        fuelConsCompare.pack(side=tk.LEFT)
+
+        fuelconsComparevalue = tk.Entry(tankWrapCompare, width=12, bg="white")
+        fuelconsComparevalue.pack(side=tk.LEFT, pady=20)
+
+        consWrapCompare = tk.Frame(tankWrapCompare, bg="#1D2127")
+        consWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=(4, 20))
+
+        lperlapCompare = tk.Label(tankWrapCompare, text="L/Lap", fg="white", bg="#1D2127")
+        lperlapCompare.pack(side=tk.LEFT, fill=tk.Y)
+
+        #button
+        submitCompareData = tk.Button(compareWindow, text="Compare \n Strategy", height=2, width=9, command=submitEnduranceComp,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
+        submitCompareData.config(font=("Helvetical bold", 14))
+        submitCompareData.pack(expand=True, side=tk.LEFT, padx=(7,0),pady=(0,20))
 
     #SELECT PRESET
     def carSelectwind():
@@ -633,21 +901,6 @@ def enduranceWindow():
             carselect.config(font=("Helvetical bold", 13))
             carselect.pack(side=tk.TOP, pady=10, padx=20)
 
-    #PRESET BUTTONS
-
-    newpreset = tk.Button(presets, text="New Preset",command=createnewpreset,fg="#cccccc" ,bg="#121518", activebackground="#FD7800", activeforeground="white", bd=1)
-    newpreset.config(font=("Helvetical bold", 12))
-    newpreset.pack(side=tk.LEFT, padx=0, pady=27, expand=True)
-
-    carselectbut = tk.Button(presets, text="Select preset",command=carSelectwind,fg="#cccccc" ,bg="#121518", activebackground="#FD7800", activeforeground="white", bd=1)
-    carselectbut.config(font=("Helvetical bold", 12))
-    carselectbut.pack(side=tk.LEFT, pady=27, padx=0, expand=True)
-
-    editpresetbut = tk.Button(presets, text="Edit Preset",command=editpresetcar,fg="#cccccc" ,bg="#121518", activebackground="#FD7800", activeforeground="white", bd=1)
-    editpresetbut.config(font=("Helvetical bold", 12))
-    editpresetbut.pack(side=tk.LEFT, padx=0, pady=27, expand=True) 
-
-
     #CALCULATE STRATEGY
     def submitEndurance():
         
@@ -757,10 +1010,10 @@ def enduranceWindow():
                 fuelleft -= fuelcons
                 timeleft -= laptime 
                 timeleft = int(timeleft * 100) / 100
-                print(timeleft)
                 lapcount += 1
                 conversion = str(datetime.timedelta(seconds=timeleft))
-                conversion = conversion[:-5]
+                if len(conversion)>8:
+                            conversion = conversion[:-5]
                 textoutput = "Lap : "+str(lapcount)+" | Time left : "+str(conversion)+" | Fuel left : "+str(round(fuelleft, 2))
                 foutput.write(textoutput)
                 outputList.insert(tk.END, textoutput)
@@ -781,7 +1034,8 @@ def enduranceWindow():
                 
             timeleft = timeleft-(dttime+refueltime)
             conversion = str(datetime.timedelta(seconds=timeleft))
-            conversion = conversion[:-5]
+            if len(conversion)>8:
+                            conversion = conversion[:-5]
             textoutput="PIT THIS LAP | Lap : " +str(lapcount)+" | Time left : "+str(conversion)+" | Fuel wasted : "+str(round(fuelleft, 2))
             foutput.write(textoutput)
             outputList.insert(tk.END, textoutput)
@@ -829,129 +1083,19 @@ def enduranceWindow():
         closeButton.config(font=("Helvetical bold", 13))
         closeButton.pack(pady=(0, 15))
 
+    #PRESET BUTTONS
 
-    def compareEnduranceScreen():
+    newpreset = tk.Button(presets, text="New Preset",command=createnewpreset,fg="#cccccc" ,bg="#121518", activebackground="#FD7800", activeforeground="white", bd=1)
+    newpreset.config(font=("Helvetical bold", 12))
+    newpreset.pack(side=tk.LEFT, padx=0, pady=27, expand=True)
 
-        foutput = open('output.txt', 'w')
-        
-        #car info
-        # try:
-        #     fueltank = float(fueltankvalue.get())
-        # except:
-        #     error("Fuel Tank variable\nis not correct")
-        #     return 0
+    carselectbut = tk.Button(presets, text="Select preset",command=carSelectwind,fg="#cccccc" ,bg="#121518", activebackground="#FD7800", activeforeground="white", bd=1)
+    carselectbut.config(font=("Helvetical bold", 12))
+    carselectbut.pack(side=tk.LEFT, pady=27, padx=0, expand=True)
 
-        # try:
-        #     fuelcons = float(fuelconsvalue.get())
-        # except:
-        #     error("Fuel consumption value\nis not correct")
-        #     return 0
-
-
-        # #race info
-        # try:
-        #     racelength_h = int(racelenghtHourValue.get())
-        # except:
-        #     error("Race length value\nis not correct")
-        #     return 0
-        # try:
-        #     racelength_m = int(racelenghtMinuteValue.get())
-        # except:
-        #     error("Race length value\nis not correct")
-        #     return 0
-        
-        # try:
-        #     laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
-        # except:
-        #     error("Laptime value\nis not correct")
-        #     return 0
-
-        # #pit info
-        # try:
-        #     dttime = float(driveTimeValue.get())
-        # except:
-        #     error("DT time value\nis not correct")
-        #     return 0
-        # try:
-        #     refueltime = float(refuelTimeValue.get())
-        # except:
-        #     error("Refuel time value\nis not correct")
-        #     return 0
-        # try:
-        #     tyrechangetime = float(tyreChangeValue.get())
-        # except:
-        #     error("Tyre change value\nis not correct")
-        #     return 0
-        # try:
-        #     stintpertyre = int(stintValue.get())
-        # except:
-        #     error("Stints/Tyre value\nis not correct")
-        #     return 0
-
-        compareWindow = tk.Tk()
-        compareWindow['bg']='#1D2127'
-        compareWindow.title("SSG+")
-        compareWindow.geometry("500x400+500+200")
-
-        compareInputWrap = tk.Frame(compareWindow, bg="#1d2127", highlightbackground="#FD7800", highlightthickness=2)
-        compareInputWrap.pack(expand=True)
-
-        #laptime
-
-        laptimeCompareWrap = tk.Frame(compareInputWrap, bg="#1D2127")
-        laptimeCompareWrap.pack(side=tk.TOP, expand=True)
-
-        laptimeCompare = tk.Label(laptimeCompareWrap, text="Lap Time", bg="#1D2127", fg="white", height=3)
-        laptimeCompare.config(font=("Helvetical bold", 18))
-        laptimeCompare.pack(side=tk.LEFT, padx=(15, 41), pady=(0, 0))
-
-        lapCompareMinValue = tk.Entry(laptimeCompareWrap, width=3, fg="black")
-        lapCompareMinValue.pack(side=tk.LEFT)
-
-        lapCompareMinutes = tk.Label(laptimeCompareWrap, text="min", bg="#1D2127", fg="white")
-        lapCompareMinutes.pack(side=tk.LEFT, padx=5)
-
-        lapCompareSecondsValue = tk.Entry(laptimeCompareWrap, width=5, fg="black")
-        lapCompareSecondsValue.pack(side=tk.LEFT, pady=0)
-
-        secondsCompare = tk.Label(laptimeCompareWrap, text="sec", bg="#1D2127", fg="white")
-        secondsCompare.pack(fill=tk.Y, side=tk.LEFT, padx=(2, 0))
-
-        #Stint info
-
-        stintWrapCompare = tk.Frame(compareInputWrap, bg="#1D2127")
-        stintWrapCompare.pack(side=tk.TOP, expand=True)
-    
-        stintpertyreCompare = tk.Label(stintWrapCompare, text="Stint/Tyre", bg="#1D2127", fg="white", height=3)
-        stintpertyreCompare.config(font=("Helvetical bold", 18))
-        stintpertyreCompare.pack(side=tk.LEFT, padx=(0, 29))
-
-        stintCompareValue = tk.Entry(stintWrapCompare, width=8, fg="black")
-        stintCompareValue.pack(side=tk.LEFT, padx=(0, 25))
-
-        #fuel cons
-
-        tankWrapCompare = tk.Frame(compareInputWrap, bg="#1D2127")
-        tankWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=20)
-
-        fuelConsCompare = tk.Label(tankWrapCompare, text="Fuel Consumption", fg="white", bg="#1D2127", width=16)
-        fuelConsCompare.config(font=("Helvetical bold", 18))
-        fuelConsCompare.pack(side=tk.LEFT)
-
-        fuelconsComparevalue = tk.Entry(tankWrapCompare, width=12, bg="white")
-        fuelconsComparevalue.pack(side=tk.LEFT, pady=20)
-
-        consWrapCompare = tk.Frame(tankWrapCompare, bg="#1D2127")
-        consWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=(4, 20))
-
-        lperlapCompare = tk.Label(tankWrapCompare, text="L/Lap", fg="white", bg="#1D2127")
-        lperlapCompare.pack(side=tk.LEFT, fill=tk.Y)
-
-        #button
-        submitCompareData = tk.Button(compareWindow, text="Compare \n Strategy", height=2, width=9, command=submitEndurance,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
-        submitCompareData.config(font=("Helvetical bold", 14))
-        submitCompareData.pack(expand=True, side=tk.LEFT, padx=(7,0),pady=(0,20))
-
+    editpresetbut = tk.Button(presets, text="Edit Preset",command=editpresetcar,fg="#cccccc" ,bg="#121518", activebackground="#FD7800", activeforeground="white", bd=1)
+    editpresetbut.config(font=("Helvetical bold", 12))
+    editpresetbut.pack(side=tk.LEFT, padx=0, pady=27, expand=True) 
 
     #OTHER BUTTONS
 
@@ -976,9 +1120,9 @@ def enduranceWindow():
 
     submitData = tk.Button(csButtonWrap, text="Calculate \n Strategy", height=2, width=9, command=submitEndurance,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
     submitData.config(font=("Helvetical bold", 14))
-    submitData.pack(expand=True, side=tk.LEFT, padx=(7,0))
+    submitData.pack(expand=True, side=tk.LEFT, padx=(7,0))    
 
-    
+
 
 def sprint():
     startWindow.destroy()
