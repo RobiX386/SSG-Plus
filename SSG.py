@@ -1,6 +1,3 @@
-from fileinput import filename
-from multiprocessing.dummy import active_children
-from operator import truediv
 import tkinter as tk
 import configparser
 import datetime
@@ -199,10 +196,14 @@ def enduranceWindow():
     stintValue = tk.Entry(stintWrap, width=8, fg="black")
     stintValue.pack(side=tk.LEFT, padx=(0, 25))
 
+
     def compareEnduranceScreen():
         def submitEnduranceComp():
-        
-            submitEndurance()
+
+            CompareValuesList = submitEndurance()
+
+            timeLeftCompare = CompareValuesList[0]
+            lapCountCompare = CompareValuesList[1]
 
             foutput = open('output.txt', 'w')
 
@@ -232,11 +233,11 @@ def enduranceWindow():
 
             #Output window
             enduranceCompareOutput = tk.Tk()
-            enduranceCompareOutput.title("SSG+ Endurance Output")
+            enduranceCompareOutput.title("SSG+ Endurance 2nd Output")
             enduranceCompareOutput['bg']='#1d2127'
             enduranceCompareOutput.geometry("+1200+0")
 
-            enduranceCompareStrategy = tk.Label(enduranceCompareOutput, text="Best Endurance \n Strategy", bg="#1d2127", fg="white")
+            enduranceCompareStrategy = tk.Label(enduranceCompareOutput, text="Second Endurance \n Strategy", bg="#1d2127", fg="white")
             enduranceCompareStrategy.config(font=("Helvetical bold", 18))
             enduranceCompareStrategy.pack(expand=True, pady=(20, 0))
 
@@ -342,8 +343,20 @@ def enduranceWindow():
             closeButton = tk.Button(enduranceCompareOutput, text="Close Window", width=15, height=2, bg="#121518", fg="#cccccc",activebackground="red", activeforeground="white", bd=1,command=enduranceCompareOutput.destroy)
             closeButton.config(font=("Helvetical bold", 13))
             closeButton.pack(pady=(0, 15))
-
+            
             compareWindow.destroy()
+
+            if lapcount == lapCountCompare:
+                if(timeleft<timeLeftCompare):
+                    error("2nd strategy is faster")
+                else:
+                    error("1st strategy is faster")
+            elif lapcount>lapCountCompare:
+                error("2nd strategy is faster")
+            else:
+                error("1st strategy is better")
+            
+
         
         foutput = open('output.txt', 'w')
         
@@ -977,7 +990,7 @@ def enduranceWindow():
         enduranceOutput['bg']='#1d2127'
         enduranceOutput.geometry("+400+0")
 
-        enduranceStrategy = tk.Label(enduranceOutput, text="Best Endurance \n Strategy", bg="#1d2127", fg="white")
+        enduranceStrategy = tk.Label(enduranceOutput, text="Endurance \n Strategy", bg="#1d2127", fg="white")
         enduranceStrategy.config(font=("Helvetical bold", 18))
         enduranceStrategy.pack(expand=True, pady=(20, 0))
 
@@ -1082,6 +1095,9 @@ def enduranceWindow():
         closeButton = tk.Button(enduranceOutput, text="Close Window", width=15, height=2, bg="#121518", fg="#cccccc",activebackground="red", activeforeground="white", bd=1,command=enduranceOutput.destroy)
         closeButton.config(font=("Helvetical bold", 13))
         closeButton.pack(pady=(0, 15))
+
+        CompareValuesList = [timeleft, lapcount]
+        return CompareValuesList
 
     #PRESET BUTTONS
 
