@@ -1,4 +1,5 @@
 from fileinput import filename
+from importlib.metadata import PathDistribution
 from multiprocessing.dummy import active_children
 from operator import truediv
 import tkinter as tk
@@ -893,65 +894,71 @@ def enduranceWindow():
         compareWindow.title("SSG+")
         compareWindow.geometry("500x400+500+200")
 
+        laptimeCompare = tk.Label(compareWindow, text="Alternative strategy data", bg="#1D2127", fg="white")
+        laptimeCompare.config(font=("Helvetical bold", 18))
+        laptimeCompare.pack(anchor="n",side=tk.TOP, pady=(50, 10))
+        
         compareInputWrap = tk.Frame(compareWindow, bg="#1d2127", highlightbackground="#FD7800", highlightthickness=2)
         compareInputWrap.pack(expand=True)
 
-        #laptime
+        #Wraps
 
-        laptimeCompareWrap = tk.Frame(compareInputWrap, bg="#1D2127")
-        laptimeCompareWrap.pack(side=tk.TOP, expand=True)
+        LabelCompareWrap = tk.Frame(compareInputWrap, bg="#1D2127")
+        LabelCompareWrap.pack(side=tk.LEFT, expand=True)
+        
+        EntryCompareWrap = tk.Frame(compareInputWrap, bg="#1D2127")
+        EntryCompareWrap.pack(side=tk.LEFT, expand=True)
 
-        laptimeCompare = tk.Label(laptimeCompareWrap, text="Lap Time", bg="#1D2127", fg="white", height=3)
+        laptimeCompareWrap = tk.Frame(EntryCompareWrap, bg="#1D2127")
+        laptimeCompareWrap.pack(side=tk.TOP, expand=True,pady=(10,0))
+
+        #laptime info
+
+        laptimeCompare = tk.Label(LabelCompareWrap, text="Lap Time", bg="#1D2127", fg="white")
         laptimeCompare.config(font=("Helvetical bold", 18))
-        laptimeCompare.pack(side=tk.LEFT, padx=(15, 41), pady=(0, 0))
+        laptimeCompare.pack(anchor="w",side=tk.TOP, padx=(10, 41), pady=(10, 10))
 
         lapCompareMinValue = tk.Entry(laptimeCompareWrap, width=3, fg="black")
-        lapCompareMinValue.pack(side=tk.LEFT)
+        lapCompareMinValue.pack(side=tk.LEFT,padx=(20,0),pady=(0,0))
 
         lapCompareMinutes = tk.Label(laptimeCompareWrap, text="min", bg="#1D2127", fg="white")
-        lapCompareMinutes.pack(side=tk.LEFT, padx=5)
+        lapCompareMinutes.pack(side=tk.LEFT, padx=5,pady=(0,0))
 
         lapCompareSecondsValue = tk.Entry(laptimeCompareWrap, width=5, fg="black")
-        lapCompareSecondsValue.pack(side=tk.LEFT, pady=0)
+        lapCompareSecondsValue.pack(side=tk.LEFT, pady=(0,0))
 
         secondsCompare = tk.Label(laptimeCompareWrap, text="sec", bg="#1D2127", fg="white")
-        secondsCompare.pack(fill=tk.Y, side=tk.LEFT, padx=(2, 0))
+        secondsCompare.pack(fill=tk.Y, side=tk.LEFT, padx=(2, 0),pady=(0,0))
 
         #Stint info
-
-        stintWrapCompare = tk.Frame(compareInputWrap, bg="#1D2127")
-        stintWrapCompare.pack(side=tk.TOP, expand=True)
-    
-        stintpertyreCompare = tk.Label(stintWrapCompare, text="Stint/Tyre", bg="#1D2127", fg="white", height=3)
+  
+        stintpertyreCompare = tk.Label(LabelCompareWrap, text="Stint/Tyre", bg="#1D2127", fg="white")
         stintpertyreCompare.config(font=("Helvetical bold", 18))
-        stintpertyreCompare.pack(side=tk.LEFT, padx=(0, 29))
+        stintpertyreCompare.pack(anchor="w",side=tk.TOP, padx=(10, 29),pady=(10,10))
 
-        stintCompareValue = tk.Entry(stintWrapCompare, width=8, fg="black")
-        stintCompareValue.pack(side=tk.LEFT, padx=(0, 25))
+        stintCompareValue = tk.Entry(EntryCompareWrap, width=8, fg="black")
+        stintCompareValue.pack(side=tk.TOP, padx=(25, 25),pady=(35,40))
 
         #fuel cons
 
-        tankWrapCompare = tk.Frame(compareInputWrap, bg="#1D2127")
-        tankWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=20)
-
-        fuelConsCompare = tk.Label(tankWrapCompare, text="Fuel Consumption", fg="white", bg="#1D2127", width=16)
+        fuelConsCompare = tk.Label(LabelCompareWrap, text="Fuel", fg="white", bg="#1D2127")
         fuelConsCompare.config(font=("Helvetical bold", 18))
-        fuelConsCompare.pack(side=tk.LEFT)
+        fuelConsCompare.pack(anchor="w",side=tk.TOP,padx=(10,0),pady=(10,0))
 
-        fuelconsComparevalue = tk.Entry(tankWrapCompare, width=12, bg="white")
-        fuelconsComparevalue.pack(side=tk.LEFT, pady=20)
+        fuelConsCompare = tk.Label(LabelCompareWrap, text="Consumption", fg="white", bg="#1D2127")
+        fuelConsCompare.config(font=("Helvetical bold", 18))
+        fuelConsCompare.pack(anchor="w",side=tk.TOP,padx=(10,0),pady=(0,10))
 
-        consWrapCompare = tk.Frame(tankWrapCompare, bg="#1D2127")
-        consWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=(4, 20))
+        fuelconsComparevalue = tk.Entry(EntryCompareWrap, width=12, bg="white")
+        fuelconsComparevalue.pack(side=tk.TOP, pady=(10,0))
 
-        lperlapCompare = tk.Label(tankWrapCompare, text="L/Lap", fg="white", bg="#1D2127")
-        lperlapCompare.pack(side=tk.LEFT, fill=tk.Y)
+        lperlapCompare = tk.Label(EntryCompareWrap, text="L/Lap", fg="white", bg="#1D2127")
+        lperlapCompare.pack(side=tk.TOP, fill=tk.Y,pady=(0,10))
 
         #button
         submitCompareData = tk.Button(compareWindow, text="Compare \n Strategy", height=2, width=9, command=submitEndurance,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
         submitCompareData.config(font=("Helvetical bold", 14))
         submitCompareData.pack(expand=True, side=tk.LEFT, padx=(7,0),pady=(0,20))
-
 
     #OTHER BUTTONS
 
