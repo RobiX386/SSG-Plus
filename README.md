@@ -1,6 +1,7 @@
 # SSG-Plus
 
 Documentatie : https://docs.google.com/document/d/1cr0oYHRvdzy9zlK0lLi3zGPsdFYHq2OrFH-uoomhd00/edit?usp=sharing
+Executabilul se poate gasi pe siteul nostru: https://sites.google.com/view/ssg-plus/
 
 Fisierul principal se numeste SSG.py
 
