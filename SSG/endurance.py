@@ -4,6 +4,7 @@ import configparser
 import datetime
 import webbrowser
 import os
+from errorFile import error
 
 #colors&&fonts
 
@@ -19,17 +20,6 @@ fontType=design.get("FONT", "fontFamily")
 space= ' '
 curentpath = os.getcwd() + "\presets"+"\\"
 
-
-def error(errortext):
-    errorWindow = tk.Tk() 
-    errorWindow.config(bg=background)
-    errorWindow.geometry("200x200+450+250")
-    errorWindow.title("ERROR")
-    errorlabel = tk.Label(errorWindow, text = errortext, fg= "white", bg=background)
-    errorlabel.config(font=(18))
-    errorlabel.pack(pady=50)
-    errorbutton = tk.Button(errorWindow, text="Close Window", bg=foreground, fg="#cccccc", activebackground="red", activeforeground="white", command = errorWindow.destroy)
-    errorbutton.pack(pady=0)
 
 def enduranceFunc():
     endWindow = tk.Tk() 
