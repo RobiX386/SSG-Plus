@@ -14,7 +14,7 @@ def error(errortext):
     errorWindow = tk.Tk() 
     errorWindow.config(bg=background)
     errorWindow.geometry("200x200+450+250")
-    errorWindow.title("ERROR")
+    errorWindow.title("SSG+")
     errorFrame = tk.Frame(errorWindow, bg=background, highlightbackground=accent, highlightthickness=1)
     errorFrame.pack(expand=True, padx=15, pady=20)
     errorlabel = tk.Label(errorFrame, text = errortext, fg= "white", bg=background)

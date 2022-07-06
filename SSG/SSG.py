@@ -12,6 +12,7 @@ background=design.get("COLOR", "background")
 foreground=design.get("COLOR", "foreground")
 accent=design.get("COLOR", "accent")
 textcolor=design.get("COLOR", "textcolor")
+buttonColor=design.get("COLOR", "buttonColor")
 fontType=design.get("FONT", "fontFamily")
 
 
@@ -35,11 +36,11 @@ canvas.pack(pady=(60,0))
 img = tk.PhotoImage(file="SSG.png")      
 canvas.create_image(150,75, image=img) 
 
-endurance = tk.Button(startWindow, text="Endurance", height=2, width=15, bg=foreground, fg="#cccccc", activebackground=accent, command=enduranceCommands)
+endurance = tk.Button(startWindow, text="Endurance", height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1, command=enduranceCommands)
 endurance.config(font=(fontType,15))
 endurance.pack(expand=True)
 
-sprint = tk.Button(startWindow, text="Sprint", height=2, width=15, bg=foreground, fg="#cccccc", activebackground=accent, command=sprintCommands)
+sprint = tk.Button(startWindow, text="Sprint", height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1, command=sprintCommands)
 sprint.config(font=(fontType, 15))
 sprint.pack(expand=True)
 

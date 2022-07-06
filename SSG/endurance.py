@@ -16,6 +16,7 @@ foreground=design.get("COLOR", "foreground")
 accent=design.get("COLOR", "accent")
 textcolor=design.get("COLOR", "textcolor")
 fontType=design.get("FONT", "fontFamily")
+buttonColor=design.get("COLOR", "buttonColor")
 
 space= ' '
 curentpath = os.getcwd() + "\presets"+"\\"
@@ -224,20 +225,20 @@ def enduranceFunc():
             #Output window
             enduranceCompareOutput = tk.Tk()
             enduranceCompareOutput.title("SSG+ Endurance 2nd Output")
-            enduranceCompareOutput['bg']='#1d2127'
+            enduranceCompareOutput['bg']=background
             enduranceCompareOutput.geometry("+1200+0")
 
-            enduranceCompareStrategy = tk.Label(enduranceCompareOutput, text="Second Endurance \n Strategy", bg="#1d2127", fg="white")
+            enduranceCompareStrategy = tk.Label(enduranceCompareOutput, text="Second Endurance \n Strategy", bg=background, fg="white")
             enduranceCompareStrategy.config(font=("Helvetical bold", 18))
             enduranceCompareStrategy.pack(expand=True, pady=(20, 0))
 
-            outputCompareWrap = tk.Frame(enduranceCompareOutput, bg="#1d2127", highlightbackground="#FD7800", highlightthickness=1)
+            outputCompareWrap = tk.Frame(enduranceCompareOutput, bg=background, highlightbackground=accent, highlightthickness=1)
             outputCompareWrap.pack(expand=True, padx=30, pady=20)
 
             outputCompareScroll = tk.Scrollbar(outputCompareWrap, width=10)
             outputCompareScroll.pack(side=tk.RIGHT, fill=tk.Y)
 
-            outputList = tk.Listbox(outputCompareWrap, yscrollcommand=outputCompareScroll.set, bg="#1d2127", fg="#cccccc", bd=0,height=25, width=52, highlightbackground="#1d2127",selectbackground="#121518")
+            outputList = tk.Listbox(outputCompareWrap, yscrollcommand=outputCompareScroll.set, bg=background, fg=textcolor, bd=0,height=25, width=52, highlightbackground=background,selectbackground=buttonColor)
 
             #Stint info print
             conversion = datetime.timedelta(seconds=stinttime)
@@ -330,7 +331,7 @@ def enduranceFunc():
 
             outputCompareScroll.config(command=outputList.yview)
 
-            closeButton = tk.Button(enduranceCompareOutput, text="Close Window", width=15, height=2, bg="#121518", fg="#cccccc",activebackground="red", activeforeground="white", bd=1,command=enduranceCompareOutput.destroy)
+            closeButton = tk.Button(enduranceCompareOutput, text="Close Window", width=15, height=2, bg=buttonColor, fg=textcolor,activebackground="red", activeforeground="white", bd=1,command=enduranceCompareOutput.destroy)
             closeButton.config(font=("Helvetical bold", 13))
             closeButton.pack(pady=(0, 15))
             
@@ -405,68 +406,73 @@ def enduranceFunc():
         #     return 0
 
         compareWindow = tk.Tk()
-        compareWindow['bg']='#1D2127'
+        compareWindow['bg']=background
         compareWindow.title("SSG+")
-        compareWindow.geometry("500x400+500+200")
+        compareWindow.geometry("+500+200")
 
-        compareInputWrap = tk.Frame(compareWindow, bg="#1d2127", highlightbackground="#FD7800", highlightthickness=2)
-        compareInputWrap.pack(expand=True)
+        compareInputWrap = tk.Frame(compareWindow, bg=background, highlightbackground=accent, highlightthickness=1)
+        compareInputWrap.pack(expand=True, padx=40, pady=25)
 
         #laptime
 
-        laptimeCompareWrap = tk.Frame(compareInputWrap, bg="#1D2127")
+        laptimeCompareWrap = tk.Frame(compareInputWrap, bg=background)
         laptimeCompareWrap.pack(side=tk.TOP, expand=True)
 
-        laptimeCompare = tk.Label(laptimeCompareWrap, text="Lap Time", bg="#1D2127", fg="white", height=3)
+        laptimeCompare = tk.Label(laptimeCompareWrap, text="Lap Time", bg=background, fg="white", height=2)
         laptimeCompare.config(font=("Helvetical bold", 18))
-        laptimeCompare.pack(side=tk.LEFT, padx=(15, 41), pady=(0, 0))
+        laptimeCompare.pack(side=tk.LEFT, padx=(10, 70), pady=(0, 0))
 
-        lapCompareMinValue = tk.Entry(laptimeCompareWrap, width=3, fg="black")
+        entryWrap = tk.Frame(laptimeCompareWrap, bg=background)
+        entryWrap.pack(side=tk.LEFT, padx=(0, 0))
+
+        lapCompareMinValue = tk.Entry(entryWrap, width=3, fg="black")
         lapCompareMinValue.pack(side=tk.LEFT)
 
-        lapCompareMinutes = tk.Label(laptimeCompareWrap, text="min", bg="#1D2127", fg="white")
-        lapCompareMinutes.pack(side=tk.LEFT, padx=5)
+        lapCompareMinutes = tk.Label(entryWrap, text="min", bg=background, fg="white")
+        lapCompareMinutes.pack(side=tk.LEFT, padx=0)
 
-        lapCompareSecondsValue = tk.Entry(laptimeCompareWrap, width=5, fg="black")
-        lapCompareSecondsValue.pack(side=tk.LEFT, pady=0)
+        lapCompareSecondsValue = tk.Entry(entryWrap, width=5, fg="black")
+        lapCompareSecondsValue.pack(side=tk.LEFT, padx=(10, 0))
 
-        secondsCompare = tk.Label(laptimeCompareWrap, text="sec", bg="#1D2127", fg="white")
-        secondsCompare.pack(fill=tk.Y, side=tk.LEFT, padx=(2, 0))
+        secondsCompare = tk.Label(entryWrap, text="sec", bg=background, fg="white")
+        secondsCompare.pack(fill=tk.Y, side=tk.LEFT, padx=0)
 
         #Stint info
 
-        stintWrapCompare = tk.Frame(compareInputWrap, bg="#1D2127")
+        stintWrapCompare = tk.Frame(compareInputWrap, bg=background)
         stintWrapCompare.pack(side=tk.TOP, expand=True)
-    
-        stintpertyreCompare = tk.Label(stintWrapCompare, text="Stint/Tyre", bg="#1D2127", fg="white", height=3)
+
+        stintpertyreCompare = tk.Label(stintWrapCompare, text="Stint/Tyre", bg=background, fg="white", height=2)
         stintpertyreCompare.config(font=("Helvetical bold", 18))
-        stintpertyreCompare.pack(side=tk.LEFT, padx=(0, 29))
+        stintpertyreCompare.pack(side=tk.LEFT, padx=(0, 100))
 
         stintCompareValue = tk.Entry(stintWrapCompare, width=8, fg="black")
-        stintCompareValue.pack(side=tk.LEFT, padx=(0, 25))
+        stintCompareValue.pack(side=tk.LEFT, padx=(0, 18))
 
         #fuel cons
 
-        tankWrapCompare = tk.Frame(compareInputWrap, bg="#1D2127")
-        tankWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=20)
+        tankWrapCompare = tk.Frame(compareInputWrap, bg=background)
+        tankWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=0)
 
-        fuelConsCompare = tk.Label(tankWrapCompare, text="Fuel Consumption", fg="white", bg="#1D2127", width=16)
+        fuelConsCompare = tk.Label(tankWrapCompare, text="Fuel Consumption", fg="white", bg=background, width=16, height=2)
         fuelConsCompare.config(font=("Helvetical bold", 18))
         fuelConsCompare.pack(side=tk.LEFT)
 
         fuelconsComparevalue = tk.Entry(tankWrapCompare, width=12, bg="white")
-        fuelconsComparevalue.pack(side=tk.LEFT, pady=20)
+        fuelconsComparevalue.pack(side=tk.LEFT, pady=0)
 
-        consWrapCompare = tk.Frame(tankWrapCompare, bg="#1D2127")
-        consWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=(4, 20))
+        consWrapCompare = tk.Frame(tankWrapCompare, bg=background)
+        consWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=0)
 
-        lperlapCompare = tk.Label(tankWrapCompare, text="L/Lap", fg="white", bg="#1D2127")
+        lperlapCompare = tk.Label(tankWrapCompare, text="L/Lap", fg="white", bg=background)
         lperlapCompare.pack(side=tk.LEFT, fill=tk.Y)
 
-        #button
-        submitCompareData = tk.Button(compareWindow, text="Compare \n Strategy", height=2, width=9, command=submitEnduranceComp,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
+        #SUBMIT COMPARE BUTTON
+        submitCompareData = tk.Button(compareWindow, text="Compare \n Strategy", width=9, bg=buttonColor, fg=textcolor, bd=1, activebackground=accent, activeforeground=buttonColor, command=submitEnduranceComp)
         submitCompareData.config(font=("Helvetical bold", 14))
-        submitCompareData.pack(expand=True, side=tk.LEFT, padx=(7,0),pady=(0,20))
+        submitCompareData.pack(expand=True, side=tk.LEFT, padx=0, pady=(0, 20))
+
+        compareWindow.mainloop()
 
     #SELECT PRESET
     def carSelectwind():
@@ -517,7 +523,7 @@ def enduranceFunc():
             trackList = readtracks.readline()
             trackList = trackList.split()
 
-            trackSelectLabel = tk.Label(trackSelectWindow, text="Select your track", bg=background, fg="#cccccc", bd=0, highlightcolor="#00FF00")
+            trackSelectLabel = tk.Label(trackSelectWindow, text="Select your track", bg=background, fg=textcolor, bd=0, highlightcolor="#00FF00")
             trackSelectLabel.config(font=(fontType, 18))
             trackSelectLabel.pack(side=tk.TOP, pady=(20, 0))
 
@@ -527,7 +533,7 @@ def enduranceFunc():
             for y in trackList: 
                 trackfilename=y
                 trackButtonName=y
-                TrackSelect = tk.Button(trackSelectWrap, bg=foreground, fg="#cccccc", activebackground=accent, activeforeground="white", bd=1, text=trackButtonName, command= lambda trackfilename=trackfilename : insertdata(trackfilename))
+                TrackSelect = tk.Button(trackSelectWrap, bg=foreground, fg=textcolor, activebackground=accent, activeforeground="white", bd=1, text=trackButtonName, command= lambda trackfilename=trackfilename : insertdata(trackfilename))
                 TrackSelect.config(font=("Helvetical blue", 13))
                 TrackSelect.pack(side=tk.TOP, pady=10, padx=20)
             
@@ -552,7 +558,7 @@ def enduranceFunc():
         for x in carList: 
             carbuttonname=x
             carfilename=curentpath+x
-            carselect = tk.Button(carSelecWrap, bg=foreground, fg="#cccccc", activebackground=accent, activeforeground="white", bd=1, text=carbuttonname, command=lambda carfilename=carfilename :trackSelectwind(carfilename))
+            carselect = tk.Button(carSelecWrap, bg=foreground, fg=textcolor, activebackground=accent, activeforeground="white", bd=1, text=carbuttonname, command=lambda carfilename=carfilename :trackSelectwind(carfilename))
             carselect.config(font=(fontType, 13))
             carselect.pack(side=tk.TOP, pady=10, padx=30)
 
@@ -664,7 +670,7 @@ def enduranceFunc():
                         seconds = tk.Label(tyreWrap, text="sec", bg=background, fg="white")
                         seconds.pack(fill=tk.Y, side=tk.LEFT)
 
-                        dataSubmit = tk.Button(inputWindow, text="Submit", activebackground=accent, activeforeground="white", background=foreground, fg="#cccccc", height=2, width=10, bd=1, command=datainiwrite)
+                        dataSubmit = tk.Button(inputWindow, text="Submit", activebackground=accent, activeforeground="white", background=foreground, fg=textcolor, height=2, width=10, bd=1, command=datainiwrite)
                         dataSubmit.config(font=(fontType, 13))
                         dataSubmit.pack(side=tk.BOTTOM, expand=True, pady=(0, 20))
 
@@ -704,7 +710,7 @@ def enduranceFunc():
                 trackpresetvalue.config(font=(fontType, 14))
                 trackpresetvalue.pack(side=tk.TOP, expand=True)
                 
-                trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=2, bg=foreground, fg="#cccccc", width=7, activebackground=accent, activeforeground="white", command=lambda:tracksectioncheck(str(trackpresetvalue.get()).replace(" ", "")))
+                trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=2, bg=foreground, fg=textcolor, width=7, activebackground=accent, activeforeground="white", command=lambda:tracksectioncheck(str(trackpresetvalue.get()).replace(" ", "")))
                 trackpresetsendbut.config(font=(fontType, 14))
                 trackpresetsendbut.pack(side=tk.TOP, expand=True)
             
@@ -737,7 +743,7 @@ def enduranceFunc():
         carpresetvalue.config(font=(fontType, 14))
         carpresetvalue.pack(side=tk.TOP, expand=True)
 
-        carpresetsendbut = tk.Button(createCarPreset, text="Next", height=2, width=7, bg=foreground, fg="#cccccc", activebackground=accent, activeforeground="white", command=lambda:filecheck(str(carpresetvalue.get()).replace(" ", "")))
+        carpresetsendbut = tk.Button(createCarPreset, text="Next", height=2, width=7, bg=foreground, fg=textcolor, activebackground=accent, activeforeground="white", command=lambda:filecheck(str(carpresetvalue.get()).replace(" ", "")))
         carpresetsendbut.config(font=(fontType, 14))
         carpresetsendbut.pack(side=tk.TOP, expand=True)
 
@@ -850,7 +856,7 @@ def enduranceFunc():
                 seconds = tk.Label(tyreWrap, text="sec", bg=background, fg="white")
                 seconds.pack(fill=tk.Y, side=tk.LEFT)
 
-                dataSubmit = tk.Button(inputWindow, text="Submit", activebackground=accent, activeforeground="white", background=foreground, fg="#cccccc", height=2, width=10, bd=1, command=datainiwrite)
+                dataSubmit = tk.Button(inputWindow, text="Submit", activebackground=accent, activeforeground="white", background=foreground, fg=textcolor, height=2, width=10, bd=1, command=datainiwrite)
                 dataSubmit.config(font=(fontType, 13))
                 dataSubmit.pack(side=tk.BOTTOM, expand=True, pady=(0, 20))
 
@@ -878,7 +884,7 @@ def enduranceFunc():
 
             for y in trackList: 
                 trackButtonName=y
-                trackEditSelect = tk.Button(trackWrap, text=trackButtonName, bg=foreground, fg="#cccccc", activebackground=accent, activeforeground="white", command=lambda y=y :presetInputWindow(y))
+                trackEditSelect = tk.Button(trackWrap, text=trackButtonName, bg=foreground, fg=textcolor, activebackground=accent, activeforeground="white", command=lambda y=y :presetInputWindow(y))
                 trackEditSelect.config(font=(fontType, 13))
                 trackEditSelect.pack(side=tk.TOP, pady=10, padx=20)
 
@@ -900,9 +906,23 @@ def enduranceFunc():
         
         for x in carList: 
             carbuttonname=x
-            carselect = tk.Button(carWrap, text=carbuttonname, bg=foreground, fg="#cccccc", activebackground=accent, activeforeground="white", command=lambda x=x :editpresettrack(x))
+            carselect = tk.Button(carWrap, text=carbuttonname, bg=foreground, fg=textcolor, activebackground=accent, activeforeground="white", command=lambda x=x :editpresettrack(x))
             carselect.config(font=(fontType, 13))
             carselect.pack(side=tk.TOP, pady=10, padx=20)
+
+    #PRESET BUTTONS
+
+    newpreset = tk.Button(presets, text="New Preset",command=createnewpreset,fg=textcolor ,bg=foreground, activebackground=accent, activeforeground="white", bd=1)
+    newpreset.config(font=(fontType, 12))
+    newpreset.pack(side=tk.LEFT, padx=0, pady=27, expand=True)
+
+    carselectbut = tk.Button(presets, text="Select preset",command=carSelectwind,fg=textcolor ,bg=foreground, activebackground=accent, activeforeground="white", bd=1)
+    carselectbut.config(font=(fontType, 12))
+    carselectbut.pack(side=tk.LEFT, pady=27, padx=0, expand=True)
+
+    editpresetbut = tk.Button(presets, text="Edit Preset",command=editpresetcar,fg=textcolor ,bg=foreground, activebackground=accent, activeforeground="white", bd=1)
+    editpresetbut.config(font=(fontType, 12))
+    editpresetbut.pack(side=tk.LEFT, padx=0, pady=27, expand=True)
 
 
     #CALCULATE STRATEGY
@@ -981,7 +1001,7 @@ def enduranceFunc():
         enduranceOutput['bg']=background
         enduranceOutput.geometry("+400+0")
 
-        enduranceStrategy = tk.Label(enduranceOutput, text="Endurance \n Strategy", bg="#1d2127", fg="white")
+        enduranceStrategy = tk.Label(enduranceOutput, text="Endurance \n Strategy", bg=background, fg=textcolor)
         enduranceStrategy.config(font=("Helvetical bold", 18))
         enduranceStrategy.pack(expand=True, pady=(20, 0))
 
@@ -991,7 +1011,7 @@ def enduranceFunc():
         outputScroll = tk.Scrollbar(outputWrap, width=10)
         outputScroll.pack(side=tk.RIGHT, fill=tk.Y)
 
-        outputList = tk.Listbox(outputWrap, yscrollcommand=outputScroll.set, bg=background, fg="#cccccc", bd=0,height=25, width=52, highlightbackground=background,selectbackground=foreground)
+        outputList = tk.Listbox(outputWrap, yscrollcommand=outputScroll.set, bg=background, fg=textcolor, bd=0,height=25, width=52, highlightbackground=background,selectbackground=foreground)
 
         #Stint info print
         conversion = datetime.timedelta(seconds=stinttime)
@@ -1087,162 +1107,35 @@ def enduranceFunc():
 
         outputScroll.config(command=outputList.yview)
 
-        closeButton = tk.Button(enduranceOutput, text="Close Window", width=15, height=2, bg=foreground, fg="#cccccc",activebackground="red", activeforeground="white", bd=1,command=enduranceOutput.destroy)
+        closeButton = tk.Button(enduranceOutput, text="Close Window", width=15, height=2, bg=foreground, fg=textcolor,activebackground="red", activeforeground="white", bd=1,command=enduranceOutput.destroy)
         closeButton.config(font=(fontType, 13))
         closeButton.pack(pady=(0, 15))
 
         CompareValuesList = [timeleft, lapcount]
         return CompareValuesList
 
-    def compareEnduranceScreen():
-
-        foutput = open('output.txt', 'w')
-        
-        #car info
-        # try:
-        #     fueltank = float(fueltankvalue.get())
-        # except:
-        #     error("Fuel Tank variable\nis not correct")
-        #     return 0
-
-        # try:
-        #     fuelcons = float(fuelconsvalue.get())
-        # except:
-        #     error("Fuel consumption value\nis not correct")
-        #     return 0
-
-
-        # #race info
-        # try:
-        #     racelength_h = int(racelenghtHourValue.get())
-        # except:
-        #     error("Race length value\nis not correct")
-        #     return 0
-        # try:
-        #     racelength_m = int(racelenghtMinuteValue.get())
-        # except:
-        #     error("Race length value\nis not correct")
-        #     return 0
-        
-        # try:
-        #     laptime = float(lapMinValue.get())*60+float(lapSecondsValue.get())
-        # except:
-        #     error("Laptime value\nis not correct")
-        #     return 0
-
-        # #pit info
-        # try:
-        #     dttime = float(driveTimeValue.get())
-        # except:
-        #     error("DT time value\nis not correct")
-        #     return 0
-        # try:
-        #     refueltime = float(refuelTimeValue.get())
-        # except:
-        #     error("Refuel time value\nis not correct")
-        #     return 0
-        # try:
-        #     tyrechangetime = float(tyreChangeValue.get())
-        # except:
-        #     error("Tyre change value\nis not correct")
-        #     return 0
-        # try:
-        #     stintpertyre = int(stintValue.get())
-        # except:
-        #     error("Stints/Tyre value\nis not correct")
-        #     return 0
-
-        compareWindow = tk.Tk()
-        compareWindow['bg']='#1D2127'
-        compareWindow.title("SSG+")
-        compareWindow.geometry("500x400+500+200")
-
-        laptimeCompare = tk.Label(compareWindow, text="Alternative strategy data", bg="#1D2127", fg="white")
-        laptimeCompare.config(font=("Helvetical bold", 18))
-        laptimeCompare.pack(anchor="n",side=tk.TOP, pady=(50, 10))
-        
-        compareInputWrap = tk.Frame(compareWindow, bg="#1d2127", highlightbackground="#FD7800", highlightthickness=2)
-        compareInputWrap.pack(expand=True)
-
-        #Wraps
-
-        LabelCompareWrap = tk.Frame(compareInputWrap, bg="#1D2127")
-        LabelCompareWrap.pack(side=tk.LEFT, expand=True)
-        
-        EntryCompareWrap = tk.Frame(compareInputWrap, bg="#1D2127")
-        EntryCompareWrap.pack(side=tk.LEFT, expand=True)
-
-        laptimeCompareWrap = tk.Frame(EntryCompareWrap, bg="#1D2127")
-        laptimeCompareWrap.pack(side=tk.TOP, expand=True,pady=(10,0))
-
-        #laptime info
-
-        laptimeCompare = tk.Label(LabelCompareWrap, text="Lap Time", bg="#1D2127", fg="white")
-        laptimeCompare.config(font=("Helvetical bold", 18))
-        laptimeCompare.pack(anchor="w",side=tk.TOP, padx=(10, 41), pady=(10, 10))
-
-        lapCompareMinValue = tk.Entry(laptimeCompareWrap, width=3, fg="black")
-        lapCompareMinValue.pack(side=tk.LEFT,padx=(20,0),pady=(0,0))
-
-        lapCompareMinutes = tk.Label(laptimeCompareWrap, text="min", bg="#1D2127", fg="white")
-        lapCompareMinutes.pack(side=tk.LEFT, padx=5,pady=(0,0))
-
-        lapCompareSecondsValue = tk.Entry(laptimeCompareWrap, width=5, fg="black")
-        lapCompareSecondsValue.pack(side=tk.LEFT, pady=(0,0))
-
-        secondsCompare = tk.Label(laptimeCompareWrap, text="sec", bg="#1D2127", fg="white")
-        secondsCompare.pack(fill=tk.Y, side=tk.LEFT, padx=(2, 0),pady=(0,0))
-
-        #Stint info
-  
-        stintpertyreCompare = tk.Label(LabelCompareWrap, text="Stint/Tyre", bg="#1D2127", fg="white")
-        stintpertyreCompare.config(font=("Helvetical bold", 18))
-        stintpertyreCompare.pack(anchor="w",side=tk.TOP, padx=(10, 29),pady=(10,10))
-
-        stintCompareValue = tk.Entry(EntryCompareWrap, width=8, fg="black")
-        stintCompareValue.pack(side=tk.TOP, padx=(25, 25),pady=(35,40))
-
-        #fuel cons
-
-        fuelConsCompare = tk.Label(LabelCompareWrap, text="Fuel", fg="white", bg="#1D2127")
-        fuelConsCompare.config(font=("Helvetical bold", 18))
-        fuelConsCompare.pack(anchor="w",side=tk.TOP,padx=(10,0),pady=(10,0))
-
-        fuelConsCompare = tk.Label(LabelCompareWrap, text="Consumption", fg="white", bg="#1D2127")
-        fuelConsCompare.config(font=("Helvetical bold", 18))
-        fuelConsCompare.pack(anchor="w",side=tk.TOP,padx=(10,0),pady=(0,10))
-
-        fuelconsComparevalue = tk.Entry(EntryCompareWrap, width=12, bg="white")
-        fuelconsComparevalue.pack(side=tk.TOP, pady=(10,0))
-
-        lperlapCompare = tk.Label(EntryCompareWrap, text="L/Lap", fg="white", bg="#1D2127")
-        lperlapCompare.pack(side=tk.TOP, fill=tk.Y,pady=(0,10))
-
-    carselectbut = tk.Button(presets, text="Select preset",command=carSelectwind,fg="#cccccc" ,bg="#121518", activebackground="#FD7800", activeforeground="white", bd=1)
-    carselectbut.config(font=("Helvetical bold", 12))
-    carselectbut.pack(side=tk.LEFT, pady=27, padx=0, expand=True)
 
     #OTHER BUTTONS
 
     deButtonWrap = tk.Frame(bprWrap, bg=background)
     deButtonWrap.pack(expand=True, pady=(0, 20))
 
-    csButtonWrap = tk.Frame(bprWrap, bg="#1d2127")
+    csButtonWrap = tk.Frame(bprWrap, bg=background)
     csButtonWrap.pack(expand=False)
 
 
-    documentaton = tk.Button(deButtonWrap, text="Readme", width=9, height=2, bg="#121518", fg="#cccccc", bd=1, command=lambda:webbrowser.open("README.md"))
+    documentaton = tk.Button(deButtonWrap, text="Readme", width=9, height=2, bg=buttonColor, fg=textcolor, bd=1, activebackground=accent, activeforeground="white", command=lambda:webbrowser.open("README.md"))
     documentaton.config(font=("Helvetical bold", 14))
     documentaton.pack(expand=True, side=tk.LEFT, padx=(0,7))
 
-    exit = tk.Button(deButtonWrap, text="Exit", command=endWindow.destroy, width=9, height=2, bg=foreground, fg="#cccccc", activeforeground="white", activebackground="red", bd=1)
+    exit = tk.Button(deButtonWrap, text="Exit", command=endWindow.destroy, width=9, height=2, bg=foreground, fg=textcolor, activeforeground="white", activebackground="red", bd=1)
     exit.config(font=(fontType, 14))
     exit.pack(expand=True, side=tk.LEFT, padx=(7, 0))
 
-    compareData = tk.Button(csButtonWrap, text="Compare \n Strategy", height=2, width=9, command=compareEnduranceScreen,bg="#121518", fg="#cccccc", bd=1, activebackground="#FD7800", activeforeground="white")
+    compareData = tk.Button(csButtonWrap, text="Compare \n Strategy", height=2, width=9, command=compareEnduranceScreen,bg=buttonColor, fg=textcolor, bd=1, activebackground=accent, activeforeground="white")
     compareData.config(font=("Helvetical bold", 14))
     compareData.pack(expand=True, side=tk.LEFT, padx=(0,7))
 
-    submitData = tk.Button(csButtonWrap, text="Calculate \n Strategy", height=2, width=9, command=submitEndurance,bg="#b5b5b5", bd=1, activebackground="#FD7800", activeforeground="white")
+    submitData = tk.Button(csButtonWrap, text="Calculate \n Strategy", height=2, width=9, command=submitEndurance,bg="#b5b5b5", bd=1, activebackground=accent, activeforeground="white")
     submitData.config(font=("Helvetical bold", 14))
     submitData.pack(expand=True, side=tk.LEFT, padx=(7,0))    
