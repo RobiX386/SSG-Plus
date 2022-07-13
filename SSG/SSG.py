@@ -2,6 +2,7 @@ import tkinter as tk
 import configparser
 from endurance import enduranceFunc
 from sprint import sprintFunc
+import customtkinter as ctk
 
 #colors & fonts 
 
@@ -12,9 +13,13 @@ background=design.get("COLOR", "background")
 foreground=design.get("COLOR", "foreground")
 accent=design.get("COLOR", "accent")
 textcolor=design.get("COLOR", "textcolor")
-buttonColor=design.get("COLOR", "buttonColor")
+mainTextColor=design.get("COLOR", "maincolor")
 fontType=design.get("FONT", "fontFamily")
-
+borderWidth=int(design.get("BORDER", "borderWidth"))
+cornerRadius=int(design.get("BORDER", "cornerRadius"))
+buttonColor=design.get("BUTTON", "buttonColor")
+buttonRadius=int(design.get("BUTTON", "cornerRadius"))
+hoverColor=design.get("BUTTON", "hoverColor")
 
 #V2.1 Color update
 
@@ -36,12 +41,10 @@ canvas.pack(pady=(60,0))
 img = tk.PhotoImage(file="SSG.png")      
 canvas.create_image(150,75, image=img) 
 
-endurance = tk.Button(startWindow, text="Endurance", height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1, command=enduranceCommands)
-endurance.config(font=(fontType,15))
+endurance = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Endurance", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=enduranceCommands)
 endurance.pack(expand=True)
 
-sprint = tk.Button(startWindow, text="Sprint", height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1, command=sprintCommands)
-sprint.config(font=(fontType, 15))
+sprint = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Sprint", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=sprintCommands)
 sprint.pack(expand=True)
 
 startWindow.mainloop()

@@ -16,6 +16,11 @@ foreground=design.get("COLOR", "foreground")
 accent=design.get("COLOR", "accent")
 textcolor=design.get("COLOR", "textcolor")
 fontType=design.get("FONT", "fontFamily")
+borderWidth=int(design.get("BORDER", "borderWidth"))
+cornerRadius=int(design.get("BORDER", "cornerRadius"))
+buttonColor=design.get("BUTTON", "buttonColor")
+buttonRadius=int(design.get("BUTTON", "cornerRadius"))
+hoverColor=design.get("BUTTON", "hoverColor")
 
 space= ' '
 curentpath = os.getcwd() + "\presets"+"\\"
