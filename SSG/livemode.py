@@ -1,0 +1,81 @@
+from fileinput import filename
+from msilib import text
+import tkinter as tk
+import configparser
+import datetime
+from turtle import back
+import webbrowser
+import os
+import customtkinter as ctk
+from errorFile import error
+import sys
+
+class DevNull:
+    def write(self, msg):
+        pass
+
+sys.stderr = DevNull()
+#Supressing known exceptions
+#colors&&fonts
+
+design = configparser.ConfigParser()
+design.read("design.ini")
+
+background=design.get("COLOR", "background")
+foreground=design.get("COLOR", "foreground")
+accent=design.get("COLOR", "accent")
+textcolor=design.get("COLOR", "textcolor")
+mainTextColor=design.get("COLOR", "maincolor")
+fontType=design.get("FONT", "fontFamily")
+borderWidth=int(design.get("BORDER", "borderWidth"))
+cornerRadius=int(design.get("BORDER", "cornerRadius"))
+buttonColor=design.get("BUTTON", "buttonColor")
+buttonRadius=int(design.get("BUTTON", "cornerRadius"))
+hoverColor=design.get("BUTTON", "hoverColor")
+entryBorderColor=design.get("ENTRY", "borderColor")
+entryFg=design.get("ENTRY", "foreground")
+placeholderColor=design.get("ENTRY", "placeholderColor")
+entryTextColor=design.get("ENTRY", "textcolor")
+
+space= ' '
+curentpath = os.getcwd() + "\presets"+"\\"
+
+def livemodeFunc():
+    liveWindow = tk.Tk()
+    liveWindow.config(bg=background)
+    liveWindow.title("SSG+ Live")
+    liveWindow.geometry("+300+100")
+    liveWindow.resizable(False, False)
+
+    outBox = ctk.CTkFrame(liveWindow, fg_color=background, border_width=borderWidth, border_color=accent, corner_radius=cornerRadius)
+    outBox.pack(side=tk.LEFT, pady=20, padx=15)
+
+    dataWrap = ctk.CTkFrame(liveWindow, fg_color=background)
+    dataWrap.pack(side=tk.LEFT, padx=15, pady=20)
+
+    timeBox = ctk.CTkFrame(dataWrap, fg_color=background, border_width=borderWidth, border_color=accent, corner_radius=cornerRadius)
+    timeBox.pack(side=tk.TOP, pady=(0, 15))
+
+    timeLeft = ctk.CTkLabel(timeBox, text="Time Left:",  text_color=mainTextColor, text_font=(fontType, 18))
+    timeLeft.pack(side=tk.TOP, padx=10, pady=(10, 5), expand=True)
+
+    timeValue = ctk.CTkLabel(timeBox, text="6:24:25", text_color=mainTextColor, text_font=(fontType, 16))
+    timeValue.pack(side=tk.TOP, padx=10, pady=(0, 5), expand=True)
+
+    buttonBox = ctk.CTkFrame(dataWrap, fg_color=background, border_width=borderWidth, border_color=accent, corner_radius=cornerRadius)
+    buttonBox.pack(side=tk.TOP, pady=15)
+
+    changeData = ctk.CTkButton(buttonBox, width=80, height=30, fg_color=buttonColor, text_color=textcolor, text_font=(fontType, 14), text="Change Data", hover_color=hoverColor)
+    changeData.pack(expand=True, pady=(20, 10), padx=20)
+
+    scvsc = ctk.CTkButton(buttonBox, width=80, height=30, fg_color=buttonColor, text_color=textcolor, text_font=(fontType, 14), text="SC/VSC", hover_color=hoverColor)
+    scvsc.pack(expand=True, pady=(10, 20), padx=20)
+
+    infoBox = ctk.CTkFrame(dataWrap, fg_color=background, border_color=accent, border_width=borderWidth, corner_radius=cornerRadius)
+    infoBox.pack(side=tk.TOP, pady=15)
+
+    lapsLeftWrap = ctk.CTkFrame(infoBox, fg_color=background)
+    lapsLeftWrap.pack(pady=15, expand=True)
+
+    lapsLeft = ctk.CTkLabel()
+

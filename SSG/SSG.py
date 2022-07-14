@@ -1,5 +1,6 @@
 import tkinter as tk
 import configparser
+from livemode import livemodeFunc
 from endurance import enduranceFunc
 from sprint import sprintFunc
 import customtkinter as ctk
@@ -41,6 +42,11 @@ def enduranceCommands():
     enduranceFunc()
     startWindow.destroy()
 
+def liveCommands():
+    livemodeFunc()
+    startWindow.destroy()
+
+
 canvas = tk.Canvas(startWindow, width = 300, height = 150, bg=background, highlightbackground=background)      
 canvas.pack(pady=(60,0))      
 img = tk.PhotoImage(file="SSG.png")      
@@ -51,5 +57,8 @@ endurance.pack(expand=True)
 
 sprint = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Sprint", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=sprintCommands)
 sprint.pack(expand=True)
+
+live = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Live", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=liveCommands)
+live.pack(expand=True)
 
 startWindow.mainloop()

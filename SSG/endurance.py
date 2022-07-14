@@ -3,7 +3,6 @@ from msilib import text
 import tkinter as tk
 import configparser
 import datetime
-from turtle import width
 import webbrowser
 import os
 import customtkinter as ctk
