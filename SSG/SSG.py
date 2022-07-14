@@ -20,6 +20,10 @@ cornerRadius=int(design.get("BORDER", "cornerRadius"))
 buttonColor=design.get("BUTTON", "buttonColor")
 buttonRadius=int(design.get("BUTTON", "cornerRadius"))
 hoverColor=design.get("BUTTON", "hoverColor")
+entryBorderColor=design.get("ENTRY", "borderColor")
+entryFg=design.get("ENTRY", "foreground")
+placeholderColor=design.get("ENTRY", "placeholderColor")
+entryTextColor=design.get("ENTRY", "textcolor")
 
 #V2.1 Color update
 
@@ -27,6 +31,7 @@ startWindow = tk.Tk()
 startWindow['bg']=background
 startWindow.title("SSG+")
 startWindow.geometry("500x400+500+200")
+startWindow.resizable(False, False)
 
 def sprintCommands():
     sprintFunc()

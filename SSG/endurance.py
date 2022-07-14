@@ -47,6 +47,7 @@ def enduranceFunc():
     endWindow.config(bg=background)
     endWindow.title("SSG+ Endurance")
     endWindow.geometry("+300+100")
+    endWindow.resizable(False, False)
 
     pcrWrap = tk.Frame(endWindow, bg=background, width=500, height=300) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(20, 15))
@@ -157,13 +158,12 @@ def enduranceFunc():
     tyreChangeValue.pack(padx=0, side=tk.LEFT)
 
     stintWrap = tk.Frame(pitInfo, bg=background)
-    # exceptie padx
     stintWrap.pack(side=tk.TOP, expand=True, pady=(13, 10), padx=5)
 
     stintpertyre = ctk.CTkLabel(stintWrap, text="Stint/Tyre", fg_color=background, text_color=mainTextColor, text_font=(fontType, 18))
     stintpertyre.pack(side=tk.LEFT, padx=0)
 
-    stintValue = ctk.CTkEntry(stintWrap, width=53, height=20, border_color=entryBorderColor, fg_color=entryFg, placeholder_text="Sec", placeholder_text_color=placeholderColor, text_color=entryTextColor)
+    stintValue = ctk.CTkEntry(stintWrap, width=53, height=20, border_color=entryBorderColor, fg_color=entryFg, text_color=entryTextColor)
     stintValue.pack(side=tk.LEFT, padx=0)
 
 
