@@ -45,7 +45,7 @@ def livemodeFunc():
     liveWindow.config(bg=background)
     liveWindow.title("SSG+ Live")
     liveWindow.geometry("+300+100")
-    liveWindow.resizable(False, False)
+    # liveWindow.resizable(False, False)
 
     outBox = ctk.CTkFrame(liveWindow, fg_color=background, border_width=borderWidth, border_color=accent, corner_radius=cornerRadius)
     outBox.pack(side=tk.LEFT, pady=20, padx=15)
@@ -75,7 +75,40 @@ def livemodeFunc():
     infoBox.pack(side=tk.TOP, pady=15)
 
     lapsLeftWrap = ctk.CTkFrame(infoBox, fg_color=background)
-    lapsLeftWrap.pack(pady=15, expand=True)
+    lapsLeftWrap.pack(pady=15, padx=2)
 
-    lapsLeft = ctk.CTkLabel()
+    lapsLeft = ctk.CTkLabel(lapsLeftWrap, text="Laps left \n in stint", text_font=(fontType, 14), fg_color=background, width=0, text_color=mainTextColor)
+    lapsLeft.pack(side=tk.LEFT, expand=True)
+
+    colon = ctk.CTkLabel(lapsLeftWrap, text=":", text_font=(fontType, 18), fg_color=background, width=0, text_color=mainTextColor)
+    colon.pack(side=tk.LEFT, expand=True)
+
+    number = ctk.CTkLabel(lapsLeftWrap, text="13", text_font=(fontType, 16), fg_color=background, width=0, text_color=mainTextColor)
+    number.pack(side=tk.LEFT, expand=True)
+
+    stopsLeftWrap = ctk.CTkFrame(infoBox, fg_color=background)
+    stopsLeftWrap.pack(pady=15, padx=2)
+
+    stopsLeft = ctk.CTkFrame(stopsLeftWrap, text="Stops Left", text_font=(fontType, 14), fg_color=background, width=0, text_color=mainTextColor)
+    stopsLeft.pack(side=tk.LEFT, expand=True)
+
+    colon = ctk.CTkLabel(stopsLeftWrap, text=":", text_font=(fontType, 18), fg_color=background, width=0, text_color=mainTextColor)
+    colon.pack(side=tk.LEFT, expand=True)
+
+    number = ctk.CTkLabel(stopsLeftWrap, text="3", text_font=(fontType, 16), fg_color=background, width=0, text_color=mainTextColor)
+    number.pack(side=tk.LEFT, expand=True)
+
+    lastStintWrap = ctk.CTkFrame(infoBox, fg_color=background)
+    lastStintWrap.pack(pady=15, padx=2)
+
+    lapsInLastStint = ctk.CTkLabel(lastStintWrap, text="Laps in \n last stint", text_font=(fontType, 14), fg_color=background, width=0, text_color=mainTextColor)
+    lapsInLastStint.pack(side=tk.LEFT, expand=True)
+
+    colon = ctk.CTkLabel(lastStintWrap, text=":", text_font=(fontType, 18), fg_color=background, width=0, text_color=mainTextColor)
+    colon.pack(side=tk.LEFT, expand=True)
+
+    number = ctk.CTkLabel(lastStintWrap, text="3", text_font=(fontType, 16), fg_color=background, width=0, text_color=mainTextColor)
+    number.pack(side=tk.LEFT, expand=True)
+
+
 
