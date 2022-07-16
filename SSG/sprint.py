@@ -54,7 +54,7 @@ def sprintFunc():
     carinfo.pack(side=tk.BOTTOM, fill=tk.X, pady=15)
 
     carinfoLabel = ctk.CTkLabel(pcrWrap, fg_color=background, text="#Car Info", text_font=(fontType, 18), text_color=mainTextColor, width=0)
-    carinfoLabel.place(x=180, y=322, anchor=tk.N)
+    carinfoLabel.place(x=180, y=283, anchor=tk.N)
 
     tankWrap = tk.Frame(carinfo, bg=background)
     tankWrap.pack(fill=tk.X, side=tk.TOP, padx=2, pady=(25, 15))
@@ -81,7 +81,7 @@ def sprintFunc():
     raceinfo.pack(side=tk.TOP, fill=tk.X, pady=15)
 
     raceinfoLabel = ctk.CTkLabel(pcrWrap, text="#Race Info", text_font=(fontType, 18), text_color=mainTextColor, fg_color=background, width=40)
-    raceinfoLabel.place(x=179, y=169, anchor=tk.N)
+    raceinfoLabel.place(x=179, y=132, anchor=tk.N)
 
     lenghtWrap = tk.Frame(raceinfo, bg=background)
     lenghtWrap.pack(expand=True, side=tk.TOP, pady=(20, 15))
@@ -115,7 +115,7 @@ def sprintFunc():
     pitInfo.pack(fill=tk.X, side=tk.TOP, pady=(18, 10))
 
     pitInfoLabel = ctk.CTkLabel(sprintWindow, fg_color=background, text_font=(fontType, 18), text="#Pit Info", text_color=mainTextColor, width=40)
-    pitInfoLabel.place(x=507, y=40, anchor=tk.N)
+    pitInfoLabel.place(x=517, y=40, anchor=tk.N)
 
     driveTimeWrap = tk.Frame(pitInfo, bg=background)
     driveTimeWrap.pack(padx=35,side=tk.TOP, expand=True, pady=(13, 13))
@@ -158,7 +158,7 @@ def sprintFunc():
         def trackSelectwind(car):
             def insertdata(track):
                 #DATA INPUT
-                inifilename=curentpath+car+".ini"
+                inifilename=car+".ini"
                 config = configparser.ConfigParser()
                 config.read(inifilename)
                 with open(inifilename, "w") as config_file:
@@ -183,13 +183,15 @@ def sprintFunc():
                 fuelconsvalue.insert(0, data[1])
                 driveTimeValue.delete(0,tk.END)
                 driveTimeValue.insert(0, data[2])
+                refuelTimeValue.delete(0,tk.END)   
+                refuelTimeValue.insert(0, data[3])
                 tyreChangeValue.delete(0,tk.END)
                 tyreChangeValue.insert(0, data[4])
                 trackSelectWindow.destroy()
 
             #TRACK SELECT
             carSelectWindow.destroy()
-            
+                        
             trackSelectWindow = tk.Tk()
             trackSelectWindow['bg']=background
             trackSelectWindow.title("SSG+")
@@ -212,6 +214,8 @@ def sprintFunc():
                 TrackSelect = ctk.CTkButton(trackSelectWrap, width=57, height=34, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, corner_radius=buttonRadius, text=trackButtonName, text_font=(fontType, 13), command= lambda trackfilename=trackfilename : insertdata(trackfilename))
                 TrackSelect.pack(side=tk.TOP, pady=10, padx=20)
             
+            trackSelectWindow.mainloop()
+            
         #CAR SELECT
         
         carSelectWindow = tk.Tk()
@@ -219,11 +223,10 @@ def sprintFunc():
         carSelectWindow.title("SSG+")
         carSelectWindow.geometry("+400+200")
 
-        carSelectLabel = tk.Label(carSelectWindow, text="Select the car", bg=background, fg="white")
-        carSelectLabel.config(font=(fontType, 18))
+        carSelectLabel = ctk.CTkLabel(carSelectWindow, text="Select the car", fg_color=background, text_color=textcolor, text_font=(fontType, 18))
         carSelectLabel.pack(side=tk.TOP, pady=(20,0))
         
-        carSelecWrap = tk.Frame(carSelectWindow, bg=background, highlightbackground=accent, highlightthickness=1)
+        carSelecWrap = ctk.CTkFrame(carSelectWindow, fg_color=background, border_color=accent, border_width=borderWidth)
         carSelecWrap.pack(side=tk.TOP, pady=(20, 60), padx=100)
 
         readcars = open("CARS.txt", "r")
@@ -232,10 +235,11 @@ def sprintFunc():
         
         for x in carList: 
             carbuttonname=x
-            carfilename=x
-            carselect = tk.Button(carSelecWrap, bg=foreground, fg="#cccccc", activebackground=accent, activeforeground="white", bd=1, text=carbuttonname, command=lambda carfilename=carfilename :trackSelectwind(carfilename))
-            carselect.config(font=(fontType, 13))
+            carfilename=curentpath+x
+            carselect = ctk.CTkButton(carSelecWrap, width=57, height=34, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text=carbuttonname, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda carfilename=carfilename :trackSelectwind(carfilename))
             carselect.pack(side=tk.TOP, pady=10, padx=30)
+
+        carSelectWindow.mainloop()
 
     #CREATE PRESET
     def createnewpreset():
@@ -267,83 +271,62 @@ def sprintFunc():
                         chooseTrackPresetWindow.destroy()
                         inputWindow = tk.Tk()
                         inputWindow['bg']=background
-                        inputWindow.title("Input Window")
-                        inputWindow.geometry("+400+200")
+                        inputWindow.title("SSG+ Input Window")
+                        inputWindow.geometry("+400-200")
 
-                        inputTitle = tk.Label(inputWindow, text="Input your preset's data", bg=background, fg="white")
-                        inputTitle.config(font=(fontType, 18))
+
+                        inputTitle = ctk.CTkLabel(inputWindow, text="Input your preset's data", fg_color=background, text_color=textcolor, text_font=(fontType, 18))
                         inputTitle.pack(side=tk.TOP, pady=30)
 
-                        dataWrap = tk.Frame(inputWindow, highlightbackground=accent, highlightthickness=1, bg=background)
+                        dataWrap = ctk.CTkFrame(inputWindow, border_color=accent, fg_color=background, border_width=1, corner_radius=cornerRadius)
                         dataWrap.pack(expand=True, padx=25, pady=(0, 25))
 
                         fuelTankWrap = tk.Frame(dataWrap, bg=background)
                         fuelTankWrap.pack(side=tk.TOP, expand=True, pady=10, padx=15)
 
-                        inputFuelTank = tk.Label(fuelTankWrap, text="Fuel Tank Size", fg="white", bg=background)
-                        inputFuelTank.config(font=(fontType, 18))
+                        inputFuelTank = ctk.CTkLabel(fuelTankWrap, text="Fuel Tank Size", text_color=textcolor, fg_color=background, text_font=(fontType, 18))
                         inputFuelTank.pack(side = tk.LEFT, padx=(20, 30))
 
-                        inputfueltankvalue = tk.Entry(fuelTankWrap, width=12, bg="white")
+                        inputfueltankvalue = ctk.CTkEntry(fuelTankWrap, width=75, height=18, text_color=entryTextColor, border_color=entryBorderColor, fg_color=entryFg, placeholder_text_color=placeholderColor, placeholder_text="Liters")
                         inputfueltankvalue.pack(side=tk.LEFT, padx=(0, 5))
-
-                        liters = tk.Label(fuelTankWrap, text="Liters", bg=background, fg="white")
-                        liters.pack(side=tk.LEFT, fill=tk.Y, padx=(5, 0))
 
                         fuelConsWrap = tk.Frame(dataWrap, bg=background)
                         fuelConsWrap.pack(side=tk.TOP, expand=True, pady=10, padx=15)
 
-                        inputFuelCons = tk.Label(fuelConsWrap, text="Fuel Consumption", fg="white", bg=background)
-                        inputFuelCons.config(font=(fontType, 18))
-                        inputFuelCons.pack(side=tk.LEFT, padx=(0, 10))
+                        inputFuelCons = ctk.CTkLabel(fuelConsWrap, text="Fuel Consumption", text_color=textcolor, fg_color=background, text_font=(fontType, 18))
+                        inputFuelCons.pack(side=tk.LEFT, padx=(0, 8))
 
-                        inputfuelconsvalue = tk.Entry(fuelConsWrap, width=12, bg="white")
+                        inputfuelconsvalue = ctk.CTkEntry(fuelConsWrap, width=75, height=18, text_color=entryTextColor, border_color=entryBorderColor, fg_color=entryFg, placeholder_text_color=placeholderColor, placeholder_text="L/Lap")
                         inputfuelconsvalue.pack(side=tk.LEFT, pady=0, padx=(5, 5))
-
-                        lperlap = tk.Label(fuelConsWrap, text="L/Lap", fg="white", bg=background)
-                        lperlap.pack(side=tk.LEFT, fill=tk.Y)
 
                         DTWrap = tk.Frame(dataWrap, bg=background)
                         DTWrap.pack(side=tk.TOP, expand=True, pady=10, padx=15)
 
-                        inputDriveTime = tk.Label(DTWrap, text="D.T. Time", bg=background, fg="white")
-                        inputDriveTime.config(font=(fontType, 18))
-                        inputDriveTime.pack(side=tk.LEFT, padx=(42, 27))
+                        inputDriveTime = ctk.CTkLabel(DTWrap, text="D.T. Time", text_color=textcolor, fg_color=background, text_font=(fontType, 18))
+                        inputDriveTime.pack(side=tk.LEFT, padx=(42, 22))
 
-                        inputdriveTimevalue = tk.Entry(DTWrap, width=12)
+                        inputdriveTimevalue = ctk.CTkEntry(DTWrap, width=75, height=18, text_color=entryTextColor, border_color=entryBorderColor, fg_color=entryFg, placeholder_text_color=placeholderColor, placeholder_text="Seconds")
                         inputdriveTimevalue.pack(side=tk.LEFT, padx=(26, 5))
-
-                        seconds = tk.Label(DTWrap, text="sec", bg=background, fg="white")
-                        seconds.pack(fill=tk.Y, side=tk.LEFT)
 
                         refuelWrap = tk.Frame(dataWrap, bg=background)
                         refuelWrap.pack(side=tk.TOP, expand=True, pady=10, padx=15)
 
-                        inputRefuelTime = tk.Label(refuelWrap, bg=background, fg="white", text="Refuel Time")
-                        inputRefuelTime.config(font=(fontType, 18))
-                        inputRefuelTime.pack(side=tk.LEFT, padx=(27, 44))
+                        inputRefuelTime = ctk.CTkLabel(refuelWrap, text="Refuel Time", text_color=textcolor, fg_color=background, text_font=(fontType, 18))
+                        inputRefuelTime.pack(side=tk.LEFT, padx=(27, 56))
 
-                        inputRefuelTimeValue = tk.Entry(refuelWrap, width=12)
+                        inputRefuelTimeValue = ctk.CTkEntry(refuelWrap, width=75, height=18, text_color=entryTextColor, border_color=entryBorderColor, fg_color=entryFg, placeholder_text_color=placeholderColor, placeholder_text="Seconds")
                         inputRefuelTimeValue.pack(side=tk.LEFT, padx=(0, 5))
-
-                        seconds = tk.Label(refuelWrap, text="sec", bg=background, fg="white")
-                        seconds.pack(fill=tk.Y, side=tk.LEFT)
 
                         tyreWrap = tk.Frame(dataWrap, bg=background)
                         tyreWrap.pack(side=tk.TOP, expand=True, pady=5, padx=15)
 
-                        inputTyreChange = tk.Label(tyreWrap, text="Tyre Change \n Time ",  bg=background, fg="white", height=2)
-                        inputTyreChange.config(font=(fontType, 15))
-                        inputTyreChange.pack(side=tk.LEFT, padx=(35, 45))
+                        inputTyreChange = ctk.CTkLabel(tyreWrap, text="Tyre Change \n Time ", text_color=textcolor, fg_color=background, text_font=(fontType, 15))
+                        inputTyreChange.pack(side=tk.LEFT, padx=(35, 55))
 
-                        inputTyreChangeValue = tk.Entry(tyreWrap, width=12, fg="black")
+                        inputTyreChangeValue = ctk.CTkEntry(tyreWrap, width=75, height=18, text_color=entryTextColor, border_color=entryBorderColor, fg_color=entryFg, placeholder_text_color=placeholderColor, placeholder_text="Seconds")
                         inputTyreChangeValue.pack(padx=(0, 5), side=tk.LEFT)
 
-                        seconds = tk.Label(tyreWrap, text="sec", bg=background, fg="white")
-                        seconds.pack(fill=tk.Y, side=tk.LEFT)
-
-                        dataSubmit = tk.Button(inputWindow, text="Submit", activebackground=accent, activeforeground="white", background=foreground, fg="#cccccc", height=2, width=10, bd=1, command=datainiwrite)
-                        dataSubmit.config(font=(fontType, 13))
+                        dataSubmit = ctk.CTkButton(inputWindow, text="Submit", hover_color=hoverColor, fg_color=buttonColor, text_color=textcolor, height=61, width=108, text_font=(fontType, 15), corner_radius=buttonRadius, command=datainiwrite)
                         dataSubmit.pack(side=tk.BOTTOM, expand=True, pady=(0, 20))
 
                         inputWindow.mainloop()
@@ -374,16 +357,13 @@ def sprintFunc():
                 chooseTrackPresetWindow.title("SSG+ Choose Track")
                 chooseTrackPresetWindow.geometry("300x300+400+200")
                 
-                chooseTrackLabel = tk.Label(chooseTrackPresetWindow, text="Choose a track for \nyour preset", bg=background, fg="white")
-                chooseTrackLabel.config(font=(fontType, 18))
+                chooseTrackLabel = ctk.CTkLabel(chooseTrackPresetWindow, fg_color=background, text_color=textcolor, text="Choose a track for \nyour preset", text_font=(fontType, 18))
                 chooseTrackLabel.pack(side=tk.TOP, expand=True)
 
-                trackpresetvalue = tk.Entry(chooseTrackPresetWindow, width=15)
-                trackpresetvalue.config(font=(fontType, 14))
+                trackpresetvalue = ctk.CTkEntry(chooseTrackPresetWindow, width=171, height=27, text_font=(fontType, 14), placeholder_text="Track's name", placeholder_text_color=placeholderColor, text_color=entryTextColor, fg_color=entryFg, border_color=entryBorderColor)
                 trackpresetvalue.pack(side=tk.TOP, expand=True)
                 
-                trackpresetsendbut = tk.Button(chooseTrackPresetWindow, text="Next", height=2, bg=foreground, fg="#cccccc", width=7, activebackground=accent, activeforeground="white", command=lambda:tracksectioncheck(str(trackpresetvalue.get()).replace(" ", "")))
-                trackpresetsendbut.config(font=(fontType, 14))
+                trackpresetsendbut = ctk.CTkButton(chooseTrackPresetWindow, text="Next", height=40, width=80, fg_color=foreground, text_color=textcolor, text_font=(fontType, 14), hover_color=hoverColor, corner_radius=buttonRadius, command=lambda:[tracksectioncheck(str(trackpresetvalue.get()).replace(" ", ""))])
                 trackpresetsendbut.pack(side=tk.TOP, expand=True)
             
             if len(str(carpresetvalue.get())) < 2:
@@ -406,16 +386,13 @@ def sprintFunc():
         createCarPreset.title("SSG+ Create Preset")
         createCarPreset.geometry("300x300+400+200")
 
-        selectCarLabel = tk.Label(createCarPreset, bg=background, fg="white", text="Choose a car for \nyour preset")
-        selectCarLabel.config(font=(fontType, 18))
+        selectCarLabel = ctk.CTkLabel(createCarPreset, fg_color=background, text_color=textcolor, text="Choose a car for \nyour preset", text_font=(fontType, 18))
         selectCarLabel.pack(side=tk.TOP, expand=True)
         
-        carpresetvalue = tk.Entry(createCarPreset, width=15)
-        carpresetvalue.config(font=(fontType, 14))
+        carpresetvalue = ctk.CTkEntry(createCarPreset, width=171, height=27, text_font=(fontType, 14), placeholder_text="Car's name", placeholder_text_color=placeholderColor, text_color=entryTextColor, fg_color=entryFg, border_color=entryBorderColor)
         carpresetvalue.pack(side=tk.TOP, expand=True)
 
-        carpresetsendbut = tk.Button(createCarPreset, text="Next", height=2, width=7, bg=foreground, fg="#cccccc", activebackground=accent, activeforeground="white", command=lambda:filecheck(str(carpresetvalue.get()).replace(" ", "")))
-        carpresetsendbut.config(font=(fontType, 14))
+        carpresetsendbut = ctk.CTkButton(createCarPreset, text="Next", height=40, width=80, fg_color=foreground, text_color=textcolor, text_font=(fontType, 14), hover_color=hoverColor, corner_radius=buttonRadius, command=lambda:[filecheck(str(carpresetvalue.get()).replace(" ", ""))])
         carpresetsendbut.pack(side=tk.TOP, expand=True)
 
     #EDIT PRESET
@@ -450,83 +427,62 @@ def sprintFunc():
                 editPresetTrackWindow.destroy()
                 inputWindow = tk.Tk()
                 inputWindow['bg']=background
-                inputWindow.title("Input Window")
-                inputWindow.geometry("+400+200")
+                inputWindow.title("SSG+ Input Window")
+                inputWindow.geometry("+400-200")
 
-                inputTitle = tk.Label(inputWindow, text="Input your preset's data", bg=background, fg="white")
-                inputTitle.config(font=(fontType, 18))
+
+                inputTitle = ctk.CTkLabel(inputWindow, text="Input your preset's data", fg_color=background, text_color=textcolor, text_font=(fontType, 18))
                 inputTitle.pack(side=tk.TOP, pady=30)
 
-                dataWrap = tk.Frame(inputWindow, highlightbackground=accent, highlightthickness=1, bg=background)
+                dataWrap = ctk.CTkFrame(inputWindow, border_color=accent, fg_color=background, border_width=1, corner_radius=cornerRadius)
                 dataWrap.pack(expand=True, padx=25, pady=(0, 25))
 
                 fuelTankWrap = tk.Frame(dataWrap, bg=background)
                 fuelTankWrap.pack(side=tk.TOP, expand=True, pady=10, padx=15)
 
-                inputFuelTank = tk.Label(fuelTankWrap, text="Fuel Tank Size", fg="white", bg=background)
-                inputFuelTank.config(font=(fontType, 18))
+                inputFuelTank = ctk.CTkLabel(fuelTankWrap, text="Fuel Tank Size", text_color=textcolor, fg_color=background, text_font=(fontType, 18))
                 inputFuelTank.pack(side = tk.LEFT, padx=(20, 30))
 
-                inputfueltankvalue = tk.Entry(fuelTankWrap, width=12, bg="white")
+                inputfueltankvalue = ctk.CTkEntry(fuelTankWrap, width=75, height=18, text_color=entryTextColor, border_color=entryBorderColor, fg_color=entryFg, placeholder_text_color=placeholderColor, placeholder_text="Liters")
                 inputfueltankvalue.pack(side=tk.LEFT, padx=(0, 5))
-
-                liters = tk.Label(fuelTankWrap, text="Liters", bg=background, fg="white")
-                liters.pack(side=tk.LEFT, fill=tk.Y, padx=(5, 0))
 
                 fuelConsWrap = tk.Frame(dataWrap, bg=background)
                 fuelConsWrap.pack(side=tk.TOP, expand=True, pady=10, padx=15)
 
-                inputFuelCons = tk.Label(fuelConsWrap, text="Fuel Consumption", fg="white", bg=background)
-                inputFuelCons.config(font=(fontType, 18))
-                inputFuelCons.pack(side=tk.LEFT, padx=(0, 10))
+                inputFuelCons = ctk.CTkLabel(fuelConsWrap, text="Fuel Consumption", text_color=textcolor, fg_color=background, text_font=(fontType, 18))
+                inputFuelCons.pack(side=tk.LEFT, padx=(0, 8))
 
-                inputfuelconsvalue = tk.Entry(fuelConsWrap, width=12, bg="white")
+                inputfuelconsvalue = ctk.CTkEntry(fuelConsWrap, width=75, height=18, text_color=entryTextColor, border_color=entryBorderColor, fg_color=entryFg, placeholder_text_color=placeholderColor, placeholder_text="L/Lap")
                 inputfuelconsvalue.pack(side=tk.LEFT, pady=0, padx=(5, 5))
-
-                lperlap = tk.Label(fuelConsWrap, text="L/Lap", fg="white", bg=background)
-                lperlap.pack(side=tk.LEFT, fill=tk.Y)
 
                 DTWrap = tk.Frame(dataWrap, bg=background)
                 DTWrap.pack(side=tk.TOP, expand=True, pady=10, padx=15)
 
-                inputDriveTime = tk.Label(DTWrap, text="D.T. Time", bg=background, fg="white")
-                inputDriveTime.config(font=(fontType, 18))
-                inputDriveTime.pack(side=tk.LEFT, padx=(42, 27))
+                inputDriveTime = ctk.CTkLabel(DTWrap, text="D.T. Time", text_color=textcolor, fg_color=background, text_font=(fontType, 18))
+                inputDriveTime.pack(side=tk.LEFT, padx=(42, 22))
 
-                inputdriveTimevalue = tk.Entry(DTWrap, width=12)
+                inputdriveTimevalue = ctk.CTkEntry(DTWrap, width=75, height=18, text_color=entryTextColor, border_color=entryBorderColor, fg_color=entryFg, placeholder_text_color=placeholderColor, placeholder_text="Seconds")
                 inputdriveTimevalue.pack(side=tk.LEFT, padx=(26, 5))
-
-                seconds = tk.Label(DTWrap, text="sec", bg=background, fg="white")
-                seconds.pack(fill=tk.Y, side=tk.LEFT)
 
                 refuelWrap = tk.Frame(dataWrap, bg=background)
                 refuelWrap.pack(side=tk.TOP, expand=True, pady=10, padx=15)
 
-                inputRefuelTime = tk.Label(refuelWrap, bg=background, fg="white", text="Refuel Time")
-                inputRefuelTime.config(font=(fontType, 18))
-                inputRefuelTime.pack(side=tk.LEFT, padx=(27, 44))
+                inputRefuelTime = ctk.CTkLabel(refuelWrap, text="Refuel Time", text_color=textcolor, fg_color=background, text_font=(fontType, 18))
+                inputRefuelTime.pack(side=tk.LEFT, padx=(27, 56))
 
-                inputRefuelTimeValue = tk.Entry(refuelWrap, width=12)
+                inputRefuelTimeValue = ctk.CTkEntry(refuelWrap, width=75, height=18, text_color=entryTextColor, border_color=entryBorderColor, fg_color=entryFg, placeholder_text_color=placeholderColor, placeholder_text="Seconds")
                 inputRefuelTimeValue.pack(side=tk.LEFT, padx=(0, 5))
-
-                seconds = tk.Label(refuelWrap, text="sec", bg=background, fg="white")
-                seconds.pack(fill=tk.Y, side=tk.LEFT)
 
                 tyreWrap = tk.Frame(dataWrap, bg=background)
                 tyreWrap.pack(side=tk.TOP, expand=True, pady=5, padx=15)
 
-                inputTyreChange = tk.Label(tyreWrap, text="Tyre Change \n Time ",  bg=background, fg="white", height=2)
-                inputTyreChange.config(font=(fontType, 15))
-                inputTyreChange.pack(side=tk.LEFT, padx=(35, 45))
+                inputTyreChange = ctk.CTkLabel(tyreWrap, text="Tyre Change \n Time ", text_color=textcolor, fg_color=background, text_font=(fontType, 15))
+                inputTyreChange.pack(side=tk.LEFT, padx=(35, 55))
 
-                inputTyreChangeValue = tk.Entry(tyreWrap, width=12, fg="black")
+                inputTyreChangeValue = ctk.CTkEntry(tyreWrap, width=75, height=18, text_color=entryTextColor, border_color=entryBorderColor, fg_color=entryFg, placeholder_text_color=placeholderColor, placeholder_text="Seconds")
                 inputTyreChangeValue.pack(padx=(0, 5), side=tk.LEFT)
 
-                seconds = tk.Label(tyreWrap, text="sec", bg=background, fg="white")
-                seconds.pack(fill=tk.Y, side=tk.LEFT)
-
-                dataSubmit = tk.Button(inputWindow, text="Submit", activebackground=accent, activeforeground="white", background=foreground, fg="#cccccc", height=2, width=10, bd=1, command=datainiwrite)
-                dataSubmit.config(font=(fontType, 13))
+                dataSubmit = ctk.CTkButton(inputWindow, text="Submit", hover_color=hoverColor, fg_color=buttonColor, text_color=textcolor, height=61, width=108, text_font=(fontType, 15), corner_radius=buttonRadius, command=datainiwrite)
                 dataSubmit.pack(side=tk.BOTTOM, expand=True, pady=(0, 20))
 
                 inputWindow.mainloop()
@@ -544,17 +500,15 @@ def sprintFunc():
             trackList = readtracks.readline()
             trackList = trackList.split()
 
-            trackEditLabel = tk.Label(editPresetTrackWindow, text="Select what track you want to edit", fg="White", bg=background)
-            trackEditLabel.config(font=(fontType, 18))
+            trackEditLabel = ctk.CTkLabel(editPresetTrackWindow, text="Select which track \n you want to edit", text_font=(fontType, 18), text_color=textcolor, fg_color=background)
             trackEditLabel.pack(side=tk.TOP, pady=(20, 0))
 
-            trackWrap = tk.Frame(editPresetTrackWindow, bg=background, highlightbackground=accent, highlightthickness=1)
+            trackWrap = ctk.CTkFrame(editPresetTrackWindow, fg_color=background, border_color=accent, border_width=borderWidth)
             trackWrap.pack(side=tk.TOP, pady=(20, 60), padx=100)
 
             for y in trackList: 
                 trackButtonName=y
-                trackEditSelect = tk.Button(trackWrap, text=trackButtonName, bg=foreground, fg="#cccccc", activebackground=accent, activeforeground="white", command=lambda y=y :presetInputWindow(y))
-                trackEditSelect.config(font=(fontType, 13))
+                trackEditSelect = ctk.CTkButton(trackWrap, width=57, height=34, text_font=(fontType, 13), text=trackButtonName, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, corner_radius=buttonRadius, command=lambda y=y :presetInputWindow(y))
                 trackEditSelect.pack(side=tk.TOP, pady=10, padx=20)
 
         editpresetcarwindow = tk.Tk() 
@@ -566,17 +520,15 @@ def sprintFunc():
         carList = readcars.readline() 
         carList = carList.split()
 
-        carEditLabel = tk.Label(editpresetcarwindow, text="Select which preset \nyou want to edit", bg=background, fg="white")
-        carEditLabel.config(font=(fontType, 18))
+        carEditLabel = ctk.CTkLabel(editpresetcarwindow, text="Select which preset \nyou want to edit", text_font=(fontType, 18), fg_color=background, text_color=textcolor)
         carEditLabel.pack(side=tk.TOP, pady=(20, 0))
 
-        carWrap = tk.Frame(editpresetcarwindow, background=background, highlightbackground=accent, highlightthickness=1)
+        carWrap = ctk.CTkFrame(editpresetcarwindow, fg_color=background, border_color=accent, border_width=borderWidth, corner_radius=cornerRadius)
         carWrap.pack(side=tk.TOP, pady=(20, 60), padx=100)
         
         for x in carList: 
             carbuttonname=x
-            carselect = tk.Button(carWrap, text=carbuttonname, bg=foreground, fg="#cccccc", activebackground=accent, activeforeground="white", command=lambda x=x :editpresettrack(x))
-            carselect.config(font=(fontType, 13))
+            carselect = ctk.CTkButton(carWrap, width=57, height=34, text=carbuttonname, text_font=(fontType, 13), fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, corner_radius=buttonRadius, command=lambda x=x :editpresettrack(x))
             carselect.pack(side=tk.TOP, pady=10, padx=20)
 
     #PRESET BUTTONS

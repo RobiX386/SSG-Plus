@@ -4,7 +4,6 @@ from livemode import livemodeFunc
 from endurance import enduranceFunc
 from sprint import sprintFunc
 import customtkinter as ctk
-from PIL import Image, ImageTk
 
 #colors & fonts 
 
@@ -60,7 +59,7 @@ def changeName():
     nameWindow.geometry("+500+200")
     nameWindow.resizable(False, False)
     
-    chooseNameLabel = ctk.CTkLabel(nameWindow, fg_color=background, text_color=textcolor, text="Choose a track for \nyour preset", text_font=(fontType, 18))
+    chooseNameLabel = ctk.CTkLabel(nameWindow, fg_color=background, text_color=textcolor, text="Name", text_font=(fontType, 18))
     chooseNameLabel.pack(side=tk.TOP, expand=True, pady=(30, 0))
 
     nameValue = ctk.CTkEntry(nameWindow, width=171, height=27, text_font=(fontType, 14), placeholder_text="Your name", placeholder_text_color=placeholderColor, text_color=entryTextColor, fg_color=entryFg, border_color=entryBorderColor)
@@ -69,21 +68,22 @@ def changeName():
     nameSubmit = ctk.CTkButton(nameWindow, text="Next", height=40, width=80, fg_color=foreground, text_color=textcolor, text_font=(fontType, 14), hover_color=hoverColor, corner_radius=buttonRadius, command=lambda:[design.set("USER", "name", nameValue.get()), iniWrite(), nameWindow.destroy()])
     nameSubmit.pack(side=tk.TOP, expand=True, pady=(0, 30))
 
-greeting = ctk.CTkButton(startWindow, text="Hello " + userName, text_font=(fontType, 18), text_color=mainTextColor, fg_color=background, hover_color=hoverColor, command=changeName)
-greeting.pack(side=tk.TOP, pady=(70, 0))
 
-# canvas = tk.Canvas(startWindow, width = 300, height = 150, bg=background, highlightbackground=background)      
-# canvas.pack(pady=(60,0))      
-# img = tk.PhotoImage(file="SSG.png")      
-# canvas.create_image(150,75, image=img) 
+canvas = tk.Canvas(startWindow, width = 300, height = 150, bg=background, highlightbackground=background)      
+canvas.pack(pady=(40,0))      
+img = tk.PhotoImage(file="SSG.png")      
+canvas.create_image(150,75, image=img) 
+
+greeting = ctk.CTkButton(startWindow, text="Hello, " + userName, text_font=(fontType, 18), text_color=mainTextColor, fg_color=background, hover_color=hoverColor, command=changeName)
+greeting.pack(side=tk.TOP, pady=(30, 0))
 
 endurance = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Endurance", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=enduranceCommands)
-endurance.pack(side=tk.LEFT, expand=True, padx=15, pady=140)
+endurance.pack(side=tk.LEFT, expand=True, padx=15, pady=(50, 90))
 
 sprint = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Sprint", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=sprintCommands)
-sprint.pack(side=tk.LEFT, expand=True, padx=15, pady=140)
+sprint.pack(side=tk.LEFT, expand=True, padx=15, pady=(50, 90))
 
 live = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Live", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=liveCommands)
-live.pack(side=tk.LEFT, expand=True, padx=15, pady=140)
+live.pack(side=tk.LEFT, expand=True, padx=15, pady=(50, 90))
 
 startWindow.mainloop()

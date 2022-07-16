@@ -46,14 +46,14 @@ def livemodeFunc():
     # liveWindow.resizable(False, False)
 
     outBox = ctk.CTkFrame(liveWindow, fg_color=background, border_width=borderWidth, border_color=accent, corner_radius=cornerRadius)
-    outBox.pack(side=tk.LEFT, pady=20, padx=15)
+    outBox.pack(side=tk.LEFT, pady=0, padx=(20, 15))
 
     outputScroll = tk.Scrollbar(outBox, width=10)
-    outputScroll.pack(side=tk.RIGHT, fill=tk.Y)
+    outputScroll.pack(side=tk.RIGHT, fill=tk.Y, padx=4, pady=4)
 
     outputList = tk.Listbox(outBox, yscrollcommand=outputScroll.set, bg=background, fg=textcolor, bd=0,height=25, width=52, highlightbackground=background,selectbackground=foreground)
     #aici scrii datele pentru live mode
-    outputList.pack()
+    outputList.pack(pady=4, padx=4)
 
 
     dataWrap = ctk.CTkFrame(liveWindow, fg_color=background)
