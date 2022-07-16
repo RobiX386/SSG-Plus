@@ -1,9 +1,7 @@
 from fileinput import filename
-from msilib import text
 import tkinter as tk
 import configparser
 import datetime
-from turtle import back
 import webbrowser
 import os
 import customtkinter as ctk
@@ -50,6 +48,14 @@ def livemodeFunc():
     outBox = ctk.CTkFrame(liveWindow, fg_color=background, border_width=borderWidth, border_color=accent, corner_radius=cornerRadius)
     outBox.pack(side=tk.LEFT, pady=20, padx=15)
 
+    outputScroll = tk.Scrollbar(outBox, width=10)
+    outputScroll.pack(side=tk.RIGHT, fill=tk.Y)
+
+    outputList = tk.Listbox(outBox, yscrollcommand=outputScroll.set, bg=background, fg=textcolor, bd=0,height=25, width=52, highlightbackground=background,selectbackground=foreground)
+    #aici scrii datele pentru live mode
+    outputList.pack()
+
+
     dataWrap = ctk.CTkFrame(liveWindow, fg_color=background)
     dataWrap.pack(side=tk.LEFT, padx=15, pady=20)
 
@@ -75,7 +81,7 @@ def livemodeFunc():
     infoBox.pack(side=tk.TOP, pady=15)
 
     lapsLeftWrap = ctk.CTkFrame(infoBox, fg_color=background)
-    lapsLeftWrap.pack(pady=15, padx=2)
+    lapsLeftWrap.pack(pady=7, padx=2)
 
     lapsLeft = ctk.CTkLabel(lapsLeftWrap, text="Laps left \n in stint", text_font=(fontType, 14), fg_color=background, width=0, text_color=mainTextColor)
     lapsLeft.pack(side=tk.LEFT, expand=True)
@@ -87,9 +93,9 @@ def livemodeFunc():
     number.pack(side=tk.LEFT, expand=True)
 
     stopsLeftWrap = ctk.CTkFrame(infoBox, fg_color=background)
-    stopsLeftWrap.pack(pady=15, padx=2)
+    stopsLeftWrap.pack(pady=7, padx=2)
 
-    stopsLeft = ctk.CTkFrame(stopsLeftWrap, text="Stops Left", text_font=(fontType, 14), fg_color=background, width=0, text_color=mainTextColor)
+    stopsLeft = ctk.CTkLabel(stopsLeftWrap, text="Stops Left", text_font=(fontType, 14), fg_color=background, width=0, text_color=mainTextColor)
     stopsLeft.pack(side=tk.LEFT, expand=True)
 
     colon = ctk.CTkLabel(stopsLeftWrap, text=":", text_font=(fontType, 18), fg_color=background, width=0, text_color=mainTextColor)
@@ -99,7 +105,7 @@ def livemodeFunc():
     number.pack(side=tk.LEFT, expand=True)
 
     lastStintWrap = ctk.CTkFrame(infoBox, fg_color=background)
-    lastStintWrap.pack(pady=15, padx=2)
+    lastStintWrap.pack(pady=7, padx=2)
 
     lapsInLastStint = ctk.CTkLabel(lastStintWrap, text="Laps in \n last stint", text_font=(fontType, 14), fg_color=background, width=0, text_color=mainTextColor)
     lapsInLastStint.pack(side=tk.LEFT, expand=True)
@@ -110,5 +116,5 @@ def livemodeFunc():
     number = ctk.CTkLabel(lastStintWrap, text="3", text_font=(fontType, 16), fg_color=background, width=0, text_color=mainTextColor)
     number.pack(side=tk.LEFT, expand=True)
 
-
-
+    startStop = ctk.CTkButton(dataWrap, fg_color=buttonColor, text="Start/Stop \n event", text_color=textcolor, corner_radius=buttonRadius, height=60, text_font=(fontType, 16))
+    startStop.pack(side=tk.TOP, pady=(15, 0))

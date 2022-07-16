@@ -1,5 +1,4 @@
 from fileinput import filename
-from msilib import text
 import tkinter as tk
 import configparser
 import datetime

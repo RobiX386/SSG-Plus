@@ -582,13 +582,13 @@ def sprintFunc():
     #PRESET BUTTONS
 
     newpreset = ctk.CTkButton(presets, width=30, height=45, text="New Preset", text_color=textcolor, fg_color=buttonColor, corner_radius=buttonRadius, hover_color=hoverColor, text_font=(fontType, 13),command=createnewpreset)
-    newpreset.pack(side=tk.LEFT, padx=5, expand=True, pady=0)
+    newpreset.pack(side=tk.LEFT, padx=5, expand=True, pady=25)
 
     carselectbut = ctk.CTkButton(presets, width=30, height=45, text="Select preset", text_color=textcolor, fg_color=buttonColor, corner_radius=buttonRadius, hover_color=hoverColor, text_font=(fontType, 13), command=carSelectwind)
-    carselectbut.pack(side=tk.LEFT, pady=0, padx=5, expand=True)
+    carselectbut.pack(side=tk.LEFT, pady=25, padx=5, expand=True)
 
     editpresetbut = ctk.CTkButton(presets, width=30, height=45, text="Edit Preset", text_color=textcolor, fg_color=buttonColor, corner_radius=buttonRadius, hover_color=hoverColor, text_font=(fontType, 13), command=editpresetcar)
-    editpresetbut.pack(side=tk.LEFT, padx=5, expand=True, pady=0)
+    editpresetbut.pack(side=tk.LEFT, padx=5, expand=True, pady=25)
 
 
     #CALCULATE STRATEGY
