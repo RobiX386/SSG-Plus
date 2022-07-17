@@ -192,7 +192,7 @@ def sprintFunc():
             #TRACK SELECT
             carSelectWindow.destroy()
                         
-            trackSelectWindow = tk.Tk()
+            trackSelectWindow = tk.Toplevel(sprintWindow)
             trackSelectWindow['bg']=background
             trackSelectWindow.title("SSG+")
             trackSelectWindow.geometry("+400+200")
@@ -218,7 +218,7 @@ def sprintFunc():
             
         #CAR SELECT
         
-        carSelectWindow = tk.Tk()
+        carSelectWindow = tk.Toplevel(sprintWindow)
         carSelectWindow['bg']=background
         carSelectWindow.title("SSG+")
         carSelectWindow.geometry("+400+200")
@@ -269,7 +269,7 @@ def sprintFunc():
                             return 0
 
                         chooseTrackPresetWindow.destroy()
-                        inputWindow = tk.Tk()
+                        inputWindow = tk.Toplevel(sprintWindow)
                         inputWindow['bg']=background
                         inputWindow.title("SSG+ Input Window")
                         inputWindow.geometry("+400-200")
@@ -352,7 +352,7 @@ def sprintFunc():
                 
                 createCarPreset.destroy()
                 
-                chooseTrackPresetWindow = tk.Tk()
+                chooseTrackPresetWindow = tk.Toplevel(sprintWindow)
                 chooseTrackPresetWindow['bg']=background
                 chooseTrackPresetWindow.title("SSG+ Choose Track")
                 chooseTrackPresetWindow.geometry("300x300+400+200")
@@ -381,7 +381,7 @@ def sprintFunc():
                 choosetrackpreset()
 
 
-        createCarPreset = tk.Tk()
+        createCarPreset = tk.Toplevel(sprintWindow)
         createCarPreset['bg']=background
         createCarPreset.title("SSG+ Create Preset")
         createCarPreset.geometry("300x300+400+200")
@@ -425,7 +425,7 @@ def sprintFunc():
                     return 0
 
                 editPresetTrackWindow.destroy()
-                inputWindow = tk.Tk()
+                inputWindow = tk.Toplevel(sprintWindow)
                 inputWindow['bg']=background
                 inputWindow.title("SSG+ Input Window")
                 inputWindow.geometry("+400-200")
@@ -490,7 +490,7 @@ def sprintFunc():
             
             editpresetcarwindow.destroy()
             
-            editPresetTrackWindow = tk.Tk()
+            editPresetTrackWindow = tk.Toplevel(sprintWindow)
             editPresetTrackWindow['bg']=background
             editPresetTrackWindow.title("SSG+")
             editPresetTrackWindow.geometry("+400+200")
@@ -511,7 +511,7 @@ def sprintFunc():
                 trackEditSelect = ctk.CTkButton(trackWrap, width=57, height=34, text_font=(fontType, 13), text=trackButtonName, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, corner_radius=buttonRadius, command=lambda y=y :presetInputWindow(y))
                 trackEditSelect.pack(side=tk.TOP, pady=10, padx=20)
 
-        editpresetcarwindow = tk.Tk() 
+        editpresetcarwindow = tk.Toplevel(sprintWindow) 
         editpresetcarwindow['bg']=background
         editpresetcarwindow.title("SSG+ Edit preset")
         editpresetcarwindow.geometry("+400+200")
@@ -578,7 +578,7 @@ def sprintFunc():
                 fastesttime = racetime
                 fasteststrat = pitcount
 
-        outputWindow = tk.Tk()
+        outputWindow = tk.Toplevel(sprintWindow)
         outputWindow.title("SSG+ Sprint Output")
         outputWindow['bg'] = background
 

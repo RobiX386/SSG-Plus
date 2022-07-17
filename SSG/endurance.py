@@ -200,7 +200,7 @@ def enduranceFunc():
             stintcount = 0
 
             #Output window
-            enduranceCompareOutput = tk.Tk()
+            enduranceCompareOutput = tk.Toplevel(endWindow)
             enduranceCompareOutput.title("SSG+ Endurance 2nd Output")
             enduranceCompareOutput['bg']=background
             enduranceCompareOutput.geometry("+1200+0")
@@ -382,7 +382,7 @@ def enduranceFunc():
         #     error("Stints/Tyre value\nis not correct")
         #     return 0
 
-        compareWindow = tk.Tk()
+        compareWindow = tk.Toplevel(endWindow)
         compareWindow['bg']=background
         compareWindow.title("SSG+")
         compareWindow.geometry("+500+200")
@@ -452,7 +452,6 @@ def enduranceFunc():
         # submitCompareData.config(font=("Helvetical bold", 14))
         submitCompareData.pack(expand=True, padx=0, pady=(0, 20))
 
-        compareWindow.mainloop()
 
     #SELECT PRESET
     def carSelectwind():
@@ -493,7 +492,7 @@ def enduranceFunc():
             #TRACK SELECT
             carSelectWindow.destroy()
                         
-            trackSelectWindow = tk.Tk()
+            trackSelectWindow = tk.Toplevel()
             trackSelectWindow['bg']=background
             trackSelectWindow.title("SSG+")
             trackSelectWindow.geometry("+400+200")
@@ -515,11 +514,10 @@ def enduranceFunc():
                 TrackSelect = ctk.CTkButton(trackSelectWrap, width=57, height=34, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, corner_radius=buttonRadius, text=trackButtonName, text_font=(fontType, 13), command= lambda trackfilename=trackfilename : insertdata(trackfilename))
                 TrackSelect.pack(side=tk.TOP, pady=10, padx=20)
             
-            trackSelectWindow.mainloop()
             
         #CAR SELECT
         
-        carSelectWindow = tk.Tk()
+        carSelectWindow = tk.Toplevel()
         carSelectWindow['bg']=background
         carSelectWindow.title("SSG+")
         carSelectWindow.geometry("+400+200")
@@ -540,7 +538,6 @@ def enduranceFunc():
             carselect = ctk.CTkButton(carSelecWrap, width=57, height=34, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text=carbuttonname, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda carfilename=carfilename :trackSelectwind(carfilename))
             carselect.pack(side=tk.TOP, pady=10, padx=30)
 
-        carSelectWindow.mainloop()
 
     #CREATE PRESET
     def createnewpreset():
@@ -573,7 +570,7 @@ def enduranceFunc():
                             
 
                         chooseTrackPresetWindow.destroy()
-                        inputWindow = tk.Tk()
+                        inputWindow = tk.Toplevel(endWindow)
                         inputWindow['bg']=background
                         inputWindow.title("SSG+ Input Window")
                         inputWindow.geometry("+400-200")
@@ -633,7 +630,6 @@ def enduranceFunc():
                         dataSubmit = ctk.CTkButton(inputWindow, text="Submit", hover_color=hoverColor, fg_color=buttonColor, text_color=textcolor, height=61, width=108, text_font=(fontType, 15), corner_radius=buttonRadius, command=datainiwrite)
                         dataSubmit.pack(side=tk.BOTTOM, expand=True, pady=(0, 20))
 
-                        inputWindow.mainloop()
 
                     if len(str(trackpresetvalue.get())) < 2:
                         error("Car name is invalid")
@@ -656,7 +652,7 @@ def enduranceFunc():
                 
                 createCarPreset.destroy()
                 
-                chooseTrackPresetWindow = tk.Tk()
+                chooseTrackPresetWindow = tk.Toplevel(endWindow)
                 chooseTrackPresetWindow['bg']=background
                 chooseTrackPresetWindow.title("SSG+ Choose Track")
                 chooseTrackPresetWindow.geometry("300x300+400+200")
@@ -669,8 +665,7 @@ def enduranceFunc():
                 
                 trackpresetsendbut = ctk.CTkButton(chooseTrackPresetWindow, text="Next", height=40, width=80, fg_color=foreground, text_color=textcolor, text_font=(fontType, 14), hover_color=hoverColor, corner_radius=buttonRadius, command=lambda:[tracksectioncheck(str(trackpresetvalue.get()).replace(" ", ""))])
                 trackpresetsendbut.pack(side=tk.TOP, expand=True)
-
-                chooseTrackPresetWindow.mainloop()            
+  
 
             if len(str(carpresetvalue.get())) < 2:
                 error("Car name is invalid")
@@ -687,7 +682,7 @@ def enduranceFunc():
             except:
                 choosetrackpreset()
 
-        createCarPreset = tk.Tk()
+        createCarPreset = tk.Toplevel(endWindow)
         createCarPreset['bg']=background
         createCarPreset.title("SSG+ Create Preset")
         createCarPreset.geometry("300x300+400+200")
@@ -701,7 +696,6 @@ def enduranceFunc():
         carpresetsendbut = ctk.CTkButton(createCarPreset, text="Next", height=40, width=80, fg_color=foreground, text_color=textcolor, text_font=(fontType, 14), hover_color=hoverColor, corner_radius=buttonRadius, command=lambda:[filecheck(str(carpresetvalue.get()).replace(" ", ""))])
         carpresetsendbut.pack(side=tk.TOP, expand=True)
 
-        createCarPreset.mainloop()
 
     #EDIT PRESET
     def editpresetcar():
@@ -735,7 +729,7 @@ def enduranceFunc():
                     return 0
 
                 editPresetTrackWindow.destroy()
-                inputWindow = tk.Tk()
+                inputWindow = tk.Toplevel(endWindow)
                 inputWindow['bg']=background
                 inputWindow.title("SSG+ Input Window")
                 inputWindow.geometry("+400-200")
@@ -795,12 +789,11 @@ def enduranceFunc():
                 dataSubmit = ctk.CTkButton(inputWindow, text="Submit", hover_color=hoverColor, fg_color=buttonColor, text_color=textcolor, height=61, width=108, text_font=(fontType, 15), corner_radius=buttonRadius, command=datainiwrite)
                 dataSubmit.pack(side=tk.BOTTOM, expand=True, pady=(0, 20))
 
-                inputWindow.mainloop()
             carfilename = curentpath+car+".ini"
             
             editpresetcarwindow.destroy()
             
-            editPresetTrackWindow = tk.Tk()
+            editPresetTrackWindow = tk.Toplevel(endWindow)
             editPresetTrackWindow['bg']=background
             editPresetTrackWindow.title("SSG+")
             editPresetTrackWindow.geometry("+400+200")
@@ -821,9 +814,8 @@ def enduranceFunc():
                 trackEditSelect = ctk.CTkButton(trackWrap, width=57, height=34, text_font=(fontType, 13), text=trackButtonName, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, corner_radius=buttonRadius, command=lambda y=y :presetInputWindow(y))
                 trackEditSelect.pack(side=tk.TOP, pady=10, padx=20)
 
-            editPresetTrackWindow.mainloop()
 
-        editpresetcarwindow = tk.Tk() 
+        editpresetcarwindow = tk.Toplevel(endWindow) 
         editpresetcarwindow['bg']=background
         editpresetcarwindow.title("SSG+ Edit preset")
         editpresetcarwindow.geometry("+400+200")
@@ -843,7 +835,6 @@ def enduranceFunc():
             carselect = ctk.CTkButton(carWrap, width=57, height=34, text=carbuttonname, text_font=(fontType, 13), fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, corner_radius=buttonRadius, command=lambda x=x :editpresettrack(x))
             carselect.pack(side=tk.TOP, pady=10, padx=20)
 
-        editpresetcarwindow.mainloop()
 
     #PRESET BUTTONS
 
@@ -928,7 +919,7 @@ def enduranceFunc():
         stintcount = 0
 
         #Output window
-        enduranceOutput = tk.Tk()
+        enduranceOutput = tk.Toplevel(endWindow)
         enduranceOutput.title("SSG+ Endurance Output")
         enduranceOutput['bg']=background
         enduranceOutput.geometry("+400+0")
