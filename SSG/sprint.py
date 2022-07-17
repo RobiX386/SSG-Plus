@@ -29,7 +29,7 @@ placeholderColor=design.get("ENTRY", "placeholderColor")
 entryTextColor=design.get("ENTRY", "textcolor")
 
 space= ' '
-curentpath = os.getcwd() + "/presets"+"//"
+curentpath = os.getcwd() + "\presets"+"\\"
 
 
 def sprintFunc():
