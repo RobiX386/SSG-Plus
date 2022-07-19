@@ -6,6 +6,7 @@ import datetime
 import webbrowser
 import os
 from errorFile import error
+from SSG.endurance import enduranceFunc
 
 #colors&&fonts
 
@@ -27,6 +28,7 @@ entryBorderColor=design.get("ENTRY", "borderColor")
 entryFg=design.get("ENTRY", "foreground")
 placeholderColor=design.get("ENTRY", "placeholderColor")
 entryTextColor=design.get("ENTRY", "textcolor")
+navbarColor=design.get("NAVBAR", "navbarColor")
 
 space= ' '
 curentpath = os.getcwd() + "\presets"+"\\"
@@ -38,6 +40,12 @@ def sprintFunc():
     sprintWindow.title("SSG+ Sprint")
     sprintWindow.geometry("+350+100")
     sprintWindow.resizable(False, False)
+
+    navBar = ctk.CTkFrame(sprintWindow, width=600, height=50, fg_color=navbarColor, corner_radius=0)
+    navBar.pack()
+
+    sprintButton = ctk.CTkButton(navBar, width=80, height=20, text="Sprint", fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[enduranceFunc(), sprintWindow.destroy()])
+    sprintButton.pack()
 
     pcrWrap = tk.Frame(sprintWindow, bg=background) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(10, 15))

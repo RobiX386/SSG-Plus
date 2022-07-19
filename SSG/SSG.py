@@ -70,10 +70,10 @@ def changeName():
     nameSubmit.pack(side=tk.TOP, expand=True, pady=(0, 30))
 
 
-canvas = tk.Canvas(startWindow, width = 300, height = 150, bg=background, highlightbackground=background)      
-canvas.pack(pady=(40,0))      
-img = tk.PhotoImage(file="SSG.png")      
-canvas.create_image(150,75, image=img) 
+# canvas = tk.Canvas(startWindow, width = 300, height = 150, bg=background, highlightbackground=background)      
+# canvas.pack(pady=(40,0))      
+# img = tk.PhotoImage(file="SSG.png")      
+# canvas.create_image(150,75, image=img) 
 
 greeting = ctk.CTkButton(startWindow, text="Hello, " + userName, text_font=(fontType, 18), text_color=mainTextColor, fg_color=background, hover_color=hoverColor, command=changeName)
 greeting.pack(side=tk.TOP, pady=(30, 0))

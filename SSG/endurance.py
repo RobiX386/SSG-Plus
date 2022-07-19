@@ -1,4 +1,3 @@
-from fileinput import filename
 import tkinter as tk
 import configparser
 import datetime
@@ -7,6 +6,7 @@ import os
 import customtkinter as ctk
 from errorFile import error
 import sys
+from SSG.sprint import sprintFunc
 
 
 class DevNull:
@@ -35,9 +35,10 @@ entryBorderColor=design.get("ENTRY", "borderColor")
 entryFg=design.get("ENTRY", "foreground")
 placeholderColor=design.get("ENTRY", "placeholderColor")
 entryTextColor=design.get("ENTRY", "textcolor")
+navbarColor=design.get("NAVBAR", "navbarColor")
 
 space= ' '
-curentpath = os.getcwd() + "\presets"+"\\"
+curentpath = os.getcwd() + "/presets"+"//"
 
 
 def enduranceFunc():
@@ -46,6 +47,13 @@ def enduranceFunc():
     endWindow.title("SSG+ Endurance")
     endWindow.geometry("+300+100")
     endWindow.resizable(False, False)
+
+    navBar = ctk.CTkFrame(endWindow, width=600, height=50, fg_color=navbarColor, corner_radius=0)
+    navBar.pack()
+
+    sprintButton = ctk.CTkButton(navBar, width=80, height=20, text="Sprint", fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[sprintFunc(), endWindow.destroy()])
+    sprintButton.pack()
+
 
     pcrWrap = tk.Frame(endWindow, bg=background, width=500, height=300) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(20, 15))
@@ -125,12 +133,13 @@ def enduranceFunc():
     pitInfo = ctk.CTkFrame(bprWrap, fg_color=background, border_color=accent, border_width=borderWidth, corner_radius=cornerRadius)
     pitInfo.pack(fill=tk.X, side=tk.TOP, pady=(18, 10))
 
-    pitInfoLabel = ctk.CTkLabel(endWindow, fg_color=background, text_font=(fontType, 18), text="#Pit Info", text_color=mainTextColor, width=40)
-    pitInfoLabel.place(x=507, y=40, anchor=tk.N)
 
     driveTimeWrap = tk.Frame(pitInfo, bg=background)
     driveTimeWrap.pack(side=tk.TOP, expand=True, pady=(13, 13))
 
+    pitInfoLabel = ctk.CTkLabel(bprWrap, fg_color=background, text_font=(fontType, 18), text="#Pit Info", text_color=mainTextColor, width=40)
+    pitInfoLabel.place(x=100, y=4, anchor=tk.N)
+    
     driveTime = ctk.CTkLabel(driveTimeWrap, text="D.T. Time", text_font=(fontType, 18), fg_color=background, text_color=mainTextColor)
     driveTime.pack(side=tk.LEFT)
 
@@ -205,11 +214,10 @@ def enduranceFunc():
             enduranceCompareOutput['bg']=background
             enduranceCompareOutput.geometry("+1200+0")
 
-            enduranceCompareStrategy = tk.Label(enduranceCompareOutput, text="Second Endurance \n Strategy", bg=background, fg="white")
-            enduranceCompareStrategy.config(font=("Helvetical bold", 18))
+            enduranceCompareStrategy = ctk.CTkLabel(enduranceCompareOutput, text="Second Endurance \n Strategy", fg_color=background, text_color=mainTextColor, text_font=(fontType, 18))
             enduranceCompareStrategy.pack(expand=True, pady=(20, 0))
 
-            outputCompareWrap = tk.Frame(enduranceCompareOutput, bg=background, highlightbackground=accent, highlightthickness=1)
+            outputCompareWrap = ctk.CTkFrame(enduranceCompareOutput, fg_color=background, border_color=accent, border_width=borderWidth, corner_radius=cornerRadius)
             outputCompareWrap.pack(expand=True, padx=30, pady=20)
 
             outputCompareScroll = tk.Scrollbar(outputCompareWrap, width=10)
@@ -308,8 +316,7 @@ def enduranceFunc():
 
             outputCompareScroll.config(command=outputList.yview)
             # DE REVENIT
-            closeButton = tk.Button(enduranceCompareOutput, text="Close Window", width=15, height=2, bg=buttonColor, fg=textcolor,activebackground="red", activeforeground="white", bd=1,command=enduranceCompareOutput.destroy)
-            closeButton.config(font=("Helvetical bold", 13))
+            closeButton = ctk.CTkButton(enduranceCompareOutput, text="Close Window", fg_color=buttonColor, text_color=textcolor, text_font=(fontType, 13), hover_color="red", command=enduranceCompareOutput.destroy)
             closeButton.pack(pady=(0, 15))
             
             compareWindow.destroy()
@@ -396,60 +403,44 @@ def enduranceFunc():
         #laptime
 
         laptimeCompareWrap = tk.Frame(compareInputWrap, bg=background)
-        laptimeCompareWrap.pack(side=tk.TOP, expand=True, pady=(1, 0))
+        laptimeCompareWrap.pack(side=tk.TOP, expand=True, pady=10, padx=5)
 
-        laptimeCompare = tk.Label(laptimeCompareWrap, text="Lap Time", bg=background, fg="white", height=2)
-        laptimeCompare.config(font=("Helvetical bold", 18))
-        laptimeCompare.pack(side=tk.LEFT, padx=(10, 70), pady=(0, 0))
+        laptimeCompare = ctk.CTkLabel(laptimeCompareWrap, text="Lap Time", fg_color=background, text_color=mainTextColor, text_font=(fontType, 18))
+        laptimeCompare.pack(side=tk.LEFT, padx=0, pady=(0, 0))
 
-        entryWrap = tk.Frame(laptimeCompareWrap, bg=background)
+        entryWrap = ctk.CTkFrame(laptimeCompareWrap, fg_color=background)
         entryWrap.pack(side=tk.LEFT, padx=(0, 0))
 
-        lapCompareMinValue = tk.Entry(entryWrap, width=3, fg="black")
+        lapCompareMinValue = ctk.CTkEntry(entryWrap, width=34, height=19, text_color=entryTextColor, fg_color=entryFg, border_color=entryBorderColor, placeholder_text="min", placeholder_text_color=placeholderColor, fg="black")
         lapCompareMinValue.pack(side=tk.LEFT)
 
-        lapCompareMinutes = tk.Label(entryWrap, text="min", bg=background, fg="white")
-        lapCompareMinutes.pack(side=tk.LEFT, padx=0)
-
-        lapCompareSecondsValue = tk.Entry(entryWrap, width=5, fg="black")
-        lapCompareSecondsValue.pack(side=tk.LEFT, padx=(10, 0))
-
-        secondsCompare = tk.Label(entryWrap, text="sec", bg=background, fg="white")
-        secondsCompare.pack(fill=tk.Y, side=tk.LEFT, padx=0)
+        lapCompareSecondsValue = ctk.CTkEntry(entryWrap, width=34, height=19, text_color=entryTextColor, fg_color=entryFg, border_color=entryBorderColor, placeholder_text="sec", placeholder_text_color=placeholderColor, fg="black")
+        lapCompareSecondsValue.pack(side=tk.LEFT, padx=0)
 
         #Stint info
 
         stintWrapCompare = tk.Frame(compareInputWrap, bg=background)
-        stintWrapCompare.pack(side=tk.TOP, expand=True)
+        stintWrapCompare.pack(side=tk.TOP, expand=True, pady=10, padx=5)
 
-        stintpertyreCompare = tk.Label(stintWrapCompare, text="Stint/Tyre", bg=background, fg="white", height=2)
-        stintpertyreCompare.config(font=("Helvetical bold", 18))
-        stintpertyreCompare.pack(side=tk.LEFT, padx=(0, 100))
+        stintpertyreCompare = ctk.CTkLabel(stintWrapCompare, text="Stint/Tyre", fg_color=background, text_color=mainTextColor, text_font=(fontType, 18))
+        stintpertyreCompare.pack(side=tk.LEFT, padx=0)
 
-        stintCompareValue = tk.Entry(stintWrapCompare, width=8, fg="black")
-        stintCompareValue.pack(side=tk.LEFT, padx=(0, 18))
+        stintCompareValue = ctk.CTkEntry(stintWrapCompare, width=50, height=19, text_color=entryTextColor, fg_color=entryFg, border_color=entryBorderColor, fg="black")
+        stintCompareValue.pack(side=tk.LEFT, padx=0)
 
         #fuel cons
 
         tankWrapCompare = tk.Frame(compareInputWrap, bg=background)
-        tankWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=1, pady=(0, 6))
+        tankWrapCompare.pack(fill=tk.X, side=tk.TOP, pady=(10, 15), padx=5)
 
-        fuelConsCompare = tk.Label(tankWrapCompare, text="Fuel Consumption", fg="white", bg=background, width=16, height=2)
-        fuelConsCompare.config(font=("Helvetical bold", 18))
+        fuelConsCompare = ctk.CTkLabel(tankWrapCompare, text="Fuel Consumption", text_color=mainTextColor, fg_color=background, text_font=(fontType, 18))
         fuelConsCompare.pack(side=tk.LEFT)
 
-        fuelconsComparevalue = tk.Entry(tankWrapCompare, width=12, bg="white")
-        fuelconsComparevalue.pack(side=tk.LEFT, pady=0)
-
-        consWrapCompare = tk.Frame(tankWrapCompare, bg=background)
-        consWrapCompare.pack(fill=tk.X, side=tk.TOP, padx=0)
-
-        lperlapCompare = tk.Label(tankWrapCompare, text="L/Lap", fg="white", bg=background)
-        lperlapCompare.pack(side=tk.LEFT, fill=tk.Y)
+        fuelconsComparevalue = ctk.CTkEntry(tankWrapCompare, width=50, height=19, text_color=entryTextColor, fg_color=entryFg, border_color=entryBorderColor, placeholder_text="L/Lap", placeholder_text_color=placeholderColor, fg="black")
+        fuelconsComparevalue.pack(side=tk.LEFT)
 
         #SUBMIT COMPARE BUTTON
         submitCompareData = ctk.CTkButton(compareWindow, text="Compare \n Strategy", width=108, height=61, fg_color=buttonColor, text_color=textcolor, hover_color="#547a1f", text_font=(fontType, 14), corner_radius=buttonRadius, command=submitEnduranceComp)
-        # submitCompareData.config(font=("Helvetical bold", 14))
         submitCompareData.pack(expand=True, padx=0, pady=(0, 20))
 
 
@@ -546,6 +537,38 @@ def enduranceFunc():
                 def tracksectioncheck(trackname):
                     def presetInputWindow():
                         def datainiwrite():
+                            try:
+                                int(inputfueltankvalue.get())
+                            except:
+                                error("Fuel tank size is incorrect")
+                                exit()
+                            
+                            try:
+                                int(inputfuelconsvalue.get())
+                            except:
+                                error("Fuel consumption is incorrect")
+                                exit()
+
+                            try:
+                                int(inputdriveTimevalue.get())
+                            except:
+                                error("D.T. Value is incorrect")
+                                exit()
+
+                            try:
+                                int(inputRefuelTimeValue.get())
+                            except:
+                                error("Refuel time is incorrect")
+                                exit()
+
+                            try:
+                                int(inputTyreChangeValue.get())
+                            except:
+                                error("Tyre change time is incorrect")
+                                exit()
+
+
+
                             config.set(trackname, "fueltank", inputfueltankvalue.get())
                             fueltankvalue.delete(0,tk.END)
                             fueltankvalue.insert(0, inputfueltankvalue.get())
@@ -706,6 +729,35 @@ def enduranceFunc():
                     config.read(carfilename)
                     with open(carfilename, "w") as config_file:
                         config.write(config_file)
+                    try:
+                        int(inputfueltankvalue.get())
+                    except:
+                        error("Fuel tank size is incorrect")
+                        exit()
+                    
+                    try:
+                        int(inputfuelconsvalue.get())
+                    except:
+                        error("Fuel consumption is incorrect")
+                        exit()
+
+                    try:
+                        int(inputdriveTimevalue.get())
+                    except:
+                        error("D.T. Value is incorrect")
+                        exit()
+
+                    try:
+                        int(inputRefuelTimeValue.get())
+                    except:
+                        error("Refuel time is incorrect")
+                        exit()
+
+                    try:
+                        int(inputTyreChangeValue.get())
+                    except:
+                        error("Tyre change time is incorrect")
+                        exit()
                     config.set(trackname, "fueltank", inputfueltankvalue.get())
                     fueltankvalue.delete(0,tk.END)
                     fueltankvalue.insert(0, inputfueltankvalue.get())
@@ -1050,11 +1102,12 @@ def enduranceFunc():
     documentaton = ctk.CTkButton(deButtonWrap, text="Readme", width=108, height=61, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=("Helvetical bold", 14), corner_radius=buttonRadius, command=lambda:webbrowser.open("README.md"))
     documentaton.pack(expand=True, side=tk.LEFT, padx=(0,7))
 
-    exit = ctk.CTkButton(deButtonWrap, text="Exit", width=108, height=61, fg_color=buttonColor, text_color=textcolor, hover_color="red", text_font=("Helvetical bold", 14), corner_radius=buttonRadius, command=endWindow.destroy,)
+    exit = ctk.CTkButton(deButtonWrap, text="Exit", width=108, height=61, fg_color=buttonColor, text_color=textcolor, hover_color="red", text_font=("Helvetical bold", 14), corner_radius=buttonRadius, command=endWindow.destroy)
     exit.pack(expand=True, side=tk.LEFT, padx=(7, 0))
 
-    compareData = ctk.CTkButton(csButtonWrap, text="Compare \n Strategy", width=108, height=61, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=("Helvetical bold", 14), corner_radius=buttonRadius, command=compareEnduranceScreen)
+    compareData = ctk.CTkButton(csButtonWrap, text="Compare \n Strategy", width=108, height=61, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=("Helvetical bold", 14), corner_radius=buttonRadius, command=lambda:[compareEnduranceScreen, print(endWindow.winfo_width())])
     compareData.pack(expand=True, side=tk.LEFT, padx=(0,7))
 
     submitData = ctk.CTkButton(csButtonWrap, text="Calculate \n Strategy", command=submitEndurance, width=108, height=61, fg_color=buttonColor, text_color=textcolor, hover_color="#547a1f", text_font=("Helvetical bold", 14), corner_radius=buttonRadius)
     submitData.pack(expand=True, side=tk.LEFT, padx=(7,0))
+
