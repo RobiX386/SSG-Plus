@@ -6,7 +6,6 @@ import os
 import customtkinter as ctk
 from errorFile import error
 import sys
-from SSG.sprint import sprintFunc
 
 
 class DevNull:
@@ -42,18 +41,29 @@ curentpath = os.getcwd() + "/presets"+"//"
 
 
 def enduranceFunc():
+    from sprint import sprintFunc
+    from livemode import livemodeFunc
+
     endWindow = tk.Tk() 
     endWindow.config(bg=background)
     endWindow.title("SSG+ Endurance")
     endWindow.geometry("+300+100")
     endWindow.resizable(False, False)
 
-    navBar = ctk.CTkFrame(endWindow, width=600, height=50, fg_color=navbarColor, corner_radius=0)
-    navBar.pack()
+    navBar = ctk.CTkFrame(endWindow, width=600, height=50, fg_color="white", corner_radius=0)
+    navBar.pack(side=tk.TOP, fill=tk.X)
 
-    sprintButton = ctk.CTkButton(navBar, width=80, height=20, text="Sprint", fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[sprintFunc(), endWindow.destroy()])
-    sprintButton.pack()
+    buttonWrap = ctk.CTkFrame(navBar, fg_color=navbarColor, width=360)
+    buttonWrap.pack(expand=True)
 
+    sprintButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Sprint", fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[sprintFunc(), endWindow.destroy()])
+    sprintButton.pack(expand=True)
+
+    enduranceButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Endurance", fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, state=tk.DISABLED)
+    enduranceButton.pack(expand=True)
+
+    liveButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Live", fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[livemodeFunc(), endWindow.destroy()])
+    liveButton.pack(expand=True)
 
     pcrWrap = tk.Frame(endWindow, bg=background, width=500, height=300) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(20, 15))

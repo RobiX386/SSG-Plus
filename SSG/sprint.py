@@ -5,8 +5,9 @@ import configparser
 import datetime
 import webbrowser
 import os
+
+from matplotlib.pyplot import fill
 from errorFile import error
-from SSG.endurance import enduranceFunc
 
 #colors&&fonts
 
@@ -35,6 +36,9 @@ curentpath = os.getcwd() + "\presets"+"\\"
 
 
 def sprintFunc():
+    from endurance import enduranceFunc
+    from livemode import livemodeFunc
+
     sprintWindow = tk.Tk() 
     sprintWindow.config(bg=background)
     sprintWindow.title("SSG+ Sprint")
@@ -42,10 +46,10 @@ def sprintFunc():
     sprintWindow.resizable(False, False)
 
     navBar = ctk.CTkFrame(sprintWindow, width=600, height=50, fg_color=navbarColor, corner_radius=0)
-    navBar.pack()
+    navBar.pack(side=tk.TOP, fill=tk.X)
 
-    sprintButton = ctk.CTkButton(navBar, width=80, height=20, text="Sprint", fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[enduranceFunc(), sprintWindow.destroy()])
-    sprintButton.pack()
+    enduranceButton = ctk.CTkButton(navBar, width=80, height=20, text="Sprint", fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[enduranceFunc(), sprintWindow.destroy()])
+    enduranceButton.pack(side=tk.RIGHT, padx=(0, 200))
 
     pcrWrap = tk.Frame(sprintWindow, bg=background) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(10, 15))

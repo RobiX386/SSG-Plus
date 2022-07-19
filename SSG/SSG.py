@@ -4,7 +4,6 @@ from livemode import livemodeFunc
 from endurance import enduranceFunc
 from sprint import sprintFunc
 import customtkinter as ctk
-import os
 
 #colors & fonts 
 

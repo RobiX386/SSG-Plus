@@ -39,6 +39,10 @@ space= ' '
 curentpath = os.getcwd() + "\presets"+"\\"
 
 def livemodeFunc():
+    from endurance import enduranceFunc
+    from sprint import sprintFunc
+
+
     liveWindow = tk.Tk()
     liveWindow.config(bg=background)
     liveWindow.title("SSG+ Live")
