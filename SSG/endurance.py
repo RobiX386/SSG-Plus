@@ -21,7 +21,6 @@ buttonColor=design.get("COLOR", "buttonColor")
 space= ' '
 curentpath = os.getcwd() + "\presets"+"\\"
 
-
 def enduranceFunc():
     endWindow = tk.Tk() 
     endWindow.config(bg=background)
