@@ -5,6 +5,8 @@ import configparser
 import datetime
 import webbrowser
 import os
+
+from matplotlib.pyplot import fill
 from errorFile import error
 
 #colors&&fonts
@@ -27,17 +29,38 @@ entryBorderColor=design.get("ENTRY", "borderColor")
 entryFg=design.get("ENTRY", "foreground")
 placeholderColor=design.get("ENTRY", "placeholderColor")
 entryTextColor=design.get("ENTRY", "textcolor")
+navbarColor=design.get("NAVBAR", "navbarColor")
+navButtonColor=design.get("NAVBAR", "navButtons")
+navDisabledColor=design.get("NAVBAR", "navDisabled")
 
 space= ' '
-curentpath = os.getcwd() + "\presets"+"\\"
+curentpath = os.getcwd() + "/presets"+"//"
 
 
 def sprintFunc():
+    from endurance import enduranceFunc
+    from livemode import livemodeFunc
+
     sprintWindow = tk.Tk() 
     sprintWindow.config(bg=background)
     sprintWindow.title("SSG+ Sprint")
     sprintWindow.geometry("+350+100")
     sprintWindow.resizable(False, False)
+
+    navBar = ctk.CTkFrame(sprintWindow, width=600, height=50, fg_color=navbarColor, corner_radius=0)
+    navBar.pack(side=tk.TOP, fill=tk.X)
+
+    buttonWrap = ctk.CTkFrame(navBar, fg_color=navbarColor, width=360)
+    buttonWrap.pack(expand=True, pady=(0, 2))
+
+    sprintButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Sprint", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, state=tk.DISABLED, command=lambda:[sprintFunc(), sprintWindow.destroy()])
+    sprintButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
+
+    enduranceButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Endurance", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[enduranceFunc(), sprintWindow.destroy()])
+    enduranceButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
+
+    liveButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Live", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[livemodeFunc(), sprintWindow.destroy()])
+    liveButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
 
     pcrWrap = tk.Frame(sprintWindow, bg=background) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(10, 15))
@@ -114,8 +137,8 @@ def sprintFunc():
     pitInfo = ctk.CTkFrame(bprWrap, fg_color=background, border_color=accent, border_width=borderWidth, corner_radius=cornerRadius)
     pitInfo.pack(fill=tk.X, side=tk.TOP, pady=(18, 10))
 
-    pitInfoLabel = ctk.CTkLabel(sprintWindow, fg_color=background, text_font=(fontType, 18), text="#Pit Info", text_color=mainTextColor, width=40)
-    pitInfoLabel.place(x=517, y=40, anchor=tk.N)
+    pitInfoLabel = ctk.CTkLabel(bprWrap, fg_color=background, text_font=(fontType, 18), text="#Pit Info", text_color=mainTextColor, width=40)
+    pitInfoLabel.place(x=140, y=2, anchor=tk.N)
 
     driveTimeWrap = tk.Frame(pitInfo, bg=background)
     driveTimeWrap.pack(padx=35,side=tk.TOP, expand=True, pady=(13, 13))
@@ -582,11 +605,10 @@ def sprintFunc():
         outputWindow.title("SSG+ Sprint Output")
         outputWindow['bg'] = background
 
-        sprintOutput = tk.Label(outputWindow, text="Sprint Strategy", bg=background, fg="white")
-        sprintOutput.config(font=(fontType, 20))
+        sprintOutput = ctk.CTkLabel(outputWindow, text="Sprint Strategy", fg_color=background, text_color=textcolor, text_font=(fontType, 20))
         sprintOutput.pack(expand=True, pady=(20, 0))
 
-        outputWrap = tk.Frame(outputWindow, bg=background, highlightbackground=accent, highlightthickness=1)
+        outputWrap = ctk.CTkFrame(outputWindow, fg_color=background, border_color=accent, border_width=borderWidth, corner_radius=cornerRadius)
         outputWrap.pack(expand=True, pady=20, padx=40)
 
         outputText = tk.Label(outputWrap, text=sprintText, bg=background, fg="#cccccc")
@@ -599,7 +621,7 @@ def sprintFunc():
         fastestStrategy.config(font=(fontType, 18))
         fastestStrategy.pack(pady=(0, 10), padx=10)
 
-        closeOutput = tk.Button(outputWindow, text="Close Window", width=10, height=2, bg=foreground, fg="#cccccc", activebackground="red", activeforeground="white", bd=1, command=outputWindow.destroy)
+        closeOutput = ctk.CTkButton(outputWindow, text="Close Window", width=100, height=40, fg_color=buttonColor, text_color=textcolor, hover_color="red", command=outputWindow.destroy)
         closeOutput.pack(expand=True, pady=(0, 15))
 
         outputWindow.mainloop()
