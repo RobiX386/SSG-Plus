@@ -41,7 +41,6 @@ navDisabledColor=design.get("NAVBAR", "navDisabled")
 space= ' '
 curentpath = os.getcwd() + "/presets"+"//"
 
-
 def enduranceFunc():
     from sprint import sprintFunc
     from livemode import livemodeFunc
