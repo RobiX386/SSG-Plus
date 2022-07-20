@@ -1,4 +1,3 @@
-from fileinput import filename
 import tkinter as tk
 import configparser
 import datetime
@@ -41,6 +40,35 @@ navDisabledColor=design.get("NAVBAR", "navDisabled")
 space= ' '
 curentpath = os.getcwd() + "\presets"+"\\"
 
+def livemodeWait():
+    waitRoom = tk.Tk()
+    waitRoom.geometry("+300+100")
+    waitRoom.title("SSG+ Event Countdown")
+    waitRoom.resizable(False, False)
+    waitRoom.config(bg=background)
+    
+    waitRoomLabel = ctk.CTkLabel(waitRoom, text="Time until event starts", text_font=(fontType, 20), text_color=textcolor, fg_color=background)
+    waitRoomLabel.pack(expand=True, pady=30)
+
+    countdownWrap = ctk.CTkFrame(waitRoom, border_color=accent, fg_color=background, border_width=borderWidth, corner_radius=cornerRadius)
+    countdownWrap.pack(expand=True, padx=50)
+
+    countDownLabel = ctk.CTkLabel(countdownWrap, text="Time until event starts: ", text_color=textcolor, text_font=(fontType, 30), fg_color=background)
+    countDownLabel.pack(expand=True, padx=20, pady=10)
+
+    countDown = ctk.CTkLabel(countdownWrap, text="7:25:22", text_font=(fontType, 40), fg_color=background, text_color=textcolor)
+    countDown.pack(expand=True, padx=20, pady=10)
+
+    startingDriverText = "Starting Driver:\n" + "Max Verstappen"
+
+    startingDriverLabel = ctk.CTkLabel(waitRoom, text=startingDriverText, fg_color=background, text_color=textcolor, text_font=(fontType, 13))
+    startingDriverLabel.pack(expand=True, pady=10)
+
+    swapDriver = ctk.CTkButton(waitRoom, text="Swap Driver", width=100, height=40, fg_color=buttonColor, text_color=textcolor, text_font=(fontType, 13), hover_color=hoverColor)
+    swapDriver.pack(expand=True, pady=(10, 20))
+
+    
+
 def livemodeFunc():
     from endurance import enduranceFunc
     from sprint import sprintFunc
@@ -50,7 +78,7 @@ def livemodeFunc():
     liveWindow.config(bg=background)
     liveWindow.title("SSG+ Live")
     liveWindow.geometry("+300+100")
-    # liveWindow.resizable(False, False)
+    liveWindow.resizable(False, False)
 
     navBar = ctk.CTkFrame(liveWindow, width=600, height=50, fg_color=navbarColor, corner_radius=0)
     navBar.pack(side=tk.TOP, fill=tk.X)
@@ -67,6 +95,66 @@ def livemodeFunc():
     liveButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Live", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, state=tk.DISABLED, command=lambda:[livemodeFunc(), liveWindow.destroy()])
     liveButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
 
+    dataWrap = ctk.CTkFrame(liveWindow, fg_color=background)
+    dataWrap.pack(side=tk.LEFT, padx=15, pady=20)
+
+    timeBox = ctk.CTkFrame(dataWrap, fg_color=background, border_width=borderWidth, border_color=accent, corner_radius=cornerRadius)
+    timeBox.pack(side=tk.TOP, pady=(0, 15))
+
+    timeLeft = ctk.CTkLabel(timeBox, text="Time Left:",  text_color=mainTextColor, text_font=(fontType, 18))
+    timeLeft.pack(side=tk.TOP, padx=10, pady=(10, 5), expand=True)
+
+    timeValue = ctk.CTkLabel(timeBox, text="6:24:25", text_color=mainTextColor, text_font=(fontType, 16))
+    timeValue.pack(side=tk.TOP, padx=10, pady=(0, 5), expand=True)
+
+    buttonBox = ctk.CTkFrame(dataWrap, fg_color=background, border_width=borderWidth, border_color=accent, corner_radius=cornerRadius)
+    buttonBox.pack(side=tk.TOP, pady=15)
+
+    changeData = ctk.CTkButton(buttonBox, width=80, height=30, fg_color=buttonColor, text_color=textcolor, text_font=(fontType, 14), text="Change Data", hover_color=hoverColor)
+    changeData.pack(expand=True, pady=(20, 10), padx=20)
+
+    scvsc = ctk.CTkButton(buttonBox, width=80, height=30, fg_color=buttonColor, text_color=textcolor, text_font=(fontType, 14), text="SC/VSC", hover_color=hoverColor)
+    scvsc.pack(expand=True, pady=(10, 20), padx=20)
+
+    infoBox = ctk.CTkFrame(dataWrap, fg_color=background, border_color=accent, border_width=borderWidth, corner_radius=cornerRadius)
+    infoBox.pack(side=tk.TOP, pady=15)
+
+    lapsLeftWrap = ctk.CTkFrame(infoBox, fg_color=background)
+    lapsLeftWrap.pack(pady=7, padx=2)
+
+    lapsLeft = ctk.CTkLabel(lapsLeftWrap, text="Laps left \n in stint", text_font=(fontType, 14), fg_color=background, width=0, text_color=mainTextColor)
+    lapsLeft.pack(side=tk.LEFT, expand=True)
+
+    colon = ctk.CTkLabel(lapsLeftWrap, text=":", text_font=(fontType, 18), fg_color=background, width=0, text_color=mainTextColor)
+    colon.pack(side=tk.LEFT, expand=True)
+
+    number = ctk.CTkLabel(lapsLeftWrap, text="13", text_font=(fontType, 16), fg_color=background, width=0, text_color=mainTextColor)
+    number.pack(side=tk.LEFT, expand=True)
+
+    stopsLeftWrap = ctk.CTkFrame(infoBox, fg_color=background)
+    stopsLeftWrap.pack(pady=7, padx=2)
+
+    stopsLeft = ctk.CTkLabel(stopsLeftWrap, text="Stops Left", text_font=(fontType, 14), fg_color=background, width=0, text_color=mainTextColor)
+    stopsLeft.pack(side=tk.LEFT, expand=True)
+
+    colon = ctk.CTkLabel(stopsLeftWrap, text=":", text_font=(fontType, 18), fg_color=background, width=0, text_color=mainTextColor)
+    colon.pack(side=tk.LEFT, expand=True)
+
+    number = ctk.CTkLabel(stopsLeftWrap, text="3", text_font=(fontType, 16), fg_color=background, width=0, text_color=mainTextColor)
+    number.pack(side=tk.LEFT, expand=True)
+
+    lastStintWrap = ctk.CTkFrame(infoBox, fg_color=background)
+    lastStintWrap.pack(pady=7, padx=2)
+
+    lapsInLastStint = ctk.CTkLabel(lastStintWrap, text="Laps in \n last stint", text_font=(fontType, 14), fg_color=background, width=0, text_color=mainTextColor)
+    lapsInLastStint.pack(side=tk.LEFT, expand=True)
+
+    colon = ctk.CTkLabel(lastStintWrap, text=":", text_font=(fontType, 18), fg_color=background, width=0, text_color=mainTextColor)
+    colon.pack(side=tk.LEFT, expand=True)
+
+    number = ctk.CTkLabel(lastStintWrap, text="3", text_font=(fontType, 16), fg_color=background, width=0, text_color=mainTextColor)
+    number.pack(side=tk.LEFT, expand=True)
+
     outBox = ctk.CTkFrame(liveWindow, fg_color=background, border_width=borderWidth, border_color=accent, corner_radius=cornerRadius)
     outBox.pack(side=tk.LEFT, pady=0, padx=(20, 15))
 
@@ -76,7 +164,6 @@ def livemodeFunc():
     outputList = tk.Listbox(outBox, yscrollcommand=outputScroll.set, bg=background, fg=textcolor, bd=0,height=25, width=52, highlightbackground=background,selectbackground=foreground)
     #aici scrii datele pentru live mode
     outputList.pack(pady=4, padx=4)
-
 
     dataWrap = ctk.CTkFrame(liveWindow, fg_color=background)
     dataWrap.pack(side=tk.LEFT, padx=15, pady=20)
