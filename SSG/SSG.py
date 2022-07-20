@@ -71,19 +71,19 @@ def changeName():
 
 # canvas = tk.Canvas(startWindow, width = 300, height = 150, bg=background, highlightbackground=background)      
 # canvas.pack(pady=(40,0))      
-# img = tk.PhotoImage(file="SSG.png")      
+# img = tk.PhotoImage(file="floare.jpg")     
 # canvas.create_image(150,75, image=img) 
 
 greeting = ctk.CTkButton(startWindow, text="Hello, " + userName, text_font=(fontType, 18), text_color=mainTextColor, fg_color=background, hover_color=hoverColor, command=changeName)
 greeting.pack(side=tk.TOP, pady=(30, 0))
 
-endurance = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Endurance", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=enduranceCommands)
+endurance = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Endurance", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=lambda:[enduranceFunc(), startWindow.destroy()])
 endurance.pack(side=tk.LEFT, expand=True, padx=15, pady=(50, 90))
 
-sprint = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Sprint", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=sprintCommands)
+sprint = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Sprint", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=lambda:[sprintFunc(), startWindow.destroy()])
 sprint.pack(side=tk.LEFT, expand=True, padx=15, pady=(50, 90))
 
-live = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Live", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=liveCommands)
+live = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Live", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=lambda:[livemodeFunc(), startWindow.destroy()])
 live.pack(side=tk.LEFT, expand=True, padx=15, pady=(50, 90))
 
 startWindow.mainloop()

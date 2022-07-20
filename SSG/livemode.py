@@ -34,6 +34,9 @@ entryBorderColor=design.get("ENTRY", "borderColor")
 entryFg=design.get("ENTRY", "foreground")
 placeholderColor=design.get("ENTRY", "placeholderColor")
 entryTextColor=design.get("ENTRY", "textcolor")
+navbarColor=design.get("NAVBAR", "navbarColor")
+navButtonColor=design.get("NAVBAR", "navButtons")
+navDisabledColor=design.get("NAVBAR", "navDisabled")
 
 space= ' '
 curentpath = os.getcwd() + "\presets"+"\\"
@@ -48,6 +51,21 @@ def livemodeFunc():
     liveWindow.title("SSG+ Live")
     liveWindow.geometry("+300+100")
     # liveWindow.resizable(False, False)
+
+    navBar = ctk.CTkFrame(liveWindow, width=600, height=50, fg_color=navbarColor, corner_radius=0)
+    navBar.pack(side=tk.TOP, fill=tk.X)
+
+    buttonWrap = ctk.CTkFrame(navBar, fg_color=navbarColor, width=360)
+    buttonWrap.pack(expand=True, pady=(0, 2))
+
+    sprintButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Sprint", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[sprintFunc(), liveWindow.destroy()])
+    sprintButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
+
+    enduranceButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Endurance", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[enduranceFunc(), liveWindow.destroy()])
+    enduranceButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
+
+    liveButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Live", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, state=tk.DISABLED, command=lambda:[livemodeFunc(), liveWindow.destroy()])
+    liveButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
 
     outBox = ctk.CTkFrame(liveWindow, fg_color=background, border_width=borderWidth, border_color=accent, corner_radius=cornerRadius)
     outBox.pack(side=tk.LEFT, pady=0, padx=(20, 15))

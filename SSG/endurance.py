@@ -35,6 +35,8 @@ entryFg=design.get("ENTRY", "foreground")
 placeholderColor=design.get("ENTRY", "placeholderColor")
 entryTextColor=design.get("ENTRY", "textcolor")
 navbarColor=design.get("NAVBAR", "navbarColor")
+navButtonColor=design.get("NAVBAR", "navButtons")
+navDisabledColor=design.get("NAVBAR", "navDisabled")
 
 space= ' '
 curentpath = os.getcwd() + "/presets"+"//"
@@ -50,20 +52,20 @@ def enduranceFunc():
     endWindow.geometry("+300+100")
     endWindow.resizable(False, False)
 
-    navBar = ctk.CTkFrame(endWindow, width=600, height=50, fg_color="white", corner_radius=0)
+    navBar = ctk.CTkFrame(endWindow, width=600, height=50, fg_color=navbarColor, corner_radius=0)
     navBar.pack(side=tk.TOP, fill=tk.X)
 
     buttonWrap = ctk.CTkFrame(navBar, fg_color=navbarColor, width=360)
-    buttonWrap.pack(expand=True)
+    buttonWrap.pack(expand=True, pady=(0, 2))
 
-    sprintButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Sprint", fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[sprintFunc(), endWindow.destroy()])
-    sprintButton.pack(expand=True)
+    sprintButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Sprint", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[sprintFunc(), endWindow.destroy()])
+    sprintButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
 
-    enduranceButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Endurance", fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, state=tk.DISABLED)
-    enduranceButton.pack(expand=True)
+    enduranceButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Endurance", fg_color=navDisabledColor, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, state=tk.DISABLED, command=lambda:[enduranceFunc(), endWindow.destroy()])
+    enduranceButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
 
-    liveButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Live", fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[livemodeFunc(), endWindow.destroy()])
-    liveButton.pack(expand=True)
+    liveButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Live", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[livemodeFunc(), endWindow.destroy()])
+    liveButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
 
     pcrWrap = tk.Frame(endWindow, bg=background, width=500, height=300) #presets && car info && race info
     pcrWrap.pack(side=tk.LEFT, fill=tk.Y, pady=40, padx=(20, 15))
@@ -493,7 +495,7 @@ def enduranceFunc():
             #TRACK SELECT
             carSelectWindow.destroy()
                         
-            trackSelectWindow = tk.Toplevel()
+            trackSelectWindow = tk.Toplevel(endWindow)
             trackSelectWindow['bg']=background
             trackSelectWindow.title("SSG+")
             trackSelectWindow.geometry("+400+200")
@@ -518,7 +520,7 @@ def enduranceFunc():
             
         #CAR SELECT
         
-        carSelectWindow = tk.Toplevel()
+        carSelectWindow = tk.Toplevel(endWindow)
         carSelectWindow['bg']=background
         carSelectWindow.title("SSG+")
         carSelectWindow.geometry("+400+200")
@@ -986,11 +988,10 @@ def enduranceFunc():
         enduranceOutput['bg']=background
         enduranceOutput.geometry("+400+0")
 
-        enduranceStrategy = tk.Label(enduranceOutput, text="Endurance \n Strategy", bg=background, fg=textcolor)
-        enduranceStrategy.config(font=("Helvetical bold", 18))
+        enduranceStrategy = ctk.CTkLabel(enduranceOutput, text="Endurance \n Strategy", fg_color=background, text_color=textcolor, text_font=(fontType, 18))
         enduranceStrategy.pack(expand=True, pady=(20, 0))
 
-        outputWrap = tk.Frame(enduranceOutput, bg=background, highlightbackground=accent, highlightthickness=1)
+        outputWrap = ctk.CTkFrame(enduranceOutput, fg_color=background, border_width=borderWidth, border_color=accent, corner_radius=cornerRadius)
         outputWrap.pack(expand=True, padx=30, pady=20)
 
         outputScroll = tk.Scrollbar(outputWrap, width=10)
@@ -1092,8 +1093,7 @@ def enduranceFunc():
 
         outputScroll.config(command=outputList.yview)
 
-        closeButton = tk.Button(enduranceOutput, text="Close Window", width=15, height=2, bg=foreground, fg=textcolor,activebackground="red", activeforeground="white", bd=1,command=enduranceOutput.destroy)
-        closeButton.config(font=(fontType, 13))
+        closeButton = ctk.CTkButton(enduranceOutput, text="Close Window", width=100, height=40, fg_color=foreground, text_color=textcolor, hover_color="red", corner_radius=buttonRadius, text_font=(fontType, 13), command=enduranceOutput.destroy)
         closeButton.pack(pady=(0, 15))
 
         CompareValuesList = [timeleft, lapcount]
@@ -1115,7 +1115,7 @@ def enduranceFunc():
     exit = ctk.CTkButton(deButtonWrap, text="Exit", width=108, height=61, fg_color=buttonColor, text_color=textcolor, hover_color="red", text_font=("Helvetical bold", 14), corner_radius=buttonRadius, command=endWindow.destroy)
     exit.pack(expand=True, side=tk.LEFT, padx=(7, 0))
 
-    compareData = ctk.CTkButton(csButtonWrap, text="Compare \n Strategy", width=108, height=61, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=("Helvetical bold", 14), corner_radius=buttonRadius, command=lambda:[compareEnduranceScreen, print(endWindow.winfo_width())])
+    compareData = ctk.CTkButton(csButtonWrap, text="Compare \n Strategy", width=108, height=61, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, text_font=("Helvetical bold", 14), corner_radius=buttonRadius, command=lambda:compareEnduranceScreen())
     compareData.pack(expand=True, side=tk.LEFT, padx=(0,7))
 
     submitData = ctk.CTkButton(csButtonWrap, text="Calculate \n Strategy", command=submitEndurance, width=108, height=61, fg_color=buttonColor, text_color=textcolor, hover_color="#547a1f", text_font=("Helvetical bold", 14), corner_radius=buttonRadius)
