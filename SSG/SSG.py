@@ -35,18 +35,6 @@ startWindow.title("SSG+")
 startWindow.geometry("+500+200")
 startWindow.resizable(False, False)
 
-def sprintCommands():
-    startWindow.destroy()
-    sprintFunc()
-
-def enduranceCommands():
-    startWindow.destroy()
-    enduranceFunc()
-
-def liveCommands():
-    startWindow.destroy()
-    livemodeFunc()
-
 def changeName():
 
     def iniWrite():
