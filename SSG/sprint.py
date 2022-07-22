@@ -53,7 +53,7 @@ def sprintFunc():
     buttonWrap = ctk.CTkFrame(navBar, fg_color=navbarColor, width=360)
     buttonWrap.pack(expand=True, pady=(0, 2))
 
-    sprintButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Sprint", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, state=tk.DISABLED, command=lambda:[sprintFunc(), sprintWindow.destroy()])
+    sprintButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Sprint", fg_color=navDisabledColor, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, state=tk.DISABLED, command=lambda:[sprintFunc(), sprintWindow.destroy()])
     sprintButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
 
     enduranceButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Endurance", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[enduranceFunc(), sprintWindow.destroy()])
@@ -173,7 +173,7 @@ def sprintFunc():
     wear = ctk.CTkLabel(wearWrap, text="Tyre Wear", fg_color=background, text_color=mainTextColor, text_font=(fontType, 18))
     wear.pack(side=tk.LEFT, padx=0)
 
-    wearValue = ctk.CTkEntry(wearWrap, width=53, height=20, border_color=entryBorderColor, fg_color=entryFg, text_color=entryTextColor)
+    wearValue = ctk.CTkEntry(wearWrap, width=53, height=20, border_color=entryBorderColor, fg_color=entryFg, text_color=entryTextColor, placeholder_text="S/Lap", placeholder_text_color=placeholderColor)
     wearValue.pack(side=tk.LEFT, padx=0)
 
     #SELECT PRESET

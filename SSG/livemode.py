@@ -92,7 +92,7 @@ def livemodeFunc():
     enduranceButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Endurance", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[enduranceFunc(), liveWindow.destroy()])
     enduranceButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
 
-    liveButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Live", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, state=tk.DISABLED, command=lambda:[livemodeFunc(), liveWindow.destroy()])
+    liveButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Live", fg_color=navDisabledColor, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, state=tk.DISABLED, command=lambda:[livemodeFunc(), liveWindow.destroy()])
     liveButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
 
     dataWrap = ctk.CTkFrame(liveWindow, fg_color=background)
