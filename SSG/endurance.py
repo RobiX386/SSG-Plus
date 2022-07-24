@@ -43,7 +43,7 @@ curentpath = os.getcwd() + "\presets"+"\\"
 
 def enduranceFunc():
     from sprint import sprintFunc
-    from livemode import livemodeFunc
+    from SSG.livemode import livemodeFunc
 
     endWindow = tk.Tk() 
     endWindow.config(bg=background)
