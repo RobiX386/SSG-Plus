@@ -3,6 +3,7 @@ import configparser
 from livemode import livemodeFunc
 from endurance import enduranceFunc
 from sprint import sprintFunc
+from livemode import livemodeFunc
 import customtkinter as ctk
 
 #colors & fonts 
