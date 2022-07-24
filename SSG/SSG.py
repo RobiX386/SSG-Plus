@@ -1,6 +1,6 @@
 import tkinter as tk
 import configparser
-from SSG.livemode import livemodeFunc
+from livemode import livemodeFunc
 from endurance import enduranceFunc
 from sprint import sprintFunc
 from events import eventsFunc
