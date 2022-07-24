@@ -1,3 +1,4 @@
+import abc
 import tkinter as tk
 import configparser
 import datetime
@@ -17,6 +18,7 @@ class DevNull:
 sys.stderr = DevNull()
 #Supressing known exceptions
 #colors&&fonts
+
 
 design = configparser.ConfigParser()
 design.read("design.ini")
@@ -43,6 +45,18 @@ navDisabledColor=design.get("NAVBAR", "navDisabled")
 
 space= ' '
 curentpath = os.getcwd() + "/presets"+"//"
+
+event = configparser.ConfigParser()
+event.read(curentpath + "events.ini")
+
+# def getData():
+#     driverList = []
+#     for i in range(0, 3):
+#         driver = "driver" + str(i)
+#         driverName = event.get("DRIVERS", driver) 
+#         if driverName != "":
+#             driverList.append(driverName)
+#     return driverList
 
 def eventsFunc():
     from sprint import sprintFunc
@@ -78,7 +92,11 @@ def eventsFunc():
     eventsBox.pack(fill=tk.Y, padx=10, pady=(15, 0), expand=True)
 
     for i in range (0, 6):
-        event = ctk.CTkButton(eventsBox, text=("buton" + str(i)), fg_color=buttonLightColor, corner_radius=0, width=240, height=60, hover_color=hoverColor, text_font=(fontType, 15), text_color="white", command=eventsWindow.destroy)
+        pressed=-1
+
+        def eventFunc():
+            print(i)
+        event = ctk.CTkButton(eventsBox, text=("buton" + str(i)), fg_color=buttonLightColor, corner_radius=0, width=240, height=60, hover_color=hoverColor, text_font=(fontType, 15), text_color="white", command=eventFunc)
         if i == 0: 
             event.pack(pady=(20, 7), padx=15)
             continue

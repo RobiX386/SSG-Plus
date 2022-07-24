@@ -2,7 +2,7 @@ import configparser
 import os
 from select import select
 import tkinter as tk
-from tkcalendar import Calendar
+# from tkcalendar import Calendar
 
 curentpath = os.getcwd() + "\presets"+"\\"
 
