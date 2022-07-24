@@ -5,8 +5,6 @@ import configparser
 import datetime
 import webbrowser
 import os
-
-from matplotlib.pyplot import fill
 from errorFile import error
 
 #colors&&fonts
