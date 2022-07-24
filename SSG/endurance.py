@@ -30,6 +30,7 @@ cornerRadius=int(design.get("BORDER", "cornerRadius"))
 buttonColor=design.get("BUTTON", "buttonColor")
 buttonRadius=int(design.get("BUTTON", "cornerRadius"))
 hoverColor=design.get("BUTTON", "hoverColor")
+buttonLightColor=design.get("BUTTON", "lightColor")
 entryBorderColor=design.get("ENTRY", "borderColor")
 entryFg=design.get("ENTRY", "foreground")
 placeholderColor=design.get("ENTRY", "placeholderColor")
@@ -44,6 +45,7 @@ curentpath = os.getcwd() + "/presets"+"//"
 def enduranceFunc():
     from sprint import sprintFunc
     from livemode import livemodeFunc
+    from events import eventsFunc
 
     endWindow = tk.Tk() 
     endWindow.config(bg=background)
@@ -326,8 +328,7 @@ def enduranceFunc():
             outputList.pack(padx=10, pady=10, fill=tk.BOTH, side=tk.LEFT)
 
             outputCompareScroll.config(command=outputList.yview)
-            # DE REVENIT
-            closeButton = ctk.CTkButton(enduranceCompareOutput, text="Close Window", fg_color=buttonColor, text_color=textcolor, text_font=(fontType, 13), hover_color="red", command=enduranceCompareOutput.destroy)
+            closeButton = ctk.CTkButton(enduranceCompareOutput, text="Close Window", width=100, height=40, fg_color=buttonColor, text_color=textcolor, hover_color="red", corner_radius=buttonRadius, text_font=(fontType, 13), command=enduranceCompareOutput.destroy)
             closeButton.pack(pady=(0, 15))
             
             compareWindow.destroy()
@@ -1091,7 +1092,7 @@ def enduranceFunc():
 
         outputScroll.config(command=outputList.yview)
 
-        closeButton = ctk.CTkButton(enduranceOutput, text="Close Window", width=100, height=40, fg_color=foreground, text_color=textcolor, hover_color="red", corner_radius=buttonRadius, text_font=(fontType, 13), command=enduranceOutput.destroy)
+        closeButton = ctk.CTkButton(enduranceOutput, text="Close Window", width=100, height=40, fg_color=buttonColor, text_color=textcolor, hover_color="red", corner_radius=buttonRadius, text_font=(fontType, 13), command=enduranceOutput.destroy)
         closeButton.pack(pady=(0, 15))
 
         CompareValuesList = [timeleft, lapcount]

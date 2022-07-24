@@ -5,8 +5,6 @@ import configparser
 import datetime
 import webbrowser
 import os
-
-from matplotlib.pyplot import fill
 from errorFile import error
 
 #colors&&fonts
@@ -40,6 +38,7 @@ curentpath = os.getcwd() + "/presets"+"//"
 def sprintFunc():
     from endurance import enduranceFunc
     from livemode import livemodeFunc
+    from events import eventsFunc
 
     sprintWindow = tk.Tk() 
     sprintWindow.config(bg=background)
@@ -628,8 +627,14 @@ def sprintFunc():
 
     #OTHER BUTTONS
 
-    submitData = ctk.CTkButton(bprWrap, text="Calculate \n Strategy", text_font=(fontType, 14), width=160,height=59, fg_color=buttonColor, text_color=textcolor, hover_color="#547a1f", corner_radius=buttonRadius, command=submitSprint)
-    submitData.pack(side=tk.TOP, expand=True, pady=5)
+    deWrap = ctk.CTkFrame(bprWrap, fg_color=background)
+    deWrap.pack(side=tk.LEFT)
 
-    exitButton = ctk.CTkButton(bprWrap, text="Exit", text_font=(fontType, 14), width=160, height=59, fg_color=buttonColor, text_color=textcolor, hover_color="red", corner_radius=buttonRadius, command=sprintWindow.destroy)
-    exitButton.pack(expand=True, side=tk.TOP, pady=(5, 15))
+    documentatie = ctk.CTkButton(deWrap, text="How to use", text_font=(fontType, 14), width=160, height=59, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, corner_radius=buttonRadius, command=sprintWindow.destroy)
+    documentatie.pack(expand=True, side=tk.TOP, pady=(5, 15))
+
+    exitButton = ctk.CTkButton(deWrap, text="Exit", text_font=(fontType, 14), width=160, height=59, fg_color=buttonColor, text_color=textcolor, hover_color="red", corner_radius=buttonRadius, command=sprintWindow.destroy)
+    exitButton.pack(expand=True, side=tk.TOP, pady=(15, 0))
+    
+    submitData = ctk.CTkButton(bprWrap, text="Calculate \n Strategy", text_font=(fontType, 12), width=59, height=145, fg_color=buttonColor, text_color=textcolor, hover_color="#547a1f", corner_radius=buttonRadius, command=submitSprint)
+    submitData.pack(side=tk.LEFT, expand=True, pady=0)
