@@ -41,8 +41,10 @@ navbarColor=design.get("NAVBAR", "navbarColor")
 navButtonColor=design.get("NAVBAR", "navButtons")
 navDisabledColor=design.get("NAVBAR", "navDisabled")
 
+eventnumber=1
 space= ' '
 curentpath = os.getcwd() + "/presets"+"//"
+eventpath = os.getcwd() + "/events"+"//"
 
 def eventsFunc():
     from sprint import sprintFunc
@@ -55,6 +57,26 @@ def eventsFunc():
     eventsWindow.config(bg=background)
     eventsWindow.resizable(False, False)
     eventsWindow.geometry("760x700")
+
+    def update():
+        global eventnumber
+        eventlistread = configparser.ConfigParser()
+        eventfilename = eventpath + "events.ini"
+        eventlistread.read(eventfilename)
+        filename = eventpath+eventlistread.get("EVENTS",str(eventnumber)) +".ini"
+        eventread = configparser.ConfigParser()
+        eventread.read(filename)
+
+        readname = eventread.get("NAME","name")
+        if len(readname)>12:
+
+            readnamelist = readname.split()
+            listlength = len(readnamelist)/2
+            readnamelist.insert(listlength,"\n")
+            print(1)
+            eventNameLabel.configure(text="test")
+
+
 
     navBar = ctk.CTkFrame(eventsWindow, width=600, height=50, fg_color=navbarColor, corner_radius=0)
     navBar.pack(side=tk.TOP, fill=tk.X)
@@ -78,7 +100,7 @@ def eventsFunc():
     eventsBox.pack(fill=tk.Y, padx=10, pady=(15, 0), expand=True)
 
     for i in range (0, 6):
-        event = ctk.CTkButton(eventsBox, text=("buton" + str(i)), fg_color=buttonLightColor, corner_radius=0, width=240, height=60, hover_color=hoverColor, text_font=(fontType, 15), text_color="white", command=eventsWindow.destroy)
+        event = ctk.CTkButton(eventsBox, text=("buton" + str(i)), fg_color=buttonLightColor, corner_radius=0, width=240, height=60, hover_color=hoverColor, text_font=(fontType, 15), text_color="white", command=update)
         if i == 0: 
             event.pack(pady=(20, 7), padx=15)
             continue
@@ -120,7 +142,7 @@ def eventsFunc():
     eventName = ctk.CTkLabel(eventNameWrap, fg_color=background, text="EVENT NAME", width=0, text_font=(fontType, 15), text_color=accent)
     eventName.place(x=100, y=0, anchor=N)
 
-    eventNameLabel = ctk.CTkLabel(eventNameBox, text="24h of \n LeMans S15", text_font=(fontType, 16), fg_color=background)
+    eventNameLabel = tk.Label(eventNameBox, text="24h of \n LeMans S15", bg=background)
     eventNameLabel.pack(padx=30, pady=20)
 
     raceDataWrap = ctk.CTkFrame(reWrap, fg_color=background)
