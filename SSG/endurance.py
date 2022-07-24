@@ -30,6 +30,7 @@ cornerRadius=int(design.get("BORDER", "cornerRadius"))
 buttonColor=design.get("BUTTON", "buttonColor")
 buttonRadius=int(design.get("BUTTON", "cornerRadius"))
 hoverColor=design.get("BUTTON", "hoverColor")
+buttonLightColor=design.get("BUTTON", "lightColor")
 entryBorderColor=design.get("ENTRY", "borderColor")
 entryFg=design.get("ENTRY", "foreground")
 placeholderColor=design.get("ENTRY", "placeholderColor")
@@ -43,7 +44,8 @@ curentpath = os.getcwd() + "\presets"+"\\"
 
 def enduranceFunc():
     from sprint import sprintFunc
-    from SSG.livemode import livemodeFunc
+    from livemode import livemodeFunc
+    from events import eventsFunc
 
     endWindow = tk.Tk() 
     endWindow.config(bg=background)
@@ -326,8 +328,7 @@ def enduranceFunc():
             outputList.pack(padx=10, pady=10, fill=tk.BOTH, side=tk.LEFT)
 
             outputCompareScroll.config(command=outputList.yview)
-            # DE REVENIT
-            closeButton = ctk.CTkButton(enduranceCompareOutput, text="Close Window", fg_color=buttonColor, text_color=textcolor, text_font=(fontType, 13), hover_color="red", command=enduranceCompareOutput.destroy)
+            closeButton = ctk.CTkButton(enduranceCompareOutput, text="Close Window", width=100, height=40, fg_color=buttonColor, text_color=textcolor, hover_color="red", corner_radius=buttonRadius, text_font=(fontType, 13), command=enduranceCompareOutput.destroy)
             closeButton.pack(pady=(0, 15))
             
             compareWindow.destroy()
@@ -499,10 +500,10 @@ def enduranceFunc():
             trackSelectWindow.title("SSG+")
             trackSelectWindow.geometry("+400+200")
             
-            trackfile = car + "T.txt"  
-            readtracks = open(trackfile, "r")
-            trackList = readtracks.readline()
-            trackList = trackList.split()
+            
+            carConfig = configparser.ConfigParser()
+            carConfig.read(car+".ini")
+            trackList = carConfig.sections()
 
             trackSelectLabel = ctk.CTkLabel(trackSelectWindow, text="Select your track", fg_color=background, text_color=textcolor, text_font=(fontType, 18))
             trackSelectLabel.pack(side=tk.TOP, pady=(20, 0))
@@ -860,17 +861,16 @@ def enduranceFunc():
             editPresetTrackWindow['bg']=background
             editPresetTrackWindow.title("SSG+")
             editPresetTrackWindow.geometry("+400+200")
-            
-            trackfile = curentpath + car + "T.txt"  
-            readtracks = open(trackfile, "r")
-            trackList = readtracks.readline()
-            trackList = trackList.split()
 
             trackEditLabel = ctk.CTkLabel(editPresetTrackWindow, text="Select which track \n you want to edit", text_font=(fontType, 18), text_color=textcolor, fg_color=background)
             trackEditLabel.pack(side=tk.TOP, pady=(20, 0))
 
             trackWrap = ctk.CTkFrame(editPresetTrackWindow, fg_color=background, border_color=accent, border_width=borderWidth)
             trackWrap.pack(side=tk.TOP, pady=(20, 60), padx=100)
+            
+            carConfig = configparser.ConfigParser()
+            carConfig.read(curentpath+car+".ini")
+            trackList = carConfig.sections()
 
             for y in trackList: 
                 trackButtonName=y
@@ -1092,7 +1092,7 @@ def enduranceFunc():
 
         outputScroll.config(command=outputList.yview)
 
-        closeButton = ctk.CTkButton(enduranceOutput, text="Close Window", width=100, height=40, fg_color=foreground, text_color=textcolor, hover_color="red", corner_radius=buttonRadius, text_font=(fontType, 13), command=enduranceOutput.destroy)
+        closeButton = ctk.CTkButton(enduranceOutput, text="Close Window", width=100, height=40, fg_color=buttonColor, text_color=textcolor, hover_color="red", corner_radius=buttonRadius, text_font=(fontType, 13), command=enduranceOutput.destroy)
         closeButton.pack(pady=(0, 15))
 
         CompareValuesList = [timeleft, lapcount]

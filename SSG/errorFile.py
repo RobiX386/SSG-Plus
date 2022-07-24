@@ -21,6 +21,7 @@ def error(errortext):
     errorWindow.config(bg=background)
     errorWindow.geometry("+450+250")
     errorWindow.title("SSG+")
+    errorWindow.attributes("-topmost", "True")
     errorFrame = ctk.CTkFrame(errorWindow, fg_color=background, border_color=accent, border_width=borderWidth, corner_radius=cornerRadius)
     errorFrame.pack(expand=True, padx=25, pady=40)
     errorlabel = ctk.CTkLabel(errorFrame, text=errortext, fg_color=background, text_color=textcolor, text_font=(fontType, 18))

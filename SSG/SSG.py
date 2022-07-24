@@ -3,6 +3,7 @@ import configparser
 from SSG.livemode import livemodeFunc
 from endurance import enduranceFunc
 from sprint import sprintFunc
+from events import eventsFunc
 import customtkinter as ctk
 
 #colors & fonts 
@@ -34,18 +35,6 @@ startWindow['bg']=background
 startWindow.title("SSG+")
 startWindow.geometry("+500+200")
 startWindow.resizable(False, False)
-
-def sprintCommands():
-    startWindow.destroy()
-    sprintFunc()
-
-def enduranceCommands():
-    startWindow.destroy()
-    enduranceFunc()
-
-def liveCommands():
-    startWindow.destroy()
-    livemodeFunc()
 
 def changeName():
 
@@ -83,7 +72,7 @@ endurance.pack(side=tk.LEFT, expand=True, padx=15, pady=(50, 90))
 sprint = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Sprint", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=lambda:[sprintFunc(), startWindow.destroy()])
 sprint.pack(side=tk.LEFT, expand=True, padx=15, pady=(50, 90))
 
-live = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Live", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=lambda:[livemodeFunc(), startWindow.destroy()])
+live = ctk.CTkButton(startWindow, text_font=(fontType, 15), text="Live", height=62, width=171, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, border_width=0, corner_radius=cornerRadius, command=lambda:[eventsFunc(), startWindow.destroy()])
 live.pack(side=tk.LEFT, expand=True, padx=15, pady=(50, 90))
 
 startWindow.mainloop()

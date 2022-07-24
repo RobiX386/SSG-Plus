@@ -37,7 +37,7 @@ curentpath = os.getcwd() + "/presets"+"//"
 
 def sprintFunc():
     from endurance import enduranceFunc
-    from SSG.livemode import livemodeFunc
+    from livemode import livemodeFunc
     from events import eventsFunc
 
     sprintWindow = tk.Tk() 
