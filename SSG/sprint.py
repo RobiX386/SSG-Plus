@@ -5,7 +5,6 @@ import configparser
 import datetime
 import webbrowser
 import os
-
 from errorFile import error
 
 #colors&&fonts
@@ -33,12 +32,13 @@ navButtonColor=design.get("NAVBAR", "navButtons")
 navDisabledColor=design.get("NAVBAR", "navDisabled")
 
 space= ' '
-curentpath = os.getcwd() + "\presets"+"\\"
+curentpath = os.getcwd() + "/presets"+"//"
 
 
 def sprintFunc():
     from endurance import enduranceFunc
     from livemode import livemodeFunc
+    from events import eventsFunc
 
     sprintWindow = tk.Tk() 
     sprintWindow.config(bg=background)
@@ -52,7 +52,7 @@ def sprintFunc():
     buttonWrap = ctk.CTkFrame(navBar, fg_color=navbarColor, width=360)
     buttonWrap.pack(expand=True, pady=(0, 2))
 
-    sprintButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Sprint", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, state=tk.DISABLED, command=lambda:[sprintFunc(), sprintWindow.destroy()])
+    sprintButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Sprint", fg_color=navDisabledColor, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, state=tk.DISABLED, command=lambda:[sprintFunc(), sprintWindow.destroy()])
     sprintButton.pack(expand=True, side=tk.LEFT, padx=20, pady=10)
 
     enduranceButton = ctk.CTkButton(buttonWrap, width=80, height=20, text="Endurance", fg_color=accent, text_color=navButtonColor, hover_color=hoverColor, text_font=(fontType, 13), corner_radius=buttonRadius, command=lambda:[enduranceFunc(), sprintWindow.destroy()])
@@ -172,7 +172,7 @@ def sprintFunc():
     wear = ctk.CTkLabel(wearWrap, text="Tyre Wear", fg_color=background, text_color=mainTextColor, text_font=(fontType, 18))
     wear.pack(side=tk.LEFT, padx=0)
 
-    wearValue = ctk.CTkEntry(wearWrap, width=53, height=20, border_color=entryBorderColor, fg_color=entryFg, text_color=entryTextColor)
+    wearValue = ctk.CTkEntry(wearWrap, width=53, height=20, border_color=entryBorderColor, fg_color=entryFg, text_color=entryTextColor, placeholder_text="S/Lap", placeholder_text_color=placeholderColor)
     wearValue.pack(side=tk.LEFT, padx=0)
 
     #SELECT PRESET
@@ -219,10 +219,9 @@ def sprintFunc():
             trackSelectWindow.title("SSG+")
             trackSelectWindow.geometry("+400+200")
             
-            trackfile = car + "T.txt"  
-            readtracks = open(trackfile, "r")
-            trackList = readtracks.readline()
-            trackList = trackList.split()
+            carConfig = configparser.ConfigParser()
+            carConfig.read(car+".ini")
+            trackList = carConfig.sections()
 
             trackSelectLabel = ctk.CTkLabel(trackSelectWindow, text="Select your track", fg_color=background, text_color=textcolor, text_font=(fontType, 18))
             trackSelectLabel.pack(side=tk.TOP, pady=(20, 0))
@@ -392,7 +391,7 @@ def sprintFunc():
                 error("Car name is invalid")
                 exit()
 
-            carfilename = curentpath + z+".ini"
+            carfilename = curentpath + z + ".ini"
             
             try:
                 open(carfilename, "x")
@@ -516,17 +515,16 @@ def sprintFunc():
             editPresetTrackWindow['bg']=background
             editPresetTrackWindow.title("SSG+")
             editPresetTrackWindow.geometry("+400+200")
-            
-            trackfile = curentpath + car + "T.txt"  
-            readtracks = open(trackfile, "r")
-            trackList = readtracks.readline()
-            trackList = trackList.split()
 
             trackEditLabel = ctk.CTkLabel(editPresetTrackWindow, text="Select which track \n you want to edit", text_font=(fontType, 18), text_color=textcolor, fg_color=background)
             trackEditLabel.pack(side=tk.TOP, pady=(20, 0))
 
             trackWrap = ctk.CTkFrame(editPresetTrackWindow, fg_color=background, border_color=accent, border_width=borderWidth)
             trackWrap.pack(side=tk.TOP, pady=(20, 60), padx=100)
+            
+            carConfig = configparser.ConfigParser()
+            carConfig.read(curentpath+car+".ini")
+            trackList = carConfig.sections()
 
             for y in trackList: 
                 trackButtonName=y
@@ -629,8 +627,14 @@ def sprintFunc():
 
     #OTHER BUTTONS
 
-    submitData = ctk.CTkButton(bprWrap, text="Calculate \n Strategy", text_font=(fontType, 14), width=160,height=59, fg_color=buttonColor, text_color=textcolor, hover_color="#547a1f", corner_radius=buttonRadius, command=submitSprint)
-    submitData.pack(side=tk.TOP, expand=True, pady=5)
+    deWrap = ctk.CTkFrame(bprWrap, fg_color=background)
+    deWrap.pack(side=tk.LEFT)
 
-    exitButton = ctk.CTkButton(bprWrap, text="Exit", text_font=(fontType, 14), width=160, height=59, fg_color=buttonColor, text_color=textcolor, hover_color="red", corner_radius=buttonRadius, command=sprintWindow.destroy)
-    exitButton.pack(expand=True, side=tk.TOP, pady=(5, 15))
+    documentatie = ctk.CTkButton(deWrap, text="How to use", text_font=(fontType, 14), width=160, height=59, fg_color=buttonColor, text_color=textcolor, hover_color=hoverColor, corner_radius=buttonRadius, command=sprintWindow.destroy)
+    documentatie.pack(expand=True, side=tk.TOP, pady=(5, 15))
+
+    exitButton = ctk.CTkButton(deWrap, text="Exit", text_font=(fontType, 14), width=160, height=59, fg_color=buttonColor, text_color=textcolor, hover_color="red", corner_radius=buttonRadius, command=sprintWindow.destroy)
+    exitButton.pack(expand=True, side=tk.TOP, pady=(15, 0))
+    
+    submitData = ctk.CTkButton(bprWrap, text="Calculate \n Strategy", text_font=(fontType, 12), width=59, height=145, fg_color=buttonColor, text_color=textcolor, hover_color="#547a1f", corner_radius=buttonRadius, command=submitSprint)
+    submitData.pack(side=tk.LEFT, expand=True, pady=0)
