@@ -1,6 +1,6 @@
 import tkinter as tk
 import configparser
-import datetime
+from datetime import datetime,timedelta
 import webbrowser
 import os
 import customtkinter as ctk
@@ -36,6 +36,29 @@ entryTextColor=design.get("ENTRY", "textcolor")
 navbarColor=design.get("NAVBAR", "navbarColor")
 navButtonColor=design.get("NAVBAR", "navButtons")
 navDisabledColor=design.get("NAVBAR", "navDisabled")
+
+class StintInfo:
+    racelength_h = 2
+    racelength_m = 0
+    laptime = 5
+    fueltank = 75
+    fuelcons = 5
+    refueltime = 10
+    tyrechangetime = 10
+    dttime = 20
+    stintpertyre = 2
+    refuellitertime = 0
+    fuelleft = 0
+    tyrestint = 0
+    racelength = 0
+    timeleft = 0
+    stinttime = 0
+    lapcount = 0
+    stintcount = 0
+
+info = StintInfo
+lasttime = 0
+timeChange = timedelta(seconds=info.laptime)
 
 space= ' '
 curentpath = os.getcwd() + "\presets"+"\\"
@@ -79,6 +102,107 @@ def livemodeFunc():
     liveWindow.title("SSG+ Live")
     liveWindow.geometry("+300+100")
     liveWindow.resizable(False, False)
+
+    def liveInitFunc():
+        global lastTime 
+        lastTime = datetime.now()
+        lastTime = lastTime.replace(microsecond=0)
+        print(lastTime)
+
+
+        info.refuellitertime=int((info.refueltime/info.fueltank)*100)/100
+        info.fuelleft = info.fueltank
+        info.tyrestint = info.stintpertyre
+        racelength = info.racelength_h*3600 + info.racelength_m*60
+        info.timeleft = racelength   
+        info.stinttime = int(info.fueltank/info.fuelcons) * info.laptime + info.dttime + info.refueltime + info.tyrechangetime
+
+        def curentTime():
+            time = datetime.now()
+            time = time.replace(microsecond=0)
+            return time
+
+        def verifyTime():
+            global lastTime,timeChange
+            if curentTime() == lastTime+timeChange:
+                lastTime += timeChange
+                print(curentTime())
+                return (1)
+            else:
+                return (2) 
+
+        def liveLastStintFunc():
+            rasp = verifyTime()
+            if rasp == 1:
+                if info.timeleft>info.laptime:
+                    info.fuelleft -= info.fuelcons
+                    info.timeleft -= info.laptime
+                    info.lapcount += 1
+                    conversion = str(timedelta(seconds=info.timeleft))
+                    if len(conversion) > 9:
+                        conversion=conversion[:-4]
+                    textoutput="Lap : "+str(info.lapcount)+"| Time left :"+str(conversion)+"| Fuel left : "+str(round(info.fuelleft, 2))
+                    outputList.insert(tk.END,textoutput)       
+                    liveWindow.after(1000,lambda: liveLastStintFunc())
+                else:
+                    info.fuelleft -= info.fuelcons
+                    info.timeleft -= info.laptime
+                    info.lapcount += 1
+                    textoutput="Lap : "+str(info.lapcount)+"| Fuel left : "+str(round(info.fuelleft, 2))+"| Race Finished!"
+                    outputList.insert(tk.END,textoutput)
+            else:
+                liveWindow.after(1000,liveLastStintFunc)
+
+        def liveLapFunc():
+            rasp = verifyTime()
+            if rasp == 1:
+                print("")
+                if info.fuelleft>=info.fuelcons*2 :
+                    info.fuelleft -= info.fuelcons
+                    info.timeleft -= info.laptime
+                    info.timeleft = int(info.timeleft*100)/100
+                    info.lapcount += 1
+                    conversion = str(timedelta(seconds=info.timeleft))
+                    if len(conversion)>8:
+                        conversion = conversion[:-5]
+                    textoutput = "Lap : "+str(info.lapcount)+" | Time left : "+str(conversion)+" | Fuel left : "+str(round(info.fuelleft, 2))
+                    outputList.insert(tk.END,textoutput)
+                    liveWindow.after(1000,liveLapFunc())
+                else:
+                    info.fuelleft -= info.fuelcons
+                    info.timeleft -= info.laptime
+                    info.lapcount += 1
+
+                    if info.tyrestint==1:
+                        info.tyrestint = info.stintpertyre
+                        info.timeleft -= info.tyrechangetime
+                    elif info.tyrestint>1:
+                        info.tyrestint -= 1
+
+                    textoutput="PIT THIS LAP | Lap : " +str(info.lapcount)+" | Time left : "+str(conversion)+" | Fuel wasted : "+str(round(info.fuelleft, 2))
+                    outputList.insert(tk.END,textoutput)
+                    info.fuelleft = info.fueltank
+                    liveWindow.after(1000,liveStintFunc)
+            else:
+                liveWindow.after(1000,liveLapFunc)
+
+        def liveStintFunc():
+            
+            if info.timeleft>info.stinttime :
+                info.stintcount += 1
+                textoutput="\n\nStint #"+str(info.stintcount)
+                outputList.insert(tk.END,textoutput)
+                liveLapFunc()
+            else:
+                lapsleft = int(info.timeleft/info.laptime)+1
+                info.fuelleft = info.fuelcons * lapsleft
+                info.timeleft = info.timeleft - int(info.refuellitertime*info.fuelleft) - info.dttime
+                info.stintcount += 1
+                textoutput="\nStint #"+str(info.stintcount)
+                liveLastStintFunc()
+        print("start")
+        liveStintFunc()
+
 
     navBar = ctk.CTkFrame(liveWindow, width=600, height=50, fg_color=navbarColor, corner_radius=0)
     navBar.pack(side=tk.TOP, fill=tk.X)
@@ -225,5 +349,5 @@ def livemodeFunc():
     number = ctk.CTkLabel(lastStintWrap, text="3", text_font=(fontType, 16), fg_color=background, width=0, text_color=mainTextColor)
     number.pack(side=tk.LEFT, expand=True)
 
-    startStop = ctk.CTkButton(dataWrap, fg_color=buttonColor, text="Start/Stop \n event", text_color=textcolor, corner_radius=buttonRadius, height=60, text_font=(fontType, 16))
+    startStop = ctk.CTkButton(dataWrap, fg_color=buttonColor, text="Start/Stop \n event", text_color=textcolor, corner_radius=buttonRadius, height=60, text_font=(fontType, 16),command=liveInitFunc)
     startStop.pack(side=tk.TOP, pady=(15, 0))

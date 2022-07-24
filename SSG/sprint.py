@@ -6,7 +6,6 @@ import datetime
 import webbrowser
 import os
 
-from matplotlib.pyplot import fill
 from errorFile import error
 
 #colors&&fonts
@@ -34,7 +33,7 @@ navButtonColor=design.get("NAVBAR", "navButtons")
 navDisabledColor=design.get("NAVBAR", "navDisabled")
 
 space= ' '
-curentpath = os.getcwd() + "/presets"+"//"
+curentpath = os.getcwd() + "\presets"+"\\"
 
 
 def sprintFunc():

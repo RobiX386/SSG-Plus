@@ -11,7 +11,7 @@ foreground=design.get("COLOR", "foreground")
 accent=design.get("COLOR", "accent")
 textcolor=design.get("COLOR", "textcolor")
 fontType=design.get("FONT", "fontFamily")
-buttonColor=design.get("COLOR", "buttonColor")
+buttonColor=design.get("BUTTON", "buttonColor")
 
 class StintInfo:
     racelength_h = 2
@@ -42,7 +42,6 @@ def liveInitFunc():
     lastTime = lastTime.replace(microsecond=0)
     print(lastTime)
 
-    lmWindow = tk.Tk()
     info.refuellitertime=int((info.refueltime/info.fueltank)*100)/100
     info.fuelleft = info.fueltank
     info.tyrestint = info.stintpertyre
@@ -135,4 +134,3 @@ def liveInitFunc():
             liveLastStintFunc()
 
     liveStintFunc()
-    lmWindow.mainloop()

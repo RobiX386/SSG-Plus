@@ -18,7 +18,12 @@ window['bg']="#666666"
 window.title("SSG+")
 window.geometry("500x400+500+200")
 
-def funcAddDriver():
+
+labelEventName = tk.Label(window, text=config.get('NAME','name'), fg="White", bg=background)
+labelEventName.pack(side=tk.TOP, pady=(20, 0))
+
+
+def funcDriver():
     def closeFunction():
         try:
             config.add_section('DRIVERS')
@@ -46,7 +51,7 @@ def funcAddDriver():
     butWriteData = tk.Button(windowAddDriver,text="Add Data",height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1,command=closeFunction)
     butWriteData.pack()
 
-def funcAddData():
+def funcRaceData():
     def funcImportCarData():
         def funcImportTrackData(car):
             def funcWriteData(track):
@@ -184,7 +189,25 @@ def funcAddData():
     seconds.pack(fill=tk.Y, side=tk.LEFT)
 
     def dataIniWrite():
-        print(1)
+        try:
+            config.add_section('RACEDATA')
+            config.set('RACEDATA','fueltank',inputfueltankvalue.get())
+            config.set('RACEDATA','fuelcons',inputfuelconsvalue.get())
+            config.set('RACEDATA','dttime',inputdriveTimevalue.get())
+            config.set('RACEDATA','refueltime',inputRefuelTimeValue.get())
+            config.set('RACEDATA','tyrechangetime',inputTyreChangeValue.get())
+
+        except:
+            config.set('RACEDATA','fueltank',inputfueltankvalue.get())
+            config.set('RACEDATA','fuelcons',inputfuelconsvalue.get())
+            config.set('RACEDATA','dttime',inputdriveTimevalue.get())
+            config.set('RACEDATA','refueltime',inputRefuelTimeValue.get())
+            config.set('RACEDATA','tyrechangetime',inputTyreChangeValue.get())
+        
+        with open("events.ini","w") as file_object:
+            config.write(file_object)
+
+        windowAddData.destroy()
 
     dataSubmit = tk.Button(windowAddData, text="Submit", activebackground=accent, activeforeground="white", background=foreground, fg=textcolor, height=2, width=10, bd=1, command=dataIniWrite)
     dataSubmit.pack(side=tk.BOTTOM, expand=True, pady=(0, 20))
@@ -192,14 +215,72 @@ def funcAddData():
     butImportData = tk.Button(windowAddData,text="Import Data",height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1,command=funcImportCarData)
     butImportData.pack()
 
+def funcChangeName():
+    def funcWriteName():
+        try:
+            config.add_section('NAME')
+            config.set('NAME','name',entryEventName.get())
+        except:
+            config.set('NAME','name',entryEventName.get())
 
+        with open("events.ini","w") as file_object:
+            config.write(file_object)
+        
+        windowChangeName.destroy()
 
+    windowChangeName = tk.Tk()
+    windowChangeName['bg']="#666666"
+    windowChangeName.geometry("500x400+500+200")
 
-butAddDriver = tk.Button(window,text="add driver",height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1,command=funcAddDriver)
+    entryEventName = tk.Entry(windowChangeName)
+    entryEventName.pack()
+
+    butWriteData = tk.Button(windowChangeName,text="Add Data",height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1,command=funcWriteName)
+    butWriteData.pack()
+
+def funcRaceInfo():
+    def funcWriteInfo():
+        try:
+            config.add_section('EVENTINFO')
+            config.set('EVENTINFO','date',entryEventdate.get())
+            config.set('EVENTINFO','driver',valueinside.get())
+        except:
+            config.set('EVENTINFO','date',entryEventdate.get())
+            config.set('EVENTINFO','driver',valueinside.get())
+
+        with open("events.ini","w") as file_object:
+            config.write(file_object)
+        
+        windowRaceInfo.destroy()
+
+    windowRaceInfo = tk.Tk()
+    windowRaceInfo.geometry("500x400+500+200")
+
+    entryEventdate = tk.Entry(windowRaceInfo)
+    entryEventdate.pack()
+
+    driverlist = config.options('DRIVERS')
+    
+    valueinside = tk.StringVar(windowRaceInfo)
+    valueinside.set("Select a drier")
+
+    optionStartDriver = tk.OptionMenu(windowRaceInfo,valueinside,*driverlist)
+    optionStartDriver.pack()
+
+    butWriteData = tk.Button(windowRaceInfo,text="Change Data",height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1,command=funcWriteInfo)
+    butWriteData.pack()
+
+butAddDriver = tk.Button(window,text="add driver",height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1,command=funcDriver)
 butAddDriver.pack()
 
-butAddData = tk.Button(window,text="add data",height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1,command=funcAddData)
+butAddData = tk.Button(window,text="add data",height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1,command=funcRaceData)
 butAddData.pack()
+
+butChangeName = tk.Button(window,text="Change name",height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1,command=funcChangeName)
+butChangeName.pack()
+
+butChangeName = tk.Button(window,text="Change event info",height=2, width=15, bg=buttonColor, fg=textcolor, activebackground=accent, bd=1,command=funcRaceInfo)
+butChangeName.pack()
 
 
 window.mainloop()

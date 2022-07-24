@@ -39,7 +39,7 @@ navButtonColor=design.get("NAVBAR", "navButtons")
 navDisabledColor=design.get("NAVBAR", "navDisabled")
 
 space= ' '
-curentpath = os.getcwd() + "/presets"+"//"
+curentpath = os.getcwd() + "\presets"+"\\"
 
 def enduranceFunc():
     from sprint import sprintFunc
