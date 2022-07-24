@@ -14,15 +14,15 @@ fontType=design.get("FONT", "fontFamily")
 buttonColor=design.get("BUTTON", "buttonColor")
 
 class StintInfo:
-    racelength_h = 2
-    racelength_m = 0
-    laptime = 5
-    fueltank = 75
-    fuelcons = 5
-    refueltime = 10
-    tyrechangetime = 10
-    dttime = 20
-    stintpertyre = 2
+    racelength_h = 0
+    racelength_m = 2
+    laptime = 10
+    fueltank = 50
+    fuelcons = 10
+    refueltime = 5
+    tyrechangetime = 2
+    dttime = 3
+    stintpertyre = 1
     refuellitertime = 0
     fuelleft = 0
     tyrestint = 0
@@ -41,6 +41,8 @@ def liveInitFunc():
     lastTime = datetime.now()
     lastTime = lastTime.replace(microsecond=0)
     print(lastTime)
+
+    lmWindow = tk.Tk()
 
     info.refuellitertime=int((info.refueltime/info.fueltank)*100)/100
     info.fuelleft = info.fueltank
@@ -103,14 +105,19 @@ def liveInitFunc():
             else:
                 info.fuelleft -= info.fuelcons
                 info.timeleft -= info.laptime
+                info.timeleft -= info.dttime
+                info.timeleft -= info.refueltime
                 info.lapcount += 1
 
-                if info.tyrestint==1:
+                if info.tyrestint<2:
                     info.tyrestint = info.stintpertyre
                     info.timeleft -= info.tyrechangetime
                 elif info.tyrestint>1:
                     info.tyrestint -= 1
-
+                
+                conversion = str(timedelta(seconds=info.timeleft))
+                if len(conversion)>8:
+                    conversion = conversion[:-5]
                 textoutput="PIT THIS LAP | Lap : " +str(info.lapcount)+" | Time left : "+str(conversion)+" | Fuel wasted : "+str(round(info.fuelleft, 2))
                 print(textoutput)
                 info.fuelleft = info.fueltank
@@ -134,3 +141,7 @@ def liveInitFunc():
             liveLastStintFunc()
 
     liveStintFunc()
+    lmWindow.mainloop()
+
+liveInitFunc()
+
