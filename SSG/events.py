@@ -1,7 +1,6 @@
 import tkinter as tk
 import configparser
 import datetime
-from turtle import width
 import webbrowser
 import os
 import customtkinter as ctk
@@ -52,6 +51,7 @@ eventfilename = eventpath + "eventsfile.ini"
 events.read(eventfilename)
 
 def eventsFunc():
+    from waitFile import waitFunc
     from sprint import sprintFunc
     from livemode import livemodeFunc
     from endurance import enduranceFunc
@@ -160,7 +160,6 @@ def eventsFunc():
     eventsBox = ctk.CTkFrame(eventsWrap, fg_color=background, border_color=accent, border_width=borderWidth, corner_radius=cornerRadius)
     eventsBox.pack(fill=tk.Y, padx=10, pady=(15, 0), expand=True)
 
-
     if events.get("EVENTS","1") != '':
         eventname = events.get("EVENTS",'1')
         event1 = ctk.CTkButton(eventsBox, text=eventname, fg_color=buttonLightColor, corner_radius=0, width=240, height=60, hover_color=hoverColor, text_font=(fontType, 15), text_color="white", command=lambda:updateEventNumber(1))
@@ -227,7 +226,7 @@ def eventsFunc():
     bottomWrap = ctk.CTkFrame(eventsButtonWrap, fg_color=background)
     bottomWrap.pack()
 
-    startEvent = ctk.CTkButton(bottomWrap, text="Start\nEvent", fg_color=accent, text_color=background, text_font=(fontType, 15), width=110, height=50, hover_color=navDisabledColor, corner_radius=buttonRadius)
+    startEvent = ctk.CTkButton(bottomWrap, text="Start\nEvent", fg_color=accent, text_color=background, text_font=(fontType, 15), width=110, height=50, hover_color=navDisabledColor, corner_radius=buttonRadius, command=lambda:[waitFunc(eventpath+events.get("EVENTS", str(eventnumber))+".ini"), eventsWindow.destroy()])
     startEvent.pack(side=tk.LEFT, padx=10, pady=(10, 0))
 
     settings = ctk.CTkButton(bottomWrap, text="More\nSettings", fg_color=accent, text_color=background, text_font=(fontType, 15), width=110, height=50, hover_color=navDisabledColor, corner_radius=buttonRadius)

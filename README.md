@@ -12,3 +12,5 @@ Un feature al programului care va va salva mult timp si va face folosirea cat ma
 Pentru a incarca sau a schimba un preset incepeti prin apasarea butonului "Load Preset" respectiv "Edit Preset", iar procesul este unul asemanator.
 
 Butonul de calculate strategy va ofera posibilitatea de a compara 2 strategii, pentru a afla parametrii de cursa optimi. Dupa apasarea acestuia va fi deschisa o fereastra unde introduceti parametrii celei de-a 2 a cursa, si vor fi deschise 2 ferestre cu strategiile comparate.
+
+Modul live, va ofera un calcul detaliat, tura cu tura, pentru precizie maxima. Pentru a incepe trebuie sa creati un eveniment nou din meniul dedicat, introducand datele distribuite de catre organizatorul acestuia. Odata introduse datele puteti continua spre meniul de asteptare, unde veti fi intampinati de o numaratoare inversa pana la ora inceperii evenimentului. Odata inceputa, calculul strategiei va fi initiat, si de unde puteti schimba variabile precum safety car si current lap time. Mai exista si optiunea de a le avea extrase direct din joc, singurul joc suportat momentan fiind iRacing.
