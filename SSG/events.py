@@ -135,7 +135,7 @@ def eventsFunc():
         temptext="Date : "+eventread.get("EVENTINFO","date")+"\nTime : "+eventread.get("EVENTINFO","time")
         dateButton.configure(text=temptext)
 
-        temptext="Starting driver:\n"+eventread.get("EVENTINFO","driver")
+        temptext="Starting driver:\n"+eventread.get("EVENTINFO","startingdriver")
         startingDriver.configure(text=(temptext))
         
 
